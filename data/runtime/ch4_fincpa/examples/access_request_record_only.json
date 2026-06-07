@@ -1,0 +1,27 @@
+{
+  "input_id": "access_request_record_only",
+  "title": "열람 요청 처리",
+  "content_text": "",
+  "review_scope": "full",
+  "product_scope_hint": ["general"],
+  "channel_scope_hint": ["all_customer_facing"],
+  "business_role_hint": "direct_seller",
+  "include_rule_families": ["recordkeeping"],
+  "exclude_rule_families": [],
+  "field_inputs": {},
+  "content_metadata": {},
+  "workflow_metadata": {
+    "access_request": {
+      "request_id": "REQ-2026-001",
+      "requested_at": "2026-06-05"
+    },
+    "access_response": {
+      "status": "completed",
+      "fulfilled_at": "2026-06-07"
+    }
+  },
+  "record_metadata": {
+    "activity_record": "ACCESS-2026-001",
+    "record_integrity_control": "enabled"
+  }
+}

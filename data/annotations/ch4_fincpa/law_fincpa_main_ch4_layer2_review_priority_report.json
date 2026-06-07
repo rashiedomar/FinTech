@@ -1,0 +1,9 @@
+{
+  "source_csv": "data/annotations/ch4_fincpa/law_fincpa_main_ch4_layer2_obligations.gemini.csv",
+  "parent_summary_csv": "data/annotations/ch4_fincpa/law_fincpa_main_ch4_layer2_parent_summary.csv",
+  "output_csv": "data/annotations/ch4_fincpa/law_fincpa_main_ch4_layer2_review_priority.csv",
+  "total_rows": 109,
+  "high_priority_rows": 64,
+  "medium_priority_rows": 28,
+  "low_priority_rows": 17
+}

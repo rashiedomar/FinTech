@@ -1,0 +1,21 @@
+[project]
+name = "safeguard-ai"
+version = "0.1.0"
+description = "Compliance operating system scaffold for the JB Fin:AI Challenge"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+pdf = ["pypdf>=5.0.0"]
+bench = ["pandas>=2.2.0", "openpyxl>=3.1.0"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

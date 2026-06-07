@@ -1,0 +1,89 @@
+{
+  "version": "0.1.0",
+  "artifact_type": "ch4_runtime_input_schema",
+  "purpose": "Input contract for the deterministic Chapter 4 non-LLM runtime workflow.",
+  "notes": [
+    "This schema is for runtime execution after Layer 4, not for legal parsing.",
+    "The runtime supports both raw content-only review and richer workflow/record reviews.",
+    "field_inputs can override or prefill any of the 29 frozen Layer 4 SIR fields."
+  ],
+  "required_top_level_fields": [
+    "input_id",
+    "review_scope",
+    "product_scope_hint",
+    "channel_scope_hint",
+    "business_role_hint"
+  ],
+  "review_scope_values": [
+    "content_only",
+    "workflow_only",
+    "record_only",
+    "full"
+  ],
+  "channel_scope_values": [
+    "all_customer_facing",
+    "advertising",
+    "solicitation",
+    "contracting",
+    "advisory",
+    "visit_sales",
+    "phone_sales",
+    "internal_control"
+  ],
+  "product_scope_values": [
+    "general",
+    "loan",
+    "deposit",
+    "investment",
+    "insurance",
+    "multiple"
+  ],
+  "field_input_object_shape": {
+    "status": "present | not_evidenced | not_applicable | uncertain",
+    "value": "Any JSON value supported by the target field.",
+    "evidence": ["Optional evidence snippets or source references."]
+  },
+  "top_level_structure": {
+    "input_id": "Stable runtime case identifier.",
+    "title": "Optional title or heading.",
+    "content_text": "Optional raw content text for heuristic extraction.",
+    "review_scope": "Which detection targets to evaluate: content_only, workflow_only, record_only, or full.",
+    "product_scope_hint": "One or more product scopes to apply when filtering Layer 4 rules.",
+    "channel_scope_hint": "One or more channel scopes to apply when filtering Layer 4 rules.",
+    "business_role_hint": "Role used to filter intermediary/advisory-only Layer 4 rules.",
+    "include_rule_families": "Optional allow-list for Layer 4 rule families.",
+    "exclude_rule_families": "Optional deny-list for Layer 4 rule families.",
+    "field_inputs": "Optional direct overrides keyed by Layer 4 SIR field name.",
+    "content_metadata": "Optional content-side metadata that maps to Layer 4 content fields.",
+    "workflow_metadata": "Optional workflow-side metadata that maps to Layer 4 workflow fields.",
+    "record_metadata": "Optional record/archive metadata that maps to Layer 4 record fields."
+  },
+  "example": {
+    "input_id": "loan_ad_content_001",
+    "title": "토스뱅크 대출",
+    "content_text": "토스뱅크 대출 중도상환수수료 없이 쉽고 간편하게 빌려요",
+    "review_scope": "content_only",
+    "product_scope_hint": [
+      "loan"
+    ],
+    "channel_scope_hint": [
+      "advertising"
+    ],
+    "business_role_hint": "direct_seller",
+    "include_rule_families": [
+      "advertising",
+      "unfair_sales"
+    ],
+    "exclude_rule_families": [],
+    "field_inputs": {},
+    "content_metadata": {},
+    "workflow_metadata": {},
+    "record_metadata": {}
+  }
+}
+  "business_role_values": [
+    "direct_seller",
+    "intermediary",
+    "advisory",
+    "independent_advisory"
+  ],

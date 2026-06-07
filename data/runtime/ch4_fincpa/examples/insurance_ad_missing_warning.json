@@ -1,0 +1,16 @@
+{
+  "input_id": "insurance_ad_missing_warning",
+  "title": "ABC보험 보장성 상품 안내",
+  "content_text": "ABC보험, 든든한 보장, 지금 바로 가입하세요.",
+  "review_scope": "content_only",
+  "product_scope_hint": ["insurance"],
+  "channel_scope_hint": ["advertising"],
+  "business_role_hint": "direct_seller",
+  "include_rule_families": ["advertising"],
+  "exclude_rule_families": [],
+  "field_inputs": {},
+  "content_metadata": {},
+  "workflow_metadata": {},
+  "record_metadata": {}
+}
+

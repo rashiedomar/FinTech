@@ -1,0 +1,13 @@
+{
+  "model": "gemini-3.5-flash",
+  "source_dataset": "data/parsed/ch4_fincpa/law_fincpa_main_ch4_clause_records.jsonl",
+  "output_csv": "data/annotations/ch4_fincpa/law_fincpa_main_ch4_layer1_annotations.gemini.csv",
+  "output_jsonl": "data/annotations/ch4_fincpa/law_fincpa_main_ch4_layer1_annotations.gemini.jsonl",
+  "total_input_records": 60,
+  "successful_rows": 60,
+  "error_count": 0,
+  "errors": [],
+  "resume_used": false,
+  "elapsed_seconds": 129.77,
+  "method": "Gemini-assisted constrained Layer 1 annotation; deterministic parsing remains source of truth; manual review still required."
+}

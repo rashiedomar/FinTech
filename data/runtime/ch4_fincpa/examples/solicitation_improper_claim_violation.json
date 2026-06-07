@@ -1,0 +1,15 @@
+{
+  "input_id": "solicitation_improper_claim_violation",
+  "title": "투자상품 권유 스크립트",
+  "content_text": "이 상품은 무조건 안전하고 다른 상품보다 훨씬 유리합니다. 지금 바로 가입하세요.",
+  "review_scope": "content_only",
+  "product_scope_hint": ["investment"],
+  "channel_scope_hint": ["solicitation"],
+  "business_role_hint": "direct_seller",
+  "include_rule_families": ["solicitation"],
+  "exclude_rule_families": [],
+  "field_inputs": {},
+  "content_metadata": {},
+  "workflow_metadata": {},
+  "record_metadata": {}
+}

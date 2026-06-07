@@ -1,0 +1,52 @@
+{
+  "dataset_id": "law_fincpa_main_ch4_clause_dataset_v0_1",
+  "created_at_utc": "2026-06-06T06:21:55.396511+00:00",
+  "source_pdf": "data/raw/official/law_fincpa_main_2026-01-02.pdf",
+  "source_id": "law_fincpa_main_2026-01-02",
+  "source_title": "금융소비자 보호에 관한 법률",
+  "scope": {
+    "chapter_id": "제4장",
+    "chapter_title": "금융상품판매업자등의 영업행위 준수사항",
+    "page_from": 7,
+    "page_to": 16,
+    "chapter_end_marker": "제5장 금융소비자 보호"
+  },
+  "parsing_method": {
+    "llm_used": false,
+    "extraction_tool": "pdftotext",
+    "segmentation_logic": [
+      "chapter_start_marker",
+      "chapter_end_marker",
+      "section_header_regex",
+      "article_header_regex",
+      "paragraph_marker_regex"
+    ]
+  },
+  "article_ids": [
+    "제13조",
+    "제14조",
+    "제15조",
+    "제16조",
+    "제16조의2",
+    "제17조",
+    "제18조",
+    "제19조",
+    "제20조",
+    "제21조",
+    "제21조의2",
+    "제22조",
+    "제23조",
+    "제24조",
+    "제25조",
+    "제26조",
+    "제27조",
+    "제28조"
+  ],
+  "record_count": 60,
+  "output_files": {
+    "chapter_text": "data/parsed/ch4_fincpa/law_fincpa_main_ch4_fulltext.txt",
+    "clause_records_jsonl": "data/parsed/ch4_fincpa/law_fincpa_main_ch4_clause_records.jsonl",
+    "parse_report": "data/parsed/ch4_fincpa/law_fincpa_main_ch4_parse_report.md",
+    "manifest": "data/parsed/ch4_fincpa/law_fincpa_main_ch4_manifest.json"
+  }
+}

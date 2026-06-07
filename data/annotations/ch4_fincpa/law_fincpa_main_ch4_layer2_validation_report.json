@@ -1,0 +1,33 @@
+{
+  "source_csv": "data/annotations/ch4_fincpa/law_fincpa_main_ch4_layer2_obligations.gemini.csv",
+  "total_rows": 109,
+  "validation_error_count": 0,
+  "parent_record_count": 60,
+  "obligation_mode_distribution": {
+    "general_principle": 9,
+    "prohibited_action": 30,
+    "required_action": 14,
+    "workflow_control": 28,
+    "recordkeeping": 6,
+    "required_content": 22
+  },
+  "trigger_type_distribution": {
+    "must_do": 41,
+    "must_not_do": 30,
+    "must_have_control": 5,
+    "must_keep_record": 6,
+    "delegated_detail": 15,
+    "must_disclose": 12
+  },
+  "operationality_distribution": {
+    "needs_subrule_design": 43,
+    "delegated_to_decree": 18,
+    "direct_checkable": 48
+  },
+  "consumer_visibility_distribution": {
+    "both": 11,
+    "consumer_facing": 73,
+    "internal_only": 25
+  },
+  "errors": []
+}

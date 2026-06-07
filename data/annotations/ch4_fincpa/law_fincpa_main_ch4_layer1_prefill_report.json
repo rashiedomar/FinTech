@@ -1,0 +1,33 @@
+{
+  "source_blank_csv": "data/annotations/ch4_fincpa/law_fincpa_main_ch4_layer1_annotations.csv",
+  "source_parsed_jsonl": "data/parsed/ch4_fincpa/law_fincpa_main_ch4_clause_records.jsonl",
+  "output_prefilled_csv": "data/annotations/ch4_fincpa/law_fincpa_main_ch4_layer1_annotations.prefilled.csv",
+  "output_prefilled_jsonl": "data/annotations/ch4_fincpa/law_fincpa_main_ch4_layer1_annotations.prefilled.jsonl",
+  "total_rows": 60,
+  "relevance_distribution": {
+    "review": 23,
+    "yes": 37
+  },
+  "topic_family_distribution": {
+    "general_principle": 4,
+    "internal_control": 14,
+    "consumer_fit_assessment": 11,
+    "explanation_duty": 14,
+    "unfair_sales_practice": 5,
+    "improper_solicitation": 5,
+    "advertising_compliance": 7
+  },
+  "obligation_mode_distribution": {
+    "general_principle": 8,
+    "prohibited_action": 12,
+    "workflow_control": 7,
+    "required_action": 26,
+    "recordkeeping": 6,
+    "required_content": 1
+  },
+  "auto_prefill_confidence_distribution": {
+    "medium": 23,
+    "high": 37
+  },
+  "method": "deterministic article/paragraph mapping with small text-trigger adjustments; no LLM used"
+}

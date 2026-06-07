@@ -1,0 +1,61 @@
+parent_record_id,article_id,paragraph_id,article_title,parent_topic_family,parent_needs_decomposition,parent_decomposition_strategy,obligation_count,gemini_model
+law_fincpa_main_2026-01-02:제13조,제13조,,영업행위 준수사항 해석의 기준,general_principle,no,split_unit,2,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제14조:①,제14조,①,신의성실의무 등,general_principle,no,single_unit,1,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제14조:②,제14조,②,신의성실의무 등,general_principle,no,split_unit,2,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제15조,제15조,,차별금지,general_principle,no,single_unit,1,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제16조:①,제16조,①,금융상품판매업자등의 관리책임,internal_control,no,single_unit,1,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제16조:②,제16조,②,금융상품판매업자등의 관리책임,internal_control,no,single_unit,1,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제16조의2:①,제16조의2,①,방문판매 및 전화권유판매 임직원의 명부 작성 등,other,no,single_unit,1,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제16조의2:②,제16조의2,②,방문판매 및 전화권유판매 임직원의 명부 작성 등,other,no,single_unit,1,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제16조의2:③,제16조의2,③,방문판매 및 전화권유판매 임직원의 명부 작성 등,improper_solicitation,no,split_unit,2,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제17조:①,제17조,①,적합성원칙,consumer_fit_assessment,no,single_unit,1,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제17조:②,제17조,②,적합성원칙,consumer_fit_assessment,yes,split_unit,3,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제17조:③,제17조,③,적합성원칙,consumer_fit_assessment,no,split_unit,2,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제17조:④,제17조,④,적합성원칙,consumer_fit_assessment,no,single_unit,1,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제17조:⑤,제17조,⑤,적합성원칙,consumer_fit_assessment,no,split_unit,2,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제17조:⑥,제17조,⑥,적합성원칙,consumer_fit_assessment,no,single_unit,1,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제18조:①,제18조,①,적정성원칙,consumer_fit_assessment,yes,split_unit,4,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제18조:②,제18조,②,적정성원칙,consumer_fit_assessment,no,split_unit,2,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제18조:③,제18조,③,적정성원칙,consumer_fit_assessment,no,single_unit,1,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제18조:④,제18조,④,적정성원칙,consumer_fit_assessment,no,split_unit,2,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제18조:⑤,제18조,⑤,적정성원칙,consumer_fit_assessment,no,single_unit,1,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제19조:①,제19조,①,설명의무,explanation_duty,yes,split_unit,6,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제19조:②,제19조,②,설명의무,explanation_duty,yes,split_unit,2,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제19조:③,제19조,③,설명의무,explanation_duty,no,split_unit,2,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제19조:④,제19조,④,설명의무,explanation_duty,no,single_unit,1,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제20조:①,제20조,①,불공정영업행위의 금지,unfair_sales_practice,yes,split_unit,7,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제20조:②,제20조,②,불공정영업행위의 금지,unfair_sales_practice,no,single_unit,1,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제21조,제21조,,부당권유행위 금지,improper_solicitation,yes,split_unit,4,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제21조의2:①,제21조의2,①,방문판매 및 전화권유판매 관련 준수사항,improper_solicitation,no,split_unit,2,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제21조의2:②,제21조의2,②,방문판매 및 전화권유판매 관련 준수사항,improper_solicitation,no,single_unit,1,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제21조의2:③,제21조의2,③,방문판매 및 전화권유판매 관련 준수사항,improper_solicitation,no,single_unit,1,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제21조의2:④,제21조의2,④,방문판매 및 전화권유판매 관련 준수사항,internal_control,no,single_unit,1,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제21조의2:⑤,제21조의2,⑤,방문판매 및 전화권유판매 관련 준수사항,other,no,single_unit,1,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제21조의2:⑥,제21조의2,⑥,방문판매 및 전화권유판매 관련 준수사항,improper_solicitation,no,single_unit,1,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제22조:①,제22조,①,금융상품등에 관한 광고 관련 준수사항,advertising_compliance,yes,split_unit,2,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제22조:②,제22조,②,금융상품등에 관한 광고 관련 준수사항,advertising_compliance,no,single_unit,1,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제22조:③,제22조,③,금융상품등에 관한 광고 관련 준수사항,advertising_compliance,yes,split_unit,5,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제22조:④,제22조,④,금융상품등에 관한 광고 관련 준수사항,advertising_compliance,yes,split_unit,4,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제22조:⑤,제22조,⑤,금융상품등에 관한 광고 관련 준수사항,advertising_compliance,no,single_unit,1,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제22조:⑥,제22조,⑥,금융상품등에 관한 광고 관련 준수사항,advertising_compliance,no,single_unit,1,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제22조:⑦,제22조,⑦,금융상품등에 관한 광고 관련 준수사항,advertising_compliance,no,single_unit,1,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제23조:①,제23조,①,계약서류의 제공의무,other,no,split_unit,2,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제23조:②,제23조,②,계약서류의 제공의무,other,no,single_unit,1,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제23조:③,제23조,③,계약서류의 제공의무,other,no,single_unit,1,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제24조,제24조,,미등록자를 통한 금융상품판매 대리ㆍ중개 금지,unfair_sales_practice,no,single_unit,1,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제25조:①,제25조,①,금융상품판매대리ㆍ중개업자의 금지행위,unfair_sales_practice,yes,split_unit,3,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제25조:②,제25조,②,금융상품판매대리ㆍ중개업자의 금지행위,unfair_sales_practice,no,single_unit,1,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제25조:③,제25조,③,금융상품판매대리ㆍ중개업자의 금지행위,unfair_sales_practice,no,single_unit,1,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제26조:①,제26조,①,금융상품판매대리ㆍ중개업자의 고지의무 등,explanation_duty,no,split_unit,5,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제26조:②,제26조,②,금융상품판매대리ㆍ중개업자의 고지의무 등,other,no,split_unit,2,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제26조:③,제26조,③,금융상품판매대리ㆍ중개업자의 고지의무 등,other,no,single_unit,1,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제27조:①,제27조,①,금융상품자문업자의 영업행위준칙 등,general_principle,no,single_unit,1,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제27조:②,제27조,②,금융상품자문업자의 영업행위준칙 등,general_principle,no,single_unit,1,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제27조:③,제27조,③,금융상품자문업자의 영업행위준칙 등,explanation_duty,yes,split_unit,2,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제27조:④,제27조,④,금융상품자문업자의 영업행위준칙 등,advertising_compliance,no,single_unit,1,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제27조:⑤,제27조,⑤,금융상품자문업자의 영업행위준칙 등,unfair_sales_practice,no,split_unit,2,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제28조:①,제28조,①,자료의 기록 및 유지ㆍ관리 등,other,no,split_unit,2,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제28조:②,제28조,②,자료의 기록 및 유지ㆍ관리 등,other,no,single_unit,1,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제28조:③,제28조,③,자료의 기록 및 유지ㆍ관리 등,other,no,single_unit,1,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제28조:④,제28조,④,자료의 기록 및 유지ㆍ관리 등,other,no,split_unit,2,gemini-3.5-flash
+law_fincpa_main_2026-01-02:제28조:⑤,제28조,⑤,자료의 기록 및 유지ㆍ관리 등,other,no,single_unit,1,gemini-3.5-flash

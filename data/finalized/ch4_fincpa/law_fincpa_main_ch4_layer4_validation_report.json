@@ -1,0 +1,10 @@
+{
+  "version": "0.1.0",
+  "layer": "layer4_final_mvp_compilation",
+  "total_layer3_candidates": 109,
+  "ready_for_v1_candidates": 76,
+  "rule_pack_rules": 76,
+  "sir_schema_fields": 29,
+  "errors": [],
+  "passed": true
+}

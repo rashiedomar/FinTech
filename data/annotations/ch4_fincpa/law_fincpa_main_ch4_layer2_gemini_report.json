@@ -1,0 +1,46 @@
+{
+  "model": "gemini-3.5-flash",
+  "source_layer1_csv": "data/annotations/ch4_fincpa/law_fincpa_main_ch4_layer1_annotations.gemini.csv",
+  "source_parsed_jsonl": "data/parsed/ch4_fincpa/law_fincpa_main_ch4_clause_records.jsonl",
+  "output_csv": "data/annotations/ch4_fincpa/law_fincpa_main_ch4_layer2_obligations.gemini.csv",
+  "output_jsonl": "data/annotations/ch4_fincpa/law_fincpa_main_ch4_layer2_obligations.gemini.jsonl",
+  "parent_summary_csv": "data/annotations/ch4_fincpa/law_fincpa_main_ch4_layer2_parent_summary.csv",
+  "total_parent_records": 60,
+  "successful_parent_records": 60,
+  "total_obligation_rows": 109,
+  "parent_decomposition_strategy_distribution": {
+    "split_unit": 75,
+    "single_unit": 34
+  },
+  "obligation_mode_distribution": {
+    "general_principle": 9,
+    "prohibited_action": 30,
+    "required_action": 14,
+    "workflow_control": 28,
+    "recordkeeping": 6,
+    "required_content": 22
+  },
+  "trigger_type_distribution": {
+    "must_do": 41,
+    "must_not_do": 30,
+    "must_have_control": 5,
+    "must_keep_record": 6,
+    "delegated_detail": 15,
+    "must_disclose": 12
+  },
+  "operationality_distribution": {
+    "needs_subrule_design": 43,
+    "delegated_to_decree": 18,
+    "direct_checkable": 48
+  },
+  "consumer_visibility_distribution": {
+    "both": 11,
+    "consumer_facing": 73,
+    "internal_only": 25
+  },
+  "error_count": 0,
+  "errors": [],
+  "elapsed_seconds": 241.42,
+  "resume_used": false,
+  "method": "Gemini-assisted Layer 2 obligation decomposition on top of Layer 1 clause metadata; deterministic parsing remains source of truth; manual review still required."
+}

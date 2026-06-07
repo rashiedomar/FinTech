@@ -1,0 +1,6 @@
+{
+  "deterministic_source": "data/annotations/ch4_fincpa/law_fincpa_main_ch4_layer1_annotations.prefilled.csv",
+  "gemini_source": "data/annotations/ch4_fincpa/law_fincpa_main_ch4_layer1_annotations.gemini.csv",
+  "output_csv": "data/annotations/ch4_fincpa/law_fincpa_main_ch4_layer1_review_priority.csv",
+  "priority_row_count": 57
+}

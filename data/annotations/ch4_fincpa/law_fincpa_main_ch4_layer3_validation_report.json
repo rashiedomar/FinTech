@@ -1,0 +1,49 @@
+{
+  "source_csv": "data/annotations/ch4_fincpa/law_fincpa_main_ch4_layer3_rule_candidates.gemini.csv",
+  "total_rows": 109,
+  "validation_error_count": 0,
+  "rule_family_distribution": {
+    "general_principle": 6,
+    "internal_control": 3,
+    "recordkeeping": 10,
+    "intermediary": 15,
+    "solicitation": 11,
+    "suitability": 10,
+    "adequacy": 10,
+    "explanation": 11,
+    "unfair_sales": 8,
+    "advertising": 15,
+    "contract_documents": 3,
+    "advisory": 7
+  },
+  "logic_type_distribution": {
+    "principle_guardrail": 7,
+    "prohibited_presence": 28,
+    "required_process": 21,
+    "required_presence": 24,
+    "required_record": 6,
+    "required_response": 7,
+    "delegated_detail": 16
+  },
+  "detection_target_distribution": {
+    "record_system": 14,
+    "workflow_metadata": 56,
+    "content_text": 31,
+    "consumer_profile": 5,
+    "document_bundle": 2,
+    "mixed": 1
+  },
+  "sir_link_type_distribution": {
+    "principle_only": 6,
+    "derived_decision_field": 8,
+    "direct_record_field": 9,
+    "direct_workflow_field": 37,
+    "direct_content_field": 29,
+    "delegated_external_detail": 20
+  },
+  "ready_for_v1_distribution": {
+    "review": 33,
+    "yes": 76
+  },
+  "errors": []
+}

@@ -1,0 +1,1858 @@
+{
+  "version": "0.1.0",
+  "artifact_type": "layer4_mvp_sir_schema",
+  "source_pdf": "data/raw/official/law_fincpa_main_2026-01-02.pdf",
+  "source_layer2_dataset": "data/annotations/ch4_fincpa/law_fincpa_main_ch4_layer2_obligations.gemini.jsonl",
+  "source_layer3_dataset": "data/annotations/ch4_fincpa/law_fincpa_main_ch4_layer3_rule_candidates.gemini.jsonl",
+  "selection_rule": "include only layer3 rows where ready_for_v1 == yes",
+  "status_model": {
+    "status_values": [
+      "present",
+      "not_evidenced",
+      "not_applicable",
+      "uncertain"
+    ],
+    "notes": "Layer 4 freezes only the first MVP field inventory and first MVP rule pack. Future runtime objects should track both the field value and an evidence status instead of forcing every field into a binary yes/no state."
+  },
+  "field_count": 29,
+  "fields": [
+    {
+      "field_name": "explanation_material",
+      "field_group": "content_text",
+      "value_type": "document_or_text_bundle",
+      "description": "Explanation text, script, or material bundle used to communicate key product terms and risks to the consumer.",
+      "dominant_sir_link_type": "direct_content_field",
+      "status_values": [
+        "present",
+        "not_evidenced",
+        "not_applicable",
+        "uncertain"
+      ],
+      "mvp_priority": "high",
+      "source_rule_count": 9,
+      "source_obligation_count": 9,
+      "product_scopes": [
+        "deposit",
+        "general",
+        "insurance",
+        "investment",
+        "loan",
+        "multiple"
+      ],
+      "channel_scopes": [
+        "solicitation|contracting"
+      ],
+      "rule_families": [
+        "explanation",
+        "intermediary"
+      ],
+      "logic_types": [
+        "prohibited_presence",
+        "required_presence"
+      ],
+      "detection_targets": [
+        "content_text",
+        "document_bundle"
+      ],
+      "evidence_sources": [
+        "explanation_form"
+      ],
+      "article_refs": [
+        "제19조①",
+        "제19조②",
+        "제19조③",
+        "제26조①"
+      ],
+      "source_rule_ids": [
+        "law_fincpa_main_2026-01-02:제19조:①:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제19조:①:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제19조:①:ob03:rule01",
+        "law_fincpa_main_2026-01-02:제19조:①:ob04:rule01",
+        "law_fincpa_main_2026-01-02:제19조:①:ob05:rule01",
+        "law_fincpa_main_2026-01-02:제19조:①:ob06:rule01",
+        "law_fincpa_main_2026-01-02:제19조:②:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제19조:③:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제26조:①:ob04:rule01"
+      ],
+      "source_obligation_ids": [
+        "law_fincpa_main_2026-01-02:제19조:①:ob01",
+        "law_fincpa_main_2026-01-02:제19조:①:ob02",
+        "law_fincpa_main_2026-01-02:제19조:①:ob03",
+        "law_fincpa_main_2026-01-02:제19조:①:ob04",
+        "law_fincpa_main_2026-01-02:제19조:①:ob05",
+        "law_fincpa_main_2026-01-02:제19조:①:ob06",
+        "law_fincpa_main_2026-01-02:제19조:②:ob01",
+        "law_fincpa_main_2026-01-02:제19조:③:ob01",
+        "law_fincpa_main_2026-01-02:제26조:①:ob04"
+      ]
+    },
+    {
+      "field_name": "intermediary_status",
+      "field_group": "content_text",
+      "value_type": "enum",
+      "description": "Status or role of an intermediary, agent, or broker relevant to what conduct or disclosure rules apply.",
+      "dominant_sir_link_type": "direct_content_field",
+      "status_values": [
+        "present",
+        "not_evidenced",
+        "not_applicable",
+        "uncertain"
+      ],
+      "mvp_priority": "high",
+      "source_rule_count": 12,
+      "source_obligation_count": 12,
+      "product_scopes": [
+        "general",
+        "general|investment",
+        "investment",
+        "multiple"
+      ],
+      "channel_scopes": [
+        "advertising",
+        "advisory",
+        "all_customer_facing|solicitation|contracting",
+        "contracting",
+        "solicitation|contracting"
+      ],
+      "rule_families": [
+        "advertising",
+        "advisory",
+        "intermediary"
+      ],
+      "logic_types": [
+        "prohibited_presence",
+        "required_presence",
+        "required_process"
+      ],
+      "detection_targets": [
+        "content_text",
+        "workflow_metadata"
+      ],
+      "evidence_sources": [
+        "explanation_form",
+        "visible_content",
+        "workflow_log"
+      ],
+      "article_refs": [
+        "제22조①",
+        "제24조",
+        "제25조①",
+        "제25조②",
+        "제26조①",
+        "제26조②",
+        "제27조③"
+      ],
+      "source_rule_ids": [
+        "law_fincpa_main_2026-01-02:제22조:①:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제24조:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제25조:①:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제25조:①:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제25조:②:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제26조:①:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제26조:①:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제26조:①:ob03:rule01",
+        "law_fincpa_main_2026-01-02:제26조:①:ob04:rule01",
+        "law_fincpa_main_2026-01-02:제26조:②:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제26조:②:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제27조:③:ob01:rule01"
+      ],
+      "source_obligation_ids": [
+        "law_fincpa_main_2026-01-02:제22조:①:ob01",
+        "law_fincpa_main_2026-01-02:제24조:ob01",
+        "law_fincpa_main_2026-01-02:제25조:①:ob01",
+        "law_fincpa_main_2026-01-02:제25조:①:ob02",
+        "law_fincpa_main_2026-01-02:제25조:②:ob01",
+        "law_fincpa_main_2026-01-02:제26조:①:ob01",
+        "law_fincpa_main_2026-01-02:제26조:①:ob02",
+        "law_fincpa_main_2026-01-02:제26조:①:ob03",
+        "law_fincpa_main_2026-01-02:제26조:①:ob04",
+        "law_fincpa_main_2026-01-02:제26조:②:ob01",
+        "law_fincpa_main_2026-01-02:제26조:②:ob02",
+        "law_fincpa_main_2026-01-02:제27조:③:ob01"
+      ]
+    },
+    {
+      "field_name": "product_core_terms",
+      "field_group": "content_text",
+      "value_type": "text_bundle",
+      "description": "Core product terms that must be disclosed so the consumer can understand what is being offered.",
+      "dominant_sir_link_type": "direct_content_field",
+      "status_values": [
+        "present",
+        "not_evidenced",
+        "not_applicable",
+        "uncertain"
+      ],
+      "mvp_priority": "high",
+      "source_rule_count": 8,
+      "source_obligation_count": 8,
+      "product_scopes": [
+        "deposit",
+        "general",
+        "insurance",
+        "investment",
+        "multiple"
+      ],
+      "channel_scopes": [
+        "advertising",
+        "advisory",
+        "solicitation|contracting",
+        "visit_sales|phone_sales|solicitation"
+      ],
+      "rule_families": [
+        "advertising",
+        "advisory",
+        "explanation",
+        "solicitation"
+      ],
+      "logic_types": [
+        "prohibited_presence",
+        "required_presence"
+      ],
+      "detection_targets": [
+        "content_text"
+      ],
+      "evidence_sources": [
+        "explanation_form",
+        "visible_content"
+      ],
+      "article_refs": [
+        "제16조의2③",
+        "제19조①",
+        "제22조③",
+        "제22조④",
+        "제27조③"
+      ],
+      "source_rule_ids": [
+        "law_fincpa_main_2026-01-02:제16조의2:③:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제19조:①:ob03:rule01",
+        "law_fincpa_main_2026-01-02:제19조:①:ob05:rule01",
+        "law_fincpa_main_2026-01-02:제22조:③:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제22조:③:ob04:rule01",
+        "law_fincpa_main_2026-01-02:제22조:④:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제22조:④:ob03:rule01",
+        "law_fincpa_main_2026-01-02:제27조:③:ob01:rule01"
+      ],
+      "source_obligation_ids": [
+        "law_fincpa_main_2026-01-02:제16조의2:③:ob02",
+        "law_fincpa_main_2026-01-02:제19조:①:ob03",
+        "law_fincpa_main_2026-01-02:제19조:①:ob05",
+        "law_fincpa_main_2026-01-02:제22조:③:ob01",
+        "law_fincpa_main_2026-01-02:제22조:③:ob04",
+        "law_fincpa_main_2026-01-02:제22조:④:ob01",
+        "law_fincpa_main_2026-01-02:제22조:④:ob03",
+        "law_fincpa_main_2026-01-02:제27조:③:ob01"
+      ]
+    },
+    {
+      "field_name": "prohibited_claim_signal",
+      "field_group": "content_text",
+      "value_type": "signal_list",
+      "description": "Detected prohibited claim, misleading claim, or other disallowed promotional signal in visible content.",
+      "dominant_sir_link_type": "direct_content_field",
+      "status_values": [
+        "present",
+        "not_evidenced",
+        "not_applicable",
+        "uncertain"
+      ],
+      "mvp_priority": "high",
+      "source_rule_count": 17,
+      "source_obligation_count": 17,
+      "product_scopes": [
+        "deposit",
+        "general",
+        "insurance",
+        "investment",
+        "loan",
+        "multiple"
+      ],
+      "channel_scopes": [
+        "advertising",
+        "advisory",
+        "contracting",
+        "solicitation",
+        "solicitation|contracting",
+        "solicitation|visit_sales|phone_sales",
+        "visit_sales|phone_sales"
+      ],
+      "rule_families": [
+        "advertising",
+        "advisory",
+        "explanation",
+        "intermediary",
+        "solicitation",
+        "unfair_sales"
+      ],
+      "logic_types": [
+        "prohibited_presence",
+        "required_presence"
+      ],
+      "detection_targets": [
+        "content_text",
+        "document_bundle",
+        "workflow_metadata"
+      ],
+      "evidence_sources": [
+        "contract_document",
+        "explanation_form",
+        "visible_content",
+        "workflow_log"
+      ],
+      "article_refs": [
+        "제19조③",
+        "제20조①",
+        "제21조",
+        "제21조의2①",
+        "제22조③",
+        "제22조④",
+        "제25조②",
+        "제26조①",
+        "제27조④",
+        "제27조⑤"
+      ],
+      "source_rule_ids": [
+        "law_fincpa_main_2026-01-02:제19조:③:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제20조:①:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제20조:①:ob06:rule01",
+        "law_fincpa_main_2026-01-02:제21조:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제21조:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제21조:ob03:rule01",
+        "law_fincpa_main_2026-01-02:제21조:ob04:rule01",
+        "law_fincpa_main_2026-01-02:제21조의2:①:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제21조의2:①:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제22조:③:ob03:rule01",
+        "law_fincpa_main_2026-01-02:제22조:④:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제22조:④:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제22조:④:ob03:rule01",
+        "law_fincpa_main_2026-01-02:제25조:②:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제26조:①:ob03:rule01",
+        "law_fincpa_main_2026-01-02:제27조:④:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제27조:⑤:ob01:rule01"
+      ],
+      "source_obligation_ids": [
+        "law_fincpa_main_2026-01-02:제19조:③:ob01",
+        "law_fincpa_main_2026-01-02:제20조:①:ob01",
+        "law_fincpa_main_2026-01-02:제20조:①:ob06",
+        "law_fincpa_main_2026-01-02:제21조:ob01",
+        "law_fincpa_main_2026-01-02:제21조:ob02",
+        "law_fincpa_main_2026-01-02:제21조:ob03",
+        "law_fincpa_main_2026-01-02:제21조:ob04",
+        "law_fincpa_main_2026-01-02:제21조의2:①:ob01",
+        "law_fincpa_main_2026-01-02:제21조의2:①:ob02",
+        "law_fincpa_main_2026-01-02:제22조:③:ob03",
+        "law_fincpa_main_2026-01-02:제22조:④:ob01",
+        "law_fincpa_main_2026-01-02:제22조:④:ob02",
+        "law_fincpa_main_2026-01-02:제22조:④:ob03",
+        "law_fincpa_main_2026-01-02:제25조:②:ob01",
+        "law_fincpa_main_2026-01-02:제26조:①:ob03",
+        "law_fincpa_main_2026-01-02:제27조:④:ob01",
+        "law_fincpa_main_2026-01-02:제27조:⑤:ob01"
+      ]
+    },
+    {
+      "field_name": "deposit_disclaimer",
+      "field_group": "content_text",
+      "value_type": "text_or_flag",
+      "description": "Required deposit or savings disclaimer, including guarantee or protection limitations where applicable.",
+      "dominant_sir_link_type": "direct_content_field",
+      "status_values": [
+        "present",
+        "not_evidenced",
+        "not_applicable",
+        "uncertain"
+      ],
+      "mvp_priority": "low",
+      "source_rule_count": 2,
+      "source_obligation_count": 2,
+      "product_scopes": [
+        "deposit"
+      ],
+      "channel_scopes": [
+        "advertising"
+      ],
+      "rule_families": [
+        "advertising"
+      ],
+      "logic_types": [
+        "prohibited_presence",
+        "required_presence"
+      ],
+      "detection_targets": [
+        "content_text"
+      ],
+      "evidence_sources": [
+        "visible_content"
+      ],
+      "article_refs": [
+        "제22조③",
+        "제22조④"
+      ],
+      "source_rule_ids": [
+        "law_fincpa_main_2026-01-02:제22조:③:ob04:rule01",
+        "law_fincpa_main_2026-01-02:제22조:④:ob03:rule01"
+      ],
+      "source_obligation_ids": [
+        "law_fincpa_main_2026-01-02:제22조:③:ob04",
+        "law_fincpa_main_2026-01-02:제22조:④:ob03"
+      ]
+    },
+    {
+      "field_name": "investment_warning",
+      "field_group": "content_text",
+      "value_type": "text_or_flag",
+      "description": "Required investment-related risk or caution disclosure that must be surfaced to the consumer.",
+      "dominant_sir_link_type": "direct_content_field",
+      "status_values": [
+        "present",
+        "not_evidenced",
+        "not_applicable",
+        "uncertain"
+      ],
+      "mvp_priority": "low",
+      "source_rule_count": 3,
+      "source_obligation_count": 3,
+      "product_scopes": [
+        "investment"
+      ],
+      "channel_scopes": [
+        "advertising",
+        "solicitation|contracting"
+      ],
+      "rule_families": [
+        "advertising",
+        "explanation"
+      ],
+      "logic_types": [
+        "prohibited_presence",
+        "required_presence"
+      ],
+      "detection_targets": [
+        "content_text"
+      ],
+      "evidence_sources": [
+        "explanation_form",
+        "visible_content"
+      ],
+      "article_refs": [
+        "제19조①",
+        "제22조③",
+        "제22조④"
+      ],
+      "source_rule_ids": [
+        "law_fincpa_main_2026-01-02:제19조:①:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제22조:③:ob03:rule01",
+        "law_fincpa_main_2026-01-02:제22조:④:ob02:rule01"
+      ],
+      "source_obligation_ids": [
+        "law_fincpa_main_2026-01-02:제19조:①:ob02",
+        "law_fincpa_main_2026-01-02:제22조:③:ob03",
+        "law_fincpa_main_2026-01-02:제22조:④:ob02"
+      ]
+    },
+    {
+      "field_name": "loan_costs",
+      "field_group": "content_text",
+      "value_type": "text",
+      "description": "Loan-related cost, fee, or penalty disclosures that must be visible to the consumer.",
+      "dominant_sir_link_type": "direct_content_field",
+      "status_values": [
+        "present",
+        "not_evidenced",
+        "not_applicable",
+        "uncertain"
+      ],
+      "mvp_priority": "low",
+      "source_rule_count": 3,
+      "source_obligation_count": 3,
+      "product_scopes": [
+        "loan"
+      ],
+      "channel_scopes": [
+        "advertising",
+        "contracting",
+        "solicitation|contracting"
+      ],
+      "rule_families": [
+        "advertising",
+        "explanation",
+        "unfair_sales"
+      ],
+      "logic_types": [
+        "prohibited_presence",
+        "required_presence"
+      ],
+      "detection_targets": [
+        "content_text",
+        "workflow_metadata"
+      ],
+      "evidence_sources": [
+        "explanation_form",
+        "visible_content",
+        "workflow_log"
+      ],
+      "article_refs": [
+        "제19조①",
+        "제20조①",
+        "제22조④"
+      ],
+      "source_rule_ids": [
+        "law_fincpa_main_2026-01-02:제19조:①:ob04:rule01",
+        "law_fincpa_main_2026-01-02:제20조:①:ob05:rule01",
+        "law_fincpa_main_2026-01-02:제22조:④:ob04:rule01"
+      ],
+      "source_obligation_ids": [
+        "law_fincpa_main_2026-01-02:제19조:①:ob04",
+        "law_fincpa_main_2026-01-02:제20조:①:ob05",
+        "law_fincpa_main_2026-01-02:제22조:④:ob04"
+      ]
+    },
+    {
+      "field_name": "loan_interest_timing",
+      "field_group": "content_text",
+      "value_type": "text",
+      "description": "Information showing when interest is charged or how the timing of interest accrual is communicated.",
+      "dominant_sir_link_type": "direct_content_field",
+      "status_values": [
+        "present",
+        "not_evidenced",
+        "not_applicable",
+        "uncertain"
+      ],
+      "mvp_priority": "low",
+      "source_rule_count": 2,
+      "source_obligation_count": 2,
+      "product_scopes": [
+        "loan"
+      ],
+      "channel_scopes": [
+        "advertising",
+        "solicitation|contracting"
+      ],
+      "rule_families": [
+        "advertising",
+        "explanation"
+      ],
+      "logic_types": [
+        "prohibited_presence",
+        "required_presence"
+      ],
+      "detection_targets": [
+        "content_text"
+      ],
+      "evidence_sources": [
+        "explanation_form",
+        "visible_content"
+      ],
+      "article_refs": [
+        "제19조①",
+        "제22조④"
+      ],
+      "source_rule_ids": [
+        "law_fincpa_main_2026-01-02:제19조:①:ob04:rule01",
+        "law_fincpa_main_2026-01-02:제22조:④:ob04:rule01"
+      ],
+      "source_obligation_ids": [
+        "law_fincpa_main_2026-01-02:제19조:①:ob04",
+        "law_fincpa_main_2026-01-02:제22조:④:ob04"
+      ]
+    },
+    {
+      "field_name": "loan_rate_basis",
+      "field_group": "content_text",
+      "value_type": "text",
+      "description": "Interest rate range, rate basis, or rate calculation method disclosed for a loan product.",
+      "dominant_sir_link_type": "direct_content_field",
+      "status_values": [
+        "present",
+        "not_evidenced",
+        "not_applicable",
+        "uncertain"
+      ],
+      "mvp_priority": "low",
+      "source_rule_count": 3,
+      "source_obligation_count": 3,
+      "product_scopes": [
+        "deposit",
+        "loan"
+      ],
+      "channel_scopes": [
+        "advertising",
+        "solicitation|contracting"
+      ],
+      "rule_families": [
+        "advertising",
+        "explanation"
+      ],
+      "logic_types": [
+        "prohibited_presence",
+        "required_presence"
+      ],
+      "detection_targets": [
+        "content_text"
+      ],
+      "evidence_sources": [
+        "explanation_form",
+        "visible_content"
+      ],
+      "article_refs": [
+        "제19조①",
+        "제22조④"
+      ],
+      "source_rule_ids": [
+        "law_fincpa_main_2026-01-02:제19조:①:ob03:rule01",
+        "law_fincpa_main_2026-01-02:제19조:①:ob04:rule01",
+        "law_fincpa_main_2026-01-02:제22조:④:ob04:rule01"
+      ],
+      "source_obligation_ids": [
+        "law_fincpa_main_2026-01-02:제19조:①:ob03",
+        "law_fincpa_main_2026-01-02:제19조:①:ob04",
+        "law_fincpa_main_2026-01-02:제22조:④:ob04"
+      ]
+    },
+    {
+      "field_name": "product_identity",
+      "field_group": "content_text",
+      "value_type": "text",
+      "description": "Visible identification of the product itself in customer-facing content or documents.",
+      "dominant_sir_link_type": "direct_content_field",
+      "status_values": [
+        "present",
+        "not_evidenced",
+        "not_applicable",
+        "uncertain"
+      ],
+      "mvp_priority": "low",
+      "source_rule_count": 3,
+      "source_obligation_count": 3,
+      "product_scopes": [
+        "general",
+        "investment",
+        "multiple"
+      ],
+      "channel_scopes": [
+        "advertising",
+        "solicitation|contracting",
+        "visit_sales|phone_sales|solicitation"
+      ],
+      "rule_families": [
+        "adequacy",
+        "advertising",
+        "solicitation"
+      ],
+      "logic_types": [
+        "required_presence",
+        "required_process"
+      ],
+      "detection_targets": [
+        "content_text",
+        "workflow_metadata"
+      ],
+      "evidence_sources": [
+        "visible_content",
+        "workflow_log"
+      ],
+      "article_refs": [
+        "제16조의2③",
+        "제18조④",
+        "제22조③"
+      ],
+      "source_rule_ids": [
+        "law_fincpa_main_2026-01-02:제16조의2:③:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제18조:④:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제22조:③:ob01:rule01"
+      ],
+      "source_obligation_ids": [
+        "law_fincpa_main_2026-01-02:제16조의2:③:ob02",
+        "law_fincpa_main_2026-01-02:제18조:④:ob01",
+        "law_fincpa_main_2026-01-02:제22조:③:ob01"
+      ]
+    },
+    {
+      "field_name": "seller_identity",
+      "field_group": "content_text",
+      "value_type": "text",
+      "description": "Visible identification of the financial seller or responsible institution in customer-facing content.",
+      "dominant_sir_link_type": "direct_content_field",
+      "status_values": [
+        "present",
+        "not_evidenced",
+        "not_applicable",
+        "uncertain"
+      ],
+      "mvp_priority": "low",
+      "source_rule_count": 3,
+      "source_obligation_count": 3,
+      "product_scopes": [
+        "general",
+        "general|investment",
+        "multiple"
+      ],
+      "channel_scopes": [
+        "advertising",
+        "solicitation|contracting"
+      ],
+      "rule_families": [
+        "advertising",
+        "intermediary"
+      ],
+      "logic_types": [
+        "prohibited_presence",
+        "required_presence"
+      ],
+      "detection_targets": [
+        "content_text",
+        "workflow_metadata"
+      ],
+      "evidence_sources": [
+        "visible_content",
+        "workflow_log"
+      ],
+      "article_refs": [
+        "제22조①",
+        "제22조③",
+        "제26조①"
+      ],
+      "source_rule_ids": [
+        "law_fincpa_main_2026-01-02:제22조:①:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제22조:③:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제26조:①:ob01:rule01"
+      ],
+      "source_obligation_ids": [
+        "law_fincpa_main_2026-01-02:제22조:①:ob01",
+        "law_fincpa_main_2026-01-02:제22조:③:ob01",
+        "law_fincpa_main_2026-01-02:제26조:①:ob01"
+      ]
+    },
+    {
+      "field_name": "advisory_independence",
+      "field_group": "content_text",
+      "value_type": "enum",
+      "description": "Evidence that advisory conduct preserves required independence, neutrality, or conflict controls.",
+      "dominant_sir_link_type": "direct_content_field",
+      "status_values": [
+        "present",
+        "not_evidenced",
+        "not_applicable",
+        "uncertain"
+      ],
+      "mvp_priority": "medium",
+      "source_rule_count": 4,
+      "source_obligation_count": 4,
+      "product_scopes": [
+        "general",
+        "investment"
+      ],
+      "channel_scopes": [
+        "advertising",
+        "advisory"
+      ],
+      "rule_families": [
+        "advisory"
+      ],
+      "logic_types": [
+        "prohibited_presence",
+        "required_presence"
+      ],
+      "detection_targets": [
+        "content_text",
+        "workflow_metadata"
+      ],
+      "evidence_sources": [
+        "explanation_form",
+        "visible_content",
+        "workflow_log"
+      ],
+      "article_refs": [
+        "제27조③",
+        "제27조④",
+        "제27조⑤"
+      ],
+      "source_rule_ids": [
+        "law_fincpa_main_2026-01-02:제27조:③:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제27조:③:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제27조:④:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제27조:⑤:ob01:rule01"
+      ],
+      "source_obligation_ids": [
+        "law_fincpa_main_2026-01-02:제27조:③:ob01",
+        "law_fincpa_main_2026-01-02:제27조:③:ob02",
+        "law_fincpa_main_2026-01-02:제27조:④:ob01",
+        "law_fincpa_main_2026-01-02:제27조:⑤:ob01"
+      ]
+    },
+    {
+      "field_name": "explanation_confirmation",
+      "field_group": "content_text",
+      "value_type": "enum",
+      "description": "Evidence that the required explanation was confirmed, acknowledged, or otherwise completed.",
+      "dominant_sir_link_type": "direct_content_field",
+      "status_values": [
+        "present",
+        "not_evidenced",
+        "not_applicable",
+        "uncertain"
+      ],
+      "mvp_priority": "medium",
+      "source_rule_count": 6,
+      "source_obligation_count": 6,
+      "product_scopes": [
+        "general",
+        "insurance",
+        "investment",
+        "multiple"
+      ],
+      "channel_scopes": [
+        "solicitation|contracting"
+      ],
+      "rule_families": [
+        "adequacy",
+        "explanation"
+      ],
+      "logic_types": [
+        "required_presence",
+        "required_process",
+        "required_record"
+      ],
+      "detection_targets": [
+        "content_text",
+        "document_bundle",
+        "record_system",
+        "workflow_metadata"
+      ],
+      "evidence_sources": [
+        "explanation_form",
+        "record_archive"
+      ],
+      "article_refs": [
+        "제18조②",
+        "제19조①",
+        "제19조②"
+      ],
+      "source_rule_ids": [
+        "law_fincpa_main_2026-01-02:제18조:②:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제19조:①:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제19조:①:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제19조:①:ob06:rule01",
+        "law_fincpa_main_2026-01-02:제19조:②:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제19조:②:ob02:rule01"
+      ],
+      "source_obligation_ids": [
+        "law_fincpa_main_2026-01-02:제18조:②:ob02",
+        "law_fincpa_main_2026-01-02:제19조:①:ob01",
+        "law_fincpa_main_2026-01-02:제19조:①:ob02",
+        "law_fincpa_main_2026-01-02:제19조:①:ob06",
+        "law_fincpa_main_2026-01-02:제19조:②:ob01",
+        "law_fincpa_main_2026-01-02:제19조:②:ob02"
+      ]
+    },
+    {
+      "field_name": "insurance_warning",
+      "field_group": "content_text",
+      "value_type": "text_or_flag",
+      "description": "Required insurance-related warning, replacement notice, or caution text that must be surfaced to the consumer.",
+      "dominant_sir_link_type": "direct_content_field",
+      "status_values": [
+        "present",
+        "not_evidenced",
+        "not_applicable",
+        "uncertain"
+      ],
+      "mvp_priority": "medium",
+      "source_rule_count": 4,
+      "source_obligation_count": 4,
+      "product_scopes": [
+        "insurance"
+      ],
+      "channel_scopes": [
+        "advertising",
+        "solicitation",
+        "solicitation|contracting"
+      ],
+      "rule_families": [
+        "advertising",
+        "explanation",
+        "solicitation"
+      ],
+      "logic_types": [
+        "prohibited_presence",
+        "required_presence"
+      ],
+      "detection_targets": [
+        "content_text"
+      ],
+      "evidence_sources": [
+        "explanation_form",
+        "visible_content"
+      ],
+      "article_refs": [
+        "제19조①",
+        "제21조",
+        "제22조③",
+        "제22조④"
+      ],
+      "source_rule_ids": [
+        "law_fincpa_main_2026-01-02:제19조:①:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제21조:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제22조:③:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제22조:④:ob01:rule01"
+      ],
+      "source_obligation_ids": [
+        "law_fincpa_main_2026-01-02:제19조:①:ob01",
+        "law_fincpa_main_2026-01-02:제21조:ob02",
+        "law_fincpa_main_2026-01-02:제22조:③:ob02",
+        "law_fincpa_main_2026-01-02:제22조:④:ob01"
+      ]
+    },
+    {
+      "field_name": "loan_conditions",
+      "field_group": "content_text",
+      "value_type": "text_bundle",
+      "description": "Loan conditions that must be disclosed to explain the structure of the loan offer.",
+      "dominant_sir_link_type": "direct_content_field",
+      "status_values": [
+        "present",
+        "not_evidenced",
+        "not_applicable",
+        "uncertain"
+      ],
+      "mvp_priority": "medium",
+      "source_rule_count": 7,
+      "source_obligation_count": 7,
+      "product_scopes": [
+        "loan",
+        "multiple"
+      ],
+      "channel_scopes": [
+        "advertising",
+        "contracting",
+        "solicitation|contracting"
+      ],
+      "rule_families": [
+        "advertising",
+        "explanation",
+        "unfair_sales"
+      ],
+      "logic_types": [
+        "prohibited_presence",
+        "required_presence"
+      ],
+      "detection_targets": [
+        "content_text",
+        "document_bundle",
+        "workflow_metadata"
+      ],
+      "evidence_sources": [
+        "contract_document",
+        "explanation_form",
+        "visible_content",
+        "workflow_log"
+      ],
+      "article_refs": [
+        "제19조①",
+        "제20조①",
+        "제22조③",
+        "제22조④"
+      ],
+      "source_rule_ids": [
+        "law_fincpa_main_2026-01-02:제19조:①:ob04:rule01",
+        "law_fincpa_main_2026-01-02:제20조:①:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제20조:①:ob04:rule01",
+        "law_fincpa_main_2026-01-02:제20조:①:ob05:rule01",
+        "law_fincpa_main_2026-01-02:제20조:①:ob06:rule01",
+        "law_fincpa_main_2026-01-02:제22조:③:ob05:rule01",
+        "law_fincpa_main_2026-01-02:제22조:④:ob04:rule01"
+      ],
+      "source_obligation_ids": [
+        "law_fincpa_main_2026-01-02:제19조:①:ob04",
+        "law_fincpa_main_2026-01-02:제20조:①:ob02",
+        "law_fincpa_main_2026-01-02:제20조:①:ob04",
+        "law_fincpa_main_2026-01-02:제20조:①:ob05",
+        "law_fincpa_main_2026-01-02:제20조:①:ob06",
+        "law_fincpa_main_2026-01-02:제22조:③:ob05",
+        "law_fincpa_main_2026-01-02:제22조:④:ob04"
+      ]
+    },
+    {
+      "field_name": "activity_record",
+      "field_group": "record_system",
+      "value_type": "record_ref",
+      "description": "Activity log or archived record showing that a regulated action, explanation, or solicitation occurred.",
+      "dominant_sir_link_type": "direct_record_field",
+      "status_values": [
+        "present",
+        "not_evidenced",
+        "not_applicable",
+        "uncertain"
+      ],
+      "mvp_priority": "high",
+      "source_rule_count": 13,
+      "source_obligation_count": 13,
+      "product_scopes": [
+        "general",
+        "multiple"
+      ],
+      "channel_scopes": [
+        "all_customer_facing",
+        "contracting",
+        "internal_control",
+        "solicitation|advisory",
+        "solicitation|contracting",
+        "visit_sales|phone_sales",
+        "visit_sales|phone_sales|solicitation"
+      ],
+      "rule_families": [
+        "adequacy",
+        "intermediary",
+        "recordkeeping",
+        "solicitation",
+        "suitability"
+      ],
+      "logic_types": [
+        "prohibited_presence",
+        "required_process",
+        "required_record",
+        "required_response"
+      ],
+      "detection_targets": [
+        "record_system",
+        "workflow_metadata"
+      ],
+      "evidence_sources": [
+        "record_archive",
+        "workflow_log"
+      ],
+      "article_refs": [
+        "제16조의2①",
+        "제17조②",
+        "제18조②",
+        "제21조의2②",
+        "제21조의2③",
+        "제21조의2⑤",
+        "제23조②",
+        "제25조①",
+        "제28조①",
+        "제28조②",
+        "제28조③",
+        "제28조④"
+      ],
+      "source_rule_ids": [
+        "law_fincpa_main_2026-01-02:제16조의2:①:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제17조:②:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제18조:②:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제21조의2:②:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제21조의2:③:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제21조의2:⑤:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제23조:②:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제25조:①:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제25조:①:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제28조:①:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제28조:②:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제28조:③:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제28조:④:ob02:rule01"
+      ],
+      "source_obligation_ids": [
+        "law_fincpa_main_2026-01-02:제16조의2:①:ob01",
+        "law_fincpa_main_2026-01-02:제17조:②:ob02",
+        "law_fincpa_main_2026-01-02:제18조:②:ob02",
+        "law_fincpa_main_2026-01-02:제21조의2:②:ob01",
+        "law_fincpa_main_2026-01-02:제21조의2:③:ob01",
+        "law_fincpa_main_2026-01-02:제21조의2:⑤:ob01",
+        "law_fincpa_main_2026-01-02:제23조:②:ob01",
+        "law_fincpa_main_2026-01-02:제25조:①:ob01",
+        "law_fincpa_main_2026-01-02:제25조:①:ob02",
+        "law_fincpa_main_2026-01-02:제28조:①:ob02",
+        "law_fincpa_main_2026-01-02:제28조:②:ob01",
+        "law_fincpa_main_2026-01-02:제28조:③:ob01",
+        "law_fincpa_main_2026-01-02:제28조:④:ob02"
+      ]
+    },
+    {
+      "field_name": "contract_document_delivery",
+      "field_group": "record_system",
+      "value_type": "enum",
+      "description": "Evidence that required contract or pre-contract documents were delivered or made available.",
+      "dominant_sir_link_type": "direct_record_field",
+      "status_values": [
+        "present",
+        "not_evidenced",
+        "not_applicable",
+        "uncertain"
+      ],
+      "mvp_priority": "low",
+      "source_rule_count": 2,
+      "source_obligation_count": 2,
+      "product_scopes": [
+        "general"
+      ],
+      "channel_scopes": [
+        "contracting"
+      ],
+      "rule_families": [
+        "contract_documents",
+        "recordkeeping"
+      ],
+      "logic_types": [
+        "required_process",
+        "required_record"
+      ],
+      "detection_targets": [
+        "record_system",
+        "workflow_metadata"
+      ],
+      "evidence_sources": [
+        "record_archive",
+        "workflow_log"
+      ],
+      "article_refs": [
+        "제23조①",
+        "제23조②"
+      ],
+      "source_rule_ids": [
+        "law_fincpa_main_2026-01-02:제23조:①:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제23조:②:ob01:rule01"
+      ],
+      "source_obligation_ids": [
+        "law_fincpa_main_2026-01-02:제23조:①:ob01",
+        "law_fincpa_main_2026-01-02:제23조:②:ob01"
+      ]
+    },
+    {
+      "field_name": "internal_control_standard",
+      "field_group": "record_system",
+      "value_type": "document_ref",
+      "description": "Internal control standard or formal compliance procedure document required by the organization.",
+      "dominant_sir_link_type": "direct_record_field",
+      "status_values": [
+        "present",
+        "not_evidenced",
+        "not_applicable",
+        "uncertain"
+      ],
+      "mvp_priority": "low",
+      "source_rule_count": 2,
+      "source_obligation_count": 2,
+      "product_scopes": [
+        "general"
+      ],
+      "channel_scopes": [
+        "all_customer_facing",
+        "internal_control"
+      ],
+      "rule_families": [
+        "internal_control",
+        "unfair_sales"
+      ],
+      "logic_types": [
+        "prohibited_presence",
+        "required_presence"
+      ],
+      "detection_targets": [
+        "record_system",
+        "workflow_metadata"
+      ],
+      "evidence_sources": [
+        "record_archive",
+        "workflow_log"
+      ],
+      "article_refs": [
+        "제16조②",
+        "제20조①"
+      ],
+      "source_rule_ids": [
+        "law_fincpa_main_2026-01-02:제16조:②:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제20조:①:ob03:rule01"
+      ],
+      "source_obligation_ids": [
+        "law_fincpa_main_2026-01-02:제16조:②:ob01",
+        "law_fincpa_main_2026-01-02:제20조:①:ob03"
+      ]
+    },
+    {
+      "field_name": "record_integrity_control",
+      "field_group": "record_system",
+      "value_type": "enum",
+      "description": "Evidence that records are preserved with integrity, retention, and access safeguards.",
+      "dominant_sir_link_type": "direct_record_field",
+      "status_values": [
+        "present",
+        "not_evidenced",
+        "not_applicable",
+        "uncertain"
+      ],
+      "mvp_priority": "medium",
+      "source_rule_count": 5,
+      "source_obligation_count": 5,
+      "product_scopes": [
+        "general",
+        "multiple"
+      ],
+      "channel_scopes": [
+        "contracting",
+        "internal_control",
+        "solicitation|advisory",
+        "visit_sales|phone_sales"
+      ],
+      "rule_families": [
+        "recordkeeping",
+        "suitability"
+      ],
+      "logic_types": [
+        "required_process",
+        "required_record",
+        "required_response"
+      ],
+      "detection_targets": [
+        "record_system"
+      ],
+      "evidence_sources": [
+        "record_archive"
+      ],
+      "article_refs": [
+        "제17조②",
+        "제21조의2⑤",
+        "제23조②",
+        "제28조①",
+        "제28조②"
+      ],
+      "source_rule_ids": [
+        "law_fincpa_main_2026-01-02:제17조:②:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제21조의2:⑤:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제23조:②:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제28조:①:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제28조:②:ob01:rule01"
+      ],
+      "source_obligation_ids": [
+        "law_fincpa_main_2026-01-02:제17조:②:ob02",
+        "law_fincpa_main_2026-01-02:제21조의2:⑤:ob01",
+        "law_fincpa_main_2026-01-02:제23조:②:ob01",
+        "law_fincpa_main_2026-01-02:제28조:①:ob02",
+        "law_fincpa_main_2026-01-02:제28조:②:ob01"
+      ]
+    },
+    {
+      "field_name": "adequacy_check",
+      "field_group": "workflow_metadata",
+      "value_type": "enum",
+      "description": "Structured adequacy assessment result or completion state for products or consumers that require adequacy review.",
+      "dominant_sir_link_type": "direct_workflow_field",
+      "status_values": [
+        "present",
+        "not_evidenced",
+        "not_applicable",
+        "uncertain"
+      ],
+      "mvp_priority": "high",
+      "source_rule_count": 8,
+      "source_obligation_count": 8,
+      "product_scopes": [
+        "general",
+        "insurance",
+        "investment",
+        "loan",
+        "multiple"
+      ],
+      "channel_scopes": [
+        "contracting",
+        "solicitation|contracting"
+      ],
+      "rule_families": [
+        "adequacy"
+      ],
+      "logic_types": [
+        "required_process",
+        "required_record"
+      ],
+      "detection_targets": [
+        "consumer_profile",
+        "record_system",
+        "workflow_metadata"
+      ],
+      "evidence_sources": [
+        "consumer_profile_form",
+        "record_archive",
+        "workflow_log"
+      ],
+      "article_refs": [
+        "제18조①",
+        "제18조②",
+        "제18조④",
+        "제18조⑤"
+      ],
+      "source_rule_ids": [
+        "law_fincpa_main_2026-01-02:제18조:①:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제18조:①:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제18조:①:ob03:rule01",
+        "law_fincpa_main_2026-01-02:제18조:②:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제18조:②:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제18조:④:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제18조:④:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제18조:⑤:ob01:rule01"
+      ],
+      "source_obligation_ids": [
+        "law_fincpa_main_2026-01-02:제18조:①:ob01",
+        "law_fincpa_main_2026-01-02:제18조:①:ob02",
+        "law_fincpa_main_2026-01-02:제18조:①:ob03",
+        "law_fincpa_main_2026-01-02:제18조:②:ob01",
+        "law_fincpa_main_2026-01-02:제18조:②:ob02",
+        "law_fincpa_main_2026-01-02:제18조:④:ob01",
+        "law_fincpa_main_2026-01-02:제18조:④:ob02",
+        "law_fincpa_main_2026-01-02:제18조:⑤:ob01"
+      ]
+    },
+    {
+      "field_name": "consumer_profile",
+      "field_group": "workflow_metadata",
+      "value_type": "profile_bundle",
+      "description": "Collected consumer profile facts used to judge suitability, adequacy, or tailored explanation duties.",
+      "dominant_sir_link_type": "direct_workflow_field",
+      "status_values": [
+        "present",
+        "not_evidenced",
+        "not_applicable",
+        "uncertain"
+      ],
+      "mvp_priority": "high",
+      "source_rule_count": 8,
+      "source_obligation_count": 8,
+      "product_scopes": [
+        "general",
+        "insurance",
+        "investment",
+        "loan",
+        "multiple"
+      ],
+      "channel_scopes": [
+        "contracting",
+        "contracting|advisory",
+        "solicitation",
+        "solicitation|advisory"
+      ],
+      "rule_families": [
+        "adequacy",
+        "suitability"
+      ],
+      "logic_types": [
+        "prohibited_presence",
+        "required_process",
+        "required_record"
+      ],
+      "detection_targets": [
+        "consumer_profile",
+        "record_system",
+        "workflow_metadata"
+      ],
+      "evidence_sources": [
+        "consumer_profile_form",
+        "record_archive",
+        "workflow_log"
+      ],
+      "article_refs": [
+        "제17조①",
+        "제17조②",
+        "제17조③",
+        "제18조①"
+      ],
+      "source_rule_ids": [
+        "law_fincpa_main_2026-01-02:제17조:①:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제17조:②:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제17조:②:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제17조:②:ob03:rule01",
+        "law_fincpa_main_2026-01-02:제17조:③:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제18조:①:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제18조:①:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제18조:①:ob03:rule01"
+      ],
+      "source_obligation_ids": [
+        "law_fincpa_main_2026-01-02:제17조:①:ob01",
+        "law_fincpa_main_2026-01-02:제17조:②:ob01",
+        "law_fincpa_main_2026-01-02:제17조:②:ob02",
+        "law_fincpa_main_2026-01-02:제17조:②:ob03",
+        "law_fincpa_main_2026-01-02:제17조:③:ob01",
+        "law_fincpa_main_2026-01-02:제18조:①:ob01",
+        "law_fincpa_main_2026-01-02:제18조:①:ob02",
+        "law_fincpa_main_2026-01-02:제18조:①:ob03"
+      ]
+    },
+    {
+      "field_name": "staff_registry",
+      "field_group": "workflow_metadata",
+      "value_type": "record_ref",
+      "description": "Registry or record set tracking staff, intermediaries, or other regulated personnel information.",
+      "dominant_sir_link_type": "direct_workflow_field",
+      "status_values": [
+        "present",
+        "not_evidenced",
+        "not_applicable",
+        "uncertain"
+      ],
+      "mvp_priority": "low",
+      "source_rule_count": 3,
+      "source_obligation_count": 3,
+      "product_scopes": [
+        "general"
+      ],
+      "channel_scopes": [
+        "solicitation|contracting",
+        "visit_sales|phone_sales"
+      ],
+      "rule_families": [
+        "intermediary",
+        "recordkeeping"
+      ],
+      "logic_types": [
+        "prohibited_presence",
+        "required_record",
+        "required_response"
+      ],
+      "detection_targets": [
+        "record_system",
+        "workflow_metadata"
+      ],
+      "evidence_sources": [
+        "record_archive",
+        "workflow_log"
+      ],
+      "article_refs": [
+        "제16조의2①",
+        "제16조의2②",
+        "제24조"
+      ],
+      "source_rule_ids": [
+        "law_fincpa_main_2026-01-02:제16조의2:①:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제16조의2:②:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제24조:ob01:rule01"
+      ],
+      "source_obligation_ids": [
+        "law_fincpa_main_2026-01-02:제16조의2:①:ob01",
+        "law_fincpa_main_2026-01-02:제16조의2:②:ob01",
+        "law_fincpa_main_2026-01-02:제24조:ob01"
+      ]
+    },
+    {
+      "field_name": "access_request",
+      "field_group": "workflow_metadata",
+      "value_type": "record_ref",
+      "description": "Record of a consumer request to access, inspect, or receive regulated information or records.",
+      "dominant_sir_link_type": "direct_workflow_field",
+      "status_values": [
+        "present",
+        "not_evidenced",
+        "not_applicable",
+        "uncertain"
+      ],
+      "mvp_priority": "medium",
+      "source_rule_count": 4,
+      "source_obligation_count": 4,
+      "product_scopes": [
+        "general"
+      ],
+      "channel_scopes": [
+        "all_customer_facing"
+      ],
+      "rule_families": [
+        "recordkeeping"
+      ],
+      "logic_types": [
+        "required_response"
+      ],
+      "detection_targets": [
+        "workflow_metadata"
+      ],
+      "evidence_sources": [
+        "workflow_log"
+      ],
+      "article_refs": [
+        "제28조③",
+        "제28조④",
+        "제28조⑤"
+      ],
+      "source_rule_ids": [
+        "law_fincpa_main_2026-01-02:제28조:③:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제28조:④:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제28조:④:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제28조:⑤:ob01:rule01"
+      ],
+      "source_obligation_ids": [
+        "law_fincpa_main_2026-01-02:제28조:③:ob01",
+        "law_fincpa_main_2026-01-02:제28조:④:ob01",
+        "law_fincpa_main_2026-01-02:제28조:④:ob02",
+        "law_fincpa_main_2026-01-02:제28조:⑤:ob01"
+      ]
+    },
+    {
+      "field_name": "access_response",
+      "field_group": "workflow_metadata",
+      "value_type": "record_ref",
+      "description": "Record of the organization's response to a regulated consumer request or access event.",
+      "dominant_sir_link_type": "direct_workflow_field",
+      "status_values": [
+        "present",
+        "not_evidenced",
+        "not_applicable",
+        "uncertain"
+      ],
+      "mvp_priority": "medium",
+      "source_rule_count": 5,
+      "source_obligation_count": 5,
+      "product_scopes": [
+        "general"
+      ],
+      "channel_scopes": [
+        "all_customer_facing",
+        "visit_sales|phone_sales"
+      ],
+      "rule_families": [
+        "recordkeeping"
+      ],
+      "logic_types": [
+        "required_response"
+      ],
+      "detection_targets": [
+        "record_system",
+        "workflow_metadata"
+      ],
+      "evidence_sources": [
+        "record_archive",
+        "workflow_log"
+      ],
+      "article_refs": [
+        "제21조의2⑤",
+        "제28조③",
+        "제28조④",
+        "제28조⑤"
+      ],
+      "source_rule_ids": [
+        "law_fincpa_main_2026-01-02:제21조의2:⑤:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제28조:③:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제28조:④:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제28조:④:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제28조:⑤:ob01:rule01"
+      ],
+      "source_obligation_ids": [
+        "law_fincpa_main_2026-01-02:제21조의2:⑤:ob01",
+        "law_fincpa_main_2026-01-02:제28조:③:ob01",
+        "law_fincpa_main_2026-01-02:제28조:④:ob01",
+        "law_fincpa_main_2026-01-02:제28조:④:ob02",
+        "law_fincpa_main_2026-01-02:제28조:⑤:ob01"
+      ]
+    },
+    {
+      "field_name": "consumer_type",
+      "field_group": "workflow_metadata",
+      "value_type": "enum",
+      "description": "Consumer classification needed for suitability or adequacy handling, such as general or professional consumer status.",
+      "dominant_sir_link_type": "direct_workflow_field",
+      "status_values": [
+        "present",
+        "not_evidenced",
+        "not_applicable",
+        "uncertain"
+      ],
+      "mvp_priority": "medium",
+      "source_rule_count": 5,
+      "source_obligation_count": 5,
+      "product_scopes": [
+        "general",
+        "investment"
+      ],
+      "channel_scopes": [
+        "contracting|advisory",
+        "solicitation|contracting"
+      ],
+      "rule_families": [
+        "adequacy",
+        "suitability"
+      ],
+      "logic_types": [
+        "required_process"
+      ],
+      "detection_targets": [
+        "workflow_metadata"
+      ],
+      "evidence_sources": [
+        "workflow_log"
+      ],
+      "article_refs": [
+        "제17조①",
+        "제17조⑤",
+        "제18조④",
+        "제18조⑤"
+      ],
+      "source_rule_ids": [
+        "law_fincpa_main_2026-01-02:제17조:①:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제17조:⑤:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제17조:⑤:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제18조:④:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제18조:⑤:ob01:rule01"
+      ],
+      "source_obligation_ids": [
+        "law_fincpa_main_2026-01-02:제17조:①:ob01",
+        "law_fincpa_main_2026-01-02:제17조:⑤:ob01",
+        "law_fincpa_main_2026-01-02:제17조:⑤:ob02",
+        "law_fincpa_main_2026-01-02:제18조:④:ob02",
+        "law_fincpa_main_2026-01-02:제18조:⑤:ob01"
+      ]
+    },
+    {
+      "field_name": "fairness_guardrail",
+      "field_group": "workflow_metadata",
+      "value_type": "enum",
+      "description": "Reviewer-facing fairness or consumer-protection guardrail used when a rule is still partially principle-driven.",
+      "dominant_sir_link_type": "direct_workflow_field",
+      "status_values": [
+        "present",
+        "not_evidenced",
+        "not_applicable",
+        "uncertain"
+      ],
+      "mvp_priority": "medium",
+      "source_rule_count": 5,
+      "source_obligation_count": 5,
+      "product_scopes": [
+        "general",
+        "loan",
+        "multiple"
+      ],
+      "channel_scopes": [
+        "all_customer_facing",
+        "contracting",
+        "solicitation"
+      ],
+      "rule_families": [
+        "solicitation",
+        "unfair_sales"
+      ],
+      "logic_types": [
+        "prohibited_presence"
+      ],
+      "detection_targets": [
+        "content_text",
+        "workflow_metadata"
+      ],
+      "evidence_sources": [
+        "visible_content",
+        "workflow_log"
+      ],
+      "article_refs": [
+        "제20조①",
+        "제21조"
+      ],
+      "source_rule_ids": [
+        "law_fincpa_main_2026-01-02:제20조:①:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제20조:①:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제20조:①:ob03:rule01",
+        "law_fincpa_main_2026-01-02:제20조:①:ob04:rule01",
+        "law_fincpa_main_2026-01-02:제21조:ob01:rule01"
+      ],
+      "source_obligation_ids": [
+        "law_fincpa_main_2026-01-02:제20조:①:ob01",
+        "law_fincpa_main_2026-01-02:제20조:①:ob02",
+        "law_fincpa_main_2026-01-02:제20조:①:ob03",
+        "law_fincpa_main_2026-01-02:제20조:①:ob04",
+        "law_fincpa_main_2026-01-02:제21조:ob01"
+      ]
+    },
+    {
+      "field_name": "representative_identity",
+      "field_group": "workflow_metadata",
+      "value_type": "text",
+      "description": "Identity of the representative, staff member, or solicitor involved in the consumer interaction.",
+      "dominant_sir_link_type": "direct_workflow_field",
+      "status_values": [
+        "present",
+        "not_evidenced",
+        "not_applicable",
+        "uncertain"
+      ],
+      "mvp_priority": "medium",
+      "source_rule_count": 5,
+      "source_obligation_count": 5,
+      "product_scopes": [
+        "general",
+        "investment"
+      ],
+      "channel_scopes": [
+        "advisory",
+        "all_customer_facing|solicitation|contracting",
+        "visit_sales|phone_sales",
+        "visit_sales|phone_sales|solicitation"
+      ],
+      "rule_families": [
+        "advisory",
+        "intermediary",
+        "solicitation"
+      ],
+      "logic_types": [
+        "required_presence",
+        "required_process",
+        "required_response"
+      ],
+      "detection_targets": [
+        "content_text",
+        "workflow_metadata"
+      ],
+      "evidence_sources": [
+        "visible_content",
+        "workflow_log"
+      ],
+      "article_refs": [
+        "제16조의2②",
+        "제16조의2③",
+        "제26조②",
+        "제27조③"
+      ],
+      "source_rule_ids": [
+        "law_fincpa_main_2026-01-02:제16조의2:②:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제16조의2:③:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제16조의2:③:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제26조:②:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제27조:③:ob02:rule01"
+      ],
+      "source_obligation_ids": [
+        "law_fincpa_main_2026-01-02:제16조의2:②:ob01",
+        "law_fincpa_main_2026-01-02:제16조의2:③:ob01",
+        "law_fincpa_main_2026-01-02:제16조의2:③:ob02",
+        "law_fincpa_main_2026-01-02:제26조:②:ob02",
+        "law_fincpa_main_2026-01-02:제27조:③:ob02"
+      ]
+    },
+    {
+      "field_name": "solicitation_purpose",
+      "field_group": "workflow_metadata",
+      "value_type": "text",
+      "description": "Purpose statement or context showing why a solicitation contact or interaction is being made.",
+      "dominant_sir_link_type": "direct_workflow_field",
+      "status_values": [
+        "present",
+        "not_evidenced",
+        "not_applicable",
+        "uncertain"
+      ],
+      "mvp_priority": "medium",
+      "source_rule_count": 7,
+      "source_obligation_count": 7,
+      "product_scopes": [
+        "general",
+        "investment"
+      ],
+      "channel_scopes": [
+        "solicitation",
+        "solicitation|visit_sales|phone_sales",
+        "visit_sales|phone_sales",
+        "visit_sales|phone_sales|solicitation"
+      ],
+      "rule_families": [
+        "solicitation"
+      ],
+      "logic_types": [
+        "prohibited_presence",
+        "required_presence",
+        "required_process",
+        "required_response"
+      ],
+      "detection_targets": [
+        "content_text",
+        "workflow_metadata"
+      ],
+      "evidence_sources": [
+        "visible_content",
+        "workflow_log"
+      ],
+      "article_refs": [
+        "제16조의2③",
+        "제21조",
+        "제21조의2①",
+        "제21조의2②",
+        "제21조의2③"
+      ],
+      "source_rule_ids": [
+        "law_fincpa_main_2026-01-02:제16조의2:③:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제21조:ob03:rule01",
+        "law_fincpa_main_2026-01-02:제21조:ob04:rule01",
+        "law_fincpa_main_2026-01-02:제21조의2:①:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제21조의2:①:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제21조의2:②:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제21조의2:③:ob01:rule01"
+      ],
+      "source_obligation_ids": [
+        "law_fincpa_main_2026-01-02:제16조의2:③:ob01",
+        "law_fincpa_main_2026-01-02:제21조:ob03",
+        "law_fincpa_main_2026-01-02:제21조:ob04",
+        "law_fincpa_main_2026-01-02:제21조의2:①:ob01",
+        "law_fincpa_main_2026-01-02:제21조의2:①:ob02",
+        "law_fincpa_main_2026-01-02:제21조의2:②:ob01",
+        "law_fincpa_main_2026-01-02:제21조의2:③:ob01"
+      ]
+    },
+    {
+      "field_name": "suitability_check",
+      "field_group": "workflow_metadata",
+      "value_type": "enum",
+      "description": "Structured suitability assessment result or completion state derived from the consumer profile and product context.",
+      "dominant_sir_link_type": "direct_workflow_field",
+      "status_values": [
+        "present",
+        "not_evidenced",
+        "not_applicable",
+        "uncertain"
+      ],
+      "mvp_priority": "medium",
+      "source_rule_count": 7,
+      "source_obligation_count": 7,
+      "product_scopes": [
+        "general",
+        "investment",
+        "multiple"
+      ],
+      "channel_scopes": [
+        "solicitation",
+        "solicitation|advisory",
+        "solicitation|contracting"
+      ],
+      "rule_families": [
+        "adequacy",
+        "suitability"
+      ],
+      "logic_types": [
+        "prohibited_presence",
+        "required_process",
+        "required_record"
+      ],
+      "detection_targets": [
+        "consumer_profile",
+        "record_system",
+        "workflow_metadata"
+      ],
+      "evidence_sources": [
+        "consumer_profile_form",
+        "record_archive",
+        "workflow_log"
+      ],
+      "article_refs": [
+        "제17조②",
+        "제17조③",
+        "제17조⑤",
+        "제18조⑤"
+      ],
+      "source_rule_ids": [
+        "law_fincpa_main_2026-01-02:제17조:②:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제17조:②:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제17조:②:ob03:rule01",
+        "law_fincpa_main_2026-01-02:제17조:③:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제17조:⑤:ob01:rule01",
+        "law_fincpa_main_2026-01-02:제17조:⑤:ob02:rule01",
+        "law_fincpa_main_2026-01-02:제18조:⑤:ob01:rule01"
+      ],
+      "source_obligation_ids": [
+        "law_fincpa_main_2026-01-02:제17조:②:ob01",
+        "law_fincpa_main_2026-01-02:제17조:②:ob02",
+        "law_fincpa_main_2026-01-02:제17조:②:ob03",
+        "law_fincpa_main_2026-01-02:제17조:③:ob01",
+        "law_fincpa_main_2026-01-02:제17조:⑤:ob01",
+        "law_fincpa_main_2026-01-02:제17조:⑤:ob02",
+        "law_fincpa_main_2026-01-02:제18조:⑤:ob01"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "input_id": "loan_ad_content_only",
+  "title": "토스뱅크 대출",
+  "content_text": "토스뱅크 대출 중도상환수수료 없이 쉽고 간편하게 빌려요",
+  "review_scope": "content_only",
+  "product_scope_hint": ["loan"],
+  "channel_scope_hint": ["advertising"],
+  "business_role_hint": "direct_seller",
+  "include_rule_families": ["advertising", "unfair_sales"],
+  "exclude_rule_families": [],
+  "field_inputs": {},
+  "content_metadata": {},
+  "workflow_metadata": {},
+  "record_metadata": {}
+}

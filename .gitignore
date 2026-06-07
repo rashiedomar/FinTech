@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.tmp_ui_shots/
+
+Compliance Dashboard Design/node_modules/
+
+data/raw/external_benchmarks/KFinEval/
+data/raw/external_benchmarks/legalbenchrag_privacy_qa/
+
+*.log
+gemini_api.txt
+.publish/

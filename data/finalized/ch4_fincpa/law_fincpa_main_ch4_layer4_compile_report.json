@@ -1,0 +1,94 @@
+{
+  "version": "0.1.0",
+  "layer": "layer4_final_mvp_compilation",
+  "source_pdf": "data/raw/official/law_fincpa_main_2026-01-02.pdf",
+  "source_layer2_dataset": "data/annotations/ch4_fincpa/law_fincpa_main_ch4_layer2_obligations.gemini.jsonl",
+  "source_layer3_dataset": "data/annotations/ch4_fincpa/law_fincpa_main_ch4_layer3_rule_candidates.gemini.jsonl",
+  "selection_rule": "ready_for_v1 == yes",
+  "total_layer3_candidates": 109,
+  "included_mvp_rule_count": 76,
+  "excluded_candidate_count": 33,
+  "mvp_sir_field_count": 29,
+  "rule_family_counts": {
+    "internal_control": 1,
+    "recordkeeping": 9,
+    "intermediary": 11,
+    "solicitation": 10,
+    "suitability": 7,
+    "adequacy": 8,
+    "explanation": 9,
+    "unfair_sales": 6,
+    "advertising": 10,
+    "contract_documents": 1,
+    "advisory": 4
+  },
+  "logic_type_counts": {
+    "required_presence": 23,
+    "required_record": 5,
+    "required_response": 7,
+    "required_process": 17,
+    "prohibited_presence": 24
+  },
+  "detection_target_counts": {
+    "record_system": 8,
+    "workflow_metadata": 36,
+    "content_text": 28,
+    "consumer_profile": 2,
+    "document_bundle": 2
+  },
+  "sir_link_type_counts": {
+    "direct_record_field": 8,
+    "direct_workflow_field": 34,
+    "direct_content_field": 29,
+    "derived_decision_field": 5
+  },
+  "evidence_source_counts": {
+    "record_archive": 8,
+    "workflow_log": 33,
+    "visible_content": 19,
+    "consumer_profile_form": 4,
+    "explanation_form": 11,
+    "contract_document": 1
+  },
+  "product_scope_counts": {
+    "general": 36,
+    "multiple": 12,
+    "investment": 12,
+    "insurance": 5,
+    "loan": 7,
+    "deposit": 3,
+    "general|investment": 1
+  },
+  "channel_scope_counts": {
+    "internal_control": 3,
+    "visit_sales|phone_sales": 5,
+    "visit_sales|phone_sales|solicitation": 3,
+    "contracting|advisory": 1,
+    "solicitation|advisory": 3,
+    "solicitation": 4,
+    "solicitation|contracting": 23,
+    "contracting": 11,
+    "all_customer_facing": 5,
+    "solicitation|visit_sales|phone_sales": 2,
+    "advertising": 11,
+    "all_customer_facing|solicitation|contracting": 2,
+    "advisory": 3
+  },
+  "field_group_counts": {
+    "workflow_metadata": 10,
+    "record_system": 4,
+    "content_text": 15
+  },
+  "field_priority_counts": {
+    "medium": 12,
+    "high": 7,
+    "low": 10
+  },
+  "output_paths": {
+    "rule_pack_jsonl": "data/finalized/ch4_fincpa/law_fincpa_main_ch4_layer4_mvp_rule_pack.jsonl",
+    "rule_pack_csv": "data/finalized/ch4_fincpa/law_fincpa_main_ch4_layer4_mvp_rule_pack.csv",
+    "sir_schema_json": "data/finalized/ch4_fincpa/law_fincpa_main_ch4_layer4_mvp_sir_schema.json",
+    "field_summary_csv": "data/finalized/ch4_fincpa/law_fincpa_main_ch4_layer4_mvp_sir_field_summary.csv",
+    "excluded_candidates_csv": "data/finalized/ch4_fincpa/law_fincpa_main_ch4_layer4_excluded_candidates.csv"
+  }
+}

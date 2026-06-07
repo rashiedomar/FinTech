@@ -1,0 +1,16 @@
+{
+  "input_id": "deposit_ad_missing_disclaimer",
+  "title": "ABC은행 예금 특별 금리",
+  "content_text": "ABC은행 정기예금, 확정 수익 5%, 지금 가입하세요.",
+  "review_scope": "content_only",
+  "product_scope_hint": ["deposit"],
+  "channel_scope_hint": ["advertising"],
+  "business_role_hint": "direct_seller",
+  "include_rule_families": ["advertising"],
+  "exclude_rule_families": [],
+  "field_inputs": {},
+  "content_metadata": {},
+  "workflow_metadata": {},
+  "record_metadata": {}
+}
+

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chapter 4 Runtime Flow</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <div class="ambient ambient-a"></div>
+      <div class="ambient ambient-b"></div>
+
+      <header class="hero">
+        <p class="eyebrow">Chapter 4 Runtime Flow</p>
+        <h1>Prompt to Legal Trigger</h1>
+        <p class="subhead">
+          Paste one content sample, then reveal the deterministic workflow one stage at a time.
+        </p>
+
+        <div class="composer-card">
+          <div class="composer-head">
+            <div>
+              <p class="kicker">Live Input</p>
+              <h2>One prompt, one legal path</h2>
+            </div>
+            <button id="clearBtn" class="ghost-btn" type="button">Clear</button>
+          </div>
+
+          <textarea
+            id="promptInput"
+            class="prompt-input"
+            placeholder="Type a new financial-content sample here, or click an example below."
+          ></textarea>
+
+          <div class="example-strip">
+            <div class="example-label">Examples</div>
+            <div id="exampleChips" class="example-chips"></div>
+          </div>
+
+          <div class="composer-actions">
+            <p id="profileHint" class="profile-hint">Custom input runs with automatic inference.</p>
+            <button id="runBtn" class="run-btn" type="button">Build Workflow</button>
+          </div>
+        </div>
+      </header>
+
+      <main id="runtimeExperience" class="runtime-experience hidden">
+        <section class="flow-rail">
+          <div class="rail-line"></div>
+          <div id="stageButtons" class="stage-buttons"></div>
+        </section>
+
+        <section class="stage-stack">
+          <article id="stage-schema" class="stage-card"></article>
+          <article id="stage-sir" class="stage-card locked"></article>
+          <article id="stage-rules" class="stage-card locked"></article>
+          <article id="stage-law" class="stage-card locked"></article>
+          <article id="stage-result" class="stage-card locked"></article>
+        </section>
+      </main>
+
+      <div id="statusBanner" class="status-banner hidden"></div>
+    </div>
+
+    <script src="./runtime-bundle.js"></script>
+    <script src="./runtime-engine.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

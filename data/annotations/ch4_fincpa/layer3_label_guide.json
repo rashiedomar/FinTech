@@ -1,0 +1,114 @@
+{
+  "version": "0.1.0",
+  "annotation_layer": "layer3_rule_and_sir_link_candidates",
+  "source_layer2_dataset": "data/annotations/ch4_fincpa/law_fincpa_main_ch4_layer2_obligations.gemini.csv",
+  "fields": {
+    "rule_family": {
+      "type": "single_label",
+      "allowed_values": [
+        "general_principle",
+        "suitability",
+        "adequacy",
+        "explanation",
+        "advertising",
+        "unfair_sales",
+        "solicitation",
+        "contract_documents",
+        "internal_control",
+        "recordkeeping",
+        "intermediary",
+        "advisory"
+      ]
+    },
+    "logic_type": {
+      "type": "single_label",
+      "allowed_values": [
+        "required_presence",
+        "prohibited_presence",
+        "required_process",
+        "required_record",
+        "required_response",
+        "delegated_detail",
+        "principle_guardrail"
+      ]
+    },
+    "detection_target": {
+      "type": "single_label",
+      "allowed_values": [
+        "content_text",
+        "workflow_metadata",
+        "consumer_profile",
+        "document_bundle",
+        "record_system",
+        "mixed"
+      ]
+    },
+    "sir_link_type": {
+      "type": "single_label",
+      "allowed_values": [
+        "direct_content_field",
+        "direct_workflow_field",
+        "direct_record_field",
+        "derived_decision_field",
+        "delegated_external_detail",
+        "principle_only"
+      ]
+    },
+    "sir_candidate_fields": {
+      "type": "multi_label_pipe_delimited",
+      "allowed_values": [
+        "consumer_type",
+        "consumer_profile",
+        "suitability_check",
+        "adequacy_check",
+        "explanation_material",
+        "explanation_confirmation",
+        "contract_document_delivery",
+        "seller_identity",
+        "product_identity",
+        "product_core_terms",
+        "insurance_warning",
+        "investment_warning",
+        "deposit_disclaimer",
+        "loan_conditions",
+        "loan_rate_basis",
+        "loan_interest_timing",
+        "loan_costs",
+        "solicitation_purpose",
+        "representative_identity",
+        "staff_registry",
+        "internal_control_standard",
+        "activity_record",
+        "record_integrity_control",
+        "access_request",
+        "access_response",
+        "advisory_independence",
+        "intermediary_status",
+        "prohibited_claim_signal",
+        "fairness_guardrail",
+        "no_current_field"
+      ]
+    },
+    "evidence_source": {
+      "type": "single_label",
+      "allowed_values": [
+        "visible_content",
+        "workflow_log",
+        "consumer_profile_form",
+        "explanation_form",
+        "contract_document",
+        "record_archive",
+        "decree_reference",
+        "mixed"
+      ]
+    },
+    "ready_for_v1": {
+      "type": "single_label",
+      "allowed_values": ["yes", "review", "no"]
+    },
+    "gemini_confidence": {
+      "type": "single_label",
+      "allowed_values": ["high", "medium", "low"]
+    }
+  }
+}

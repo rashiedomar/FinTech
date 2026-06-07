@@ -1,0 +1,70 @@
+{
+  "version": "0.1.0",
+  "annotation_layer": "layer2_obligation_decomposition",
+  "source_layer1_dataset": "data/annotations/ch4_fincpa/law_fincpa_main_ch4_layer1_annotations.gemini.csv",
+  "fields": {
+    "product_scope": {
+      "type": "single_or_pipe_delimited_multi_label",
+      "allowed_values": ["general", "loan", "deposit", "investment", "insurance", "multiple"]
+    },
+    "channel_scope": {
+      "type": "single_or_pipe_delimited_multi_label",
+      "allowed_values": [
+        "all_customer_facing",
+        "advertising",
+        "solicitation",
+        "contracting",
+        "advisory",
+        "visit_sales",
+        "phone_sales",
+        "internal_control"
+      ]
+    },
+    "obligation_mode": {
+      "type": "single_label",
+      "allowed_values": [
+        "general_principle",
+        "required_action",
+        "required_content",
+        "prohibited_action",
+        "workflow_control",
+        "recordkeeping"
+      ]
+    },
+    "trigger_type": {
+      "type": "single_label",
+      "allowed_values": [
+        "must_do",
+        "must_disclose",
+        "must_not_do",
+        "must_keep_record",
+        "must_have_control",
+        "delegated_detail"
+      ]
+    },
+    "operationality": {
+      "type": "single_label",
+      "allowed_values": [
+        "direct_checkable",
+        "needs_subrule_design",
+        "delegated_to_decree"
+      ]
+    },
+    "consumer_visibility": {
+      "type": "single_label",
+      "allowed_values": [
+        "consumer_facing",
+        "internal_only",
+        "both"
+      ]
+    },
+    "parent_decomposition_strategy": {
+      "type": "single_label",
+      "allowed_values": ["single_unit", "split_unit"]
+    },
+    "gemini_confidence": {
+      "type": "single_label",
+      "allowed_values": ["high", "medium", "low"]
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "source_csv": "data/annotations/ch4_fincpa/law_fincpa_main_ch4_layer1_annotations.csv",
+  "output_jsonl": "data/annotations/ch4_fincpa/law_fincpa_main_ch4_layer1_annotations.reviewed.jsonl",
+  "total_rows": 60,
+  "validation_error_count": 0,
+  "completeness": {
+    "is_relevant_to_theme2": {
+      "filled_rows": 0,
+      "fill_rate": 0.0
+    },
+    "topic_family": {
+      "filled_rows": 0,
+      "fill_rate": 0.0
+    },
+    "product_scope": {
+      "filled_rows": 0,
+      "fill_rate": 0.0
+    },
+    "channel_scope": {
+      "filled_rows": 0,
+      "fill_rate": 0.0
+    },
+    "obligation_mode": {
+      "filled_rows": 0,
+      "fill_rate": 0.0
+    },
+    "needs_decomposition": {
+      "filled_rows": 0,
+      "fill_rate": 0.0
+    },
+    "manual_verified": {
+      "filled_rows": 60,
+      "fill_rate": 1.0
+    },
+    "reviewer_note": {
+      "filled_rows": 0,
+      "fill_rate": 0.0
+    }
+  },
+  "manual_verified_distribution": {
+    "no": 60
+  },
+  "relevance_distribution": {
+    "": 60
+  },
+  "topic_family_distribution": {
+    "": 60
+  },
+  "obligation_mode_distribution": {
+    "": 60
+  },
+  "errors": []
+}

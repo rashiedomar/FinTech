@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FCPA Chapter 4 Dashboard</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Law Parsing -> Layer 1 -> Layer 2 -> Layer 3 -> Layer 4</p>
+          <h1>금융소비자보호법 제4장 구조 대시보드</h1>
+          <p class="subhead">
+            조항 하나를 클릭하면 원문부터 최종 MVP SIR 필드와 규칙까지 한 화면에서 추적할 수 있습니다.
+          </p>
+        </div>
+        <div class="topbar-actions">
+          <div class="lang-switch" id="langSwitch">
+            <button class="ghost-btn active" data-lang="both">KO + EN</button>
+            <button class="ghost-btn" data-lang="ko">한국어</button>
+            <button class="ghost-btn" data-lang="en">English</button>
+          </div>
+          <button id="resetFiltersBtn" class="ghost-btn">필터 초기화</button>
+        </div>
+      </header>
+
+      <section id="overviewCards" class="overview-grid"></section>
+      <div id="statusBanner" class="status-banner">Loading dashboard data...</div>
+
+      <section class="pipeline-section">
+        <h2>레이어 흐름</h2>
+        <div id="pipelineFlow" class="pipeline-flow"></div>
+      </section>
+
+      <main class="workspace">
+        <aside class="sidebar">
+          <div class="filter-card">
+            <label>
+              <span>검색</span>
+              <input id="searchInput" type="search" placeholder="조문 번호, 제목, 본문 검색" />
+            </label>
+            <label>
+              <span>주제 분류</span>
+              <select id="topicFilter">
+                <option value="">전체</option>
+              </select>
+            </label>
+            <label>
+              <span>Layer 4 규칙 유무</span>
+              <select id="ruleFilter">
+                <option value="">전체</option>
+                <option value="has_rules">규칙 있음</option>
+                <option value="no_rules">규칙 없음</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="list-header">
+            <strong>조항 목록</strong>
+            <span id="clauseCountText"></span>
+          </div>
+          <div id="clauseList" class="clause-list"></div>
+        </aside>
+
+        <section class="detail-panel">
+          <div id="detailHeader" class="detail-header"></div>
+          <div id="detailBody" class="detail-body"></div>
+        </section>
+      </main>
+
+      <section class="catalog-section">
+        <div class="catalog-header">
+          <h2>Layer 4 MVP SIR 필드 카탈로그</h2>
+          <p>최종 MVP에 살아남은 필드만 모아서 보여줍니다.</p>
+        </div>
+        <div id="fieldCatalog" class="field-catalog"></div>
+      </section>
+    </div>
+
+    <script src="./dashboard-bundle.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

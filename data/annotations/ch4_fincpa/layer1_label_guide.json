@@ -1,0 +1,63 @@
+{
+  "version": "0.1.0",
+  "annotation_layer": "layer1_clause_metadata",
+  "source_dataset": "data/parsed/ch4_fincpa/law_fincpa_main_ch4_clause_records.jsonl",
+  "fields": {
+    "is_relevant_to_theme2": {
+      "type": "single_label",
+      "allowed_values": ["yes", "no", "review"]
+    },
+    "topic_family": {
+      "type": "single_label",
+      "allowed_values": [
+        "general_principle",
+        "internal_control",
+        "consumer_fit_assessment",
+        "explanation_duty",
+        "unfair_sales_practice",
+        "improper_solicitation",
+        "advertising_compliance",
+        "other"
+      ]
+    },
+    "product_scope": {
+      "type": "multi_label_pipe_delimited",
+      "allowed_values": ["general", "loan", "deposit", "investment", "insurance", "multiple"]
+    },
+    "channel_scope": {
+      "type": "multi_label_pipe_delimited",
+      "allowed_values": [
+        "all_customer_facing",
+        "advertising",
+        "solicitation",
+        "contracting",
+        "advisory",
+        "visit_sales",
+        "phone_sales",
+        "internal_control"
+      ]
+    },
+    "obligation_mode": {
+      "type": "single_label",
+      "allowed_values": [
+        "general_principle",
+        "required_action",
+        "required_content",
+        "prohibited_action",
+        "workflow_control",
+        "recordkeeping"
+      ]
+    },
+    "needs_decomposition": {
+      "type": "single_label",
+      "allowed_values": ["yes", "no"]
+    },
+    "manual_verified": {
+      "type": "single_label",
+      "allowed_values": ["yes", "no"]
+    },
+    "reviewer_note": {
+      "type": "free_text"
+    }
+  }
+}

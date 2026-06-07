@@ -1,0 +1,36 @@
+{
+  "input_id": "investment_solicitation_full",
+  "title": "투자상품 계약 안내",
+  "content_text": "미래에셋증권 투자상품 안내입니다. 투자에는 원금 손실 가능성이 있으며 상품설명서와 약관을 확인해 주세요.",
+  "review_scope": "full",
+  "product_scope_hint": ["investment"],
+  "channel_scope_hint": ["contracting"],
+  "business_role_hint": "direct_seller",
+  "include_rule_families": ["suitability", "adequacy", "explanation", "contract_documents", "recordkeeping"],
+  "exclude_rule_families": [],
+  "field_inputs": {},
+  "content_metadata": {
+    "seller_identity": "미래에셋증권",
+    "product_identity": "투자상품",
+    "investment_warning": "원금 손실 가능성 고지",
+    "product_core_terms": ["투자상품", "원금 손실 가능성", "상품설명서", "약관"],
+    "explanation_material": ["상품설명서", "약관"],
+    "explanation_confirmation": "confirmed"
+  },
+  "workflow_metadata": {
+    "consumer_type": "general",
+    "consumer_profile": {
+      "risk_tolerance": "medium",
+      "investment_experience": "basic"
+    },
+    "suitability_check": "completed",
+    "adequacy_check": "completed",
+    "contract_document_delivery": "delivered",
+    "fairness_guardrail": "passed"
+  },
+  "record_metadata": {
+    "activity_record": "SOL-2026-001",
+    "record_integrity_control": "enabled",
+    "internal_control_standard": "ICTRL-2026-INV-01"
+  }
+}
