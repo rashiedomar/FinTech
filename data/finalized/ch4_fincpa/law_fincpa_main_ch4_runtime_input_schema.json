@@ -38,6 +38,12 @@
     "insurance",
     "multiple"
   ],
+  "business_role_values": [
+    "direct_seller",
+    "intermediary",
+    "advisory",
+    "independent_advisory"
+  ],
   "field_input_object_shape": {
     "status": "present | not_evidenced | not_applicable | uncertain",
     "value": "Any JSON value supported by the target field.",
@@ -81,9 +87,3 @@
     "record_metadata": {}
   }
 }
-  "business_role_values": [
-    "direct_seller",
-    "intermediary",
-    "advisory",
-    "independent_advisory"
-  ],

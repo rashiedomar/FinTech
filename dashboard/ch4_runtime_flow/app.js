@@ -41,6 +41,7 @@ const STAGES = [
   { id: "sir", title: "SIR Extraction", subtitle: "The runtime maps text and metadata into structured field states." },
   { id: "rules", title: "Active Rules", subtitle: "Only the relevant Layer 4 rules remain in scope." },
   { id: "law", title: "Triggered Law", subtitle: "Failed or uncertain rules surface their legal basis." },
+  { id: "embedding", title: "Embedding Retrieval", subtitle: "The failed rule becomes a retrieval query for legal support chunks." },
   { id: "result", title: "Final Result", subtitle: "The deterministic workflow emits the review decision." },
 ];
 
@@ -66,6 +67,7 @@ const stageElements = {
   sir: document.getElementById("stage-sir"),
   rules: document.getElementById("stage-rules"),
   law: document.getElementById("stage-law"),
+  embedding: document.getElementById("stage-embedding"),
   result: document.getElementById("stage-result"),
 };
 
@@ -220,6 +222,7 @@ function renderAllStages() {
   renderSirStage();
   renderRulesStage();
   renderLawStage();
+  renderEmbeddingStage();
   renderResultStage();
 }
 
@@ -369,7 +372,47 @@ function renderLawStage() {
   stageElements.law.innerHTML = buildStageFrame({
     stage: STAGES[3],
     body: `<div class="citation-list">${body}</div>`,
-    footerButton: buildFooterButton(3, "Reveal Final Result"),
+    footerButton: buildFooterButton(3, "Reveal Embedding Retrieval"),
+  });
+}
+
+function renderEmbeddingStage() {
+  const preview = getEmbeddingStagePreview();
+  let body = "";
+
+  if (preview.mode === "precomputed") {
+    body = `
+      <div class="result-card embedding-hero">
+        <div class="result-banner">
+          <div>
+            <p class="eyebrow">Bundled Retrieval Output</p>
+            <h3>${escapeHtml(preview.indexManifest?.model_id || "Embedding Index")}</h3>
+          </div>
+          <span class="status-pill status-present">${escapeHtml(preview.indexManifest?.index_status || "ready")}</span>
+        </div>
+        <div class="result-metrics">
+          ${metricBlock(preview.evidencePackage.coverage_summary.triggered_rule_count, "Triggered items")}
+          ${metricBlock(preview.evidencePackage.coverage_summary.retrieved_support_item_count, "Retrieved rows")}
+          ${metricBlock(preview.indexManifest?.embedding_dimension || "?", "Embedding dim")}
+          ${metricBlock(preview.indexManifest?.device_used || "local", "Device")}
+        </div>
+      </div>
+      <div class="embedding-stage-grid">${preview.items.map(renderRetrievedEvidenceItem).join("")}</div>
+    `;
+  } else {
+    body = `
+      <div class="citation-card retrieval-query-note">
+        <h4>Query contract preview</h4>
+        <p>This browser demo can show the retrieval query shape for custom or edited input, but the live vector search runs in the Python backend.</p>
+      </div>
+      <div class="embedding-stage-grid">${preview.queryRows.map(renderRetrievalQueryPreview).join("")}</div>
+    `;
+  }
+
+  stageElements.embedding.innerHTML = buildStageFrame({
+    stage: STAGES[4],
+    body,
+    footerButton: buildFooterButton(4, "Reveal Final Result"),
   });
 }
 
@@ -388,7 +431,7 @@ function renderResultStage() {
     : `<span class="meta-pill">none</span>`;
 
   stageElements.result.innerHTML = buildStageFrame({
-    stage: STAGES[4],
+    stage: STAGES[5],
     body: `
       <div class="result-card">
         <div class="result-banner">
@@ -429,6 +472,64 @@ function renderFieldGroup(title, fields, statusClass) {
       <h4>${title}</h4>
       <div class="field-grid">${items}</div>
     </section>
+  `;
+}
+
+function renderRetrievedEvidenceItem(item) {
+  const supportCards = (item.retrieved_support || [])
+    .slice(0, 3)
+    .map(
+      (support) => `
+        <div class="citation-card">
+          <h4>${escapeHtml(support.citation_label || support.chunk_id)}</h4>
+          <div class="citation-meta">
+            <span class="meta-pill">${escapeHtml(support.chunk_type)}</span>
+            ${support.rule_family ? `<span class="meta-pill">${escapeHtml(support.rule_family)}</span>` : ""}
+            ${support.logic_type ? `<span class="meta-pill">${escapeHtml(support.logic_type)}</span>` : ""}
+            <span class="meta-pill">score ${escapeHtml(String(support.score))}</span>
+          </div>
+          <p class="source-span">${escapeHtml((support.retrieval_text || "").slice(0, 360))}${(support.retrieval_text || "").length > 360 ? "..." : ""}</p>
+        </div>
+      `
+    )
+    .join("");
+
+  return `
+    <div class="rule-card retrieval-item-card">
+      <div class="stage-head">
+        <div class="stage-title">
+          <h4>${escapeHtml(item.rule_id)}</h4>
+          <p>${escapeHtml(item.legal_basis?.citation_label || "")}</p>
+        </div>
+        <span class="status-pill status-present">${escapeHtml(item.retrieval_mode || "vector_support")}</span>
+      </div>
+      <div class="rule-meta">
+        <span class="meta-pill">${escapeHtml(item.reason || "")}</span>
+        <span class="meta-pill">${escapeHtml(item.severity || "")}</span>
+        <span class="meta-pill">${escapeHtml(String((item.retrieved_support || []).length))} supports</span>
+      </div>
+      <div class="citation-list retrieval-support-list">${supportCards || `<div class="citation-card"><p>No retrieved support rows.</p></div>`}</div>
+    </div>
+  `;
+}
+
+function renderRetrievalQueryPreview(queryRow) {
+  return `
+    <div class="rule-card retrieval-query-card">
+      <div class="stage-head">
+        <div class="stage-title">
+          <h4>${escapeHtml(queryRow.rule_id)}</h4>
+          <p>${escapeHtml(queryRow.known_citation_label || "")}</p>
+        </div>
+        <span class="status-pill status-uncertain">${escapeHtml(queryRow.query_status || "query")}</span>
+      </div>
+      <div class="rule-meta">
+        <span class="meta-pill">${escapeHtml(queryRow.rule_family || "")}</span>
+        <span class="meta-pill">${escapeHtml(queryRow.logic_type || "")}</span>
+        ${(queryRow.preferred_chunk_types || []).map((chunkType) => `<span class="meta-pill">${escapeHtml(chunkType)}</span>`).join("")}
+      </div>
+      <pre class="json-panel">${escapeHtml(queryRow.query_text || "")}</pre>
+    </div>
   `;
 }
 
@@ -477,6 +578,66 @@ function metricBlock(value, label) {
       <span>${escapeHtml(label)}</span>
     </div>
   `;
+}
+
+function getEmbeddingStagePreview() {
+  const exampleId = state.selectedExample?.id;
+  const examplePayload = state.selectedExample?.payload;
+  const exactExampleText =
+    !!examplePayload &&
+    promptInput.value.trim() === String(examplePayload.content_text || "").trim();
+  const evidencePackage =
+    exactExampleText && exampleId ? runtimeBundle.exampleEvidencePackages?.[exampleId] : null;
+  const queryRows =
+    exactExampleText && examplePayload?.input_id
+      ? runtimeBundle.exampleRetrievalQueries?.[examplePayload.input_id] || []
+      : buildRetrievalQueryPreviewRows();
+
+  if (evidencePackage?.coverage_summary?.vector_index_available) {
+    return {
+      mode: "precomputed",
+      evidencePackage,
+      indexManifest: runtimeBundle.retrievalIndexManifest || null,
+      items: evidencePackage.evidence_items || [],
+      queryRows,
+    };
+  }
+  return {
+    mode: "query_preview",
+    indexManifest: runtimeBundle.retrievalIndexManifest || null,
+    queryRows,
+  };
+}
+
+function buildRetrievalQueryPreviewRows() {
+  const report = state.trace.review_report;
+  const contentText = state.trace.normalized_input.content_text || "";
+  const title = state.trace.normalized_input.title || "";
+  return report.rule_results
+    .filter((row) => row.status === "failed" || row.status === "uncertain")
+    .map((row) => ({
+      query_id: `${report.input_id}::${row.rule_id}`,
+      rule_id: row.rule_id,
+      query_status: row.status,
+      rule_family: row.rule_family,
+      logic_type: row.logic_type,
+      known_citation_label: row.legal_basis?.citation_label,
+      preferred_chunk_types: ["rule_grounded_clause", "parsed_clause", "article_rollup"],
+      query_text: [
+        `[case] ${report.input_id}`,
+        `[title] ${title}`,
+        `[content] ${contentText}`,
+        `[decision] ${report.final_decision}`,
+        `[rule_id] ${row.rule_id}`,
+        `[rule_family] ${row.rule_family}`,
+        `[logic_type] ${row.logic_type}`,
+        `[reason] ${row.reason}`,
+        `[finding_fields] ${(row.finding_fields || []).join(", ") || "none"}`,
+        `[known_citation] ${row.legal_basis?.citation_label || ""}`,
+        `[rule_summary] ${row.summary || ""}`,
+        `[source_span] ${row.legal_basis?.source_span_text || ""}`,
+      ].join("\n"),
+    }));
 }
 
 function mapStatusClass(status) {

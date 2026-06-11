@@ -38,6 +38,10 @@ It is static because:
 - the runtime is not searching the law dynamically
 - it is using the pre-linked legal basis frozen into Layer 4
 
+After runtime, the postprocess layer can now add **local vector-retrieved legal
+support** on top of this static citation path, if the Chapter 4 embedding index
+has been built.
+
 
 What evidence retrieval will do later
 -------------------------------------
@@ -104,6 +108,12 @@ Simple split
 - already attached through Layer 4
 - enough to prove legal grounding exists before LLM
 
+### Current postprocess retrieval
+- local vector retrieval over the Chapter 4 corpus
+- metadata-aware cosine search
+- expands the evidence package around a failed rule
+- still limited to the current official Chapter 4 legal corpus
+
 ### Future evidence retrieval
 - dynamic
 - expands the legal basis package
@@ -118,4 +128,3 @@ rule is traceable back to a specific Chapter 4 law clause. Evidence retrieval
 comes later to enrich that static legal basis with dynamically fetched official
 snippets, subordinate rules, and surrounding context before the case is sent to
 the LLM and human reviewer.
-

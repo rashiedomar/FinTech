@@ -366,6 +366,13 @@ select {
   padding: 14px;
 }
 
+.retrieval-snapshot-card {
+  background:
+    radial-gradient(circle at top right, rgba(15, 118, 110, 0.08), transparent 36%),
+    linear-gradient(180deg, #fffdf8 0%, #f8fcfb 100%);
+  border-color: rgba(15, 118, 110, 0.16);
+}
+
 .field-card h3 {
   margin: 0;
   font-size: 17px;

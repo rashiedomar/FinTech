@@ -1,0 +1,21 @@
+{
+  "artifact_type": "ch4_embedding_index_manifest",
+  "version": "0.1.0",
+  "index_status": "ready",
+  "model_id": "intfloat/multilingual-e5-small",
+  "device_used": "cuda",
+  "batch_size": 16,
+  "max_length": 512,
+  "chunk_count": 154,
+  "embedding_dimension": 384,
+  "output_paths": {
+    "index_rows_jsonl": "data/retrieval/ch4_fincpa/ch4_embedding_index_rows.jsonl",
+    "embeddings_npy": "data/retrieval/ch4_fincpa/ch4_embedding_index_embeddings.npy",
+    "manifest_json": "data/retrieval/ch4_fincpa/ch4_embedding_index_manifest.json"
+  },
+  "notes": [
+    "Embeddings are L2-normalized sentence vectors.",
+    "Queries should be encoded with the E5 query prefix.",
+    "Retrieval uses cosine similarity plus metadata-aware reranking."
+  ]
+}

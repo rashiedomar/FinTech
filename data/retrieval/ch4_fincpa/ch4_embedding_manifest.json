@@ -1,0 +1,27 @@
+{
+  "artifact_type": "ch4_embedding_manifest",
+  "version": "0.1.0",
+  "purpose": "Embedding-ready legal retrieval corpus for the Chapter 4 evidence retrieval layer.",
+  "embedding_status": "corpus_ready_vectors_not_computed",
+  "source_scope": {
+    "source_pdf": "data/raw/official/law_fincpa_main_2026-01-02.pdf",
+    "chapter_id": "제4장",
+    "chapter_title": "금융상품판매업자등의 영업행위 준수사항"
+  },
+  "chunk_count": 154,
+  "chunk_type_counts": {
+    "article_rollup": 18,
+    "parsed_clause": 60,
+    "rule_grounded_clause": 76
+  },
+  "article_count": 18,
+  "rule_grounded_rule_count": 76,
+  "output_paths": {
+    "corpus_jsonl": "data/retrieval/ch4_fincpa/ch4_embedding_corpus.jsonl"
+  },
+  "notes": [
+    "This file is embedding-ready but does not contain vectors yet.",
+    "The recommended first retrieval index is the rule_grounded_clause chunk family.",
+    "parsed_clause and article_rollup chunks should be retained for legal context expansion and human review support."
+  ]
+}

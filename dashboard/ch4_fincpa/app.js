@@ -164,6 +164,7 @@ const clauseCountTextEl = document.getElementById("clauseCountText");
 const detailHeaderEl = document.getElementById("detailHeader");
 const detailBodyEl = document.getElementById("detailBody");
 const fieldCatalogEl = document.getElementById("fieldCatalog");
+const retrievalSnapshotEl = document.getElementById("retrievalSnapshot");
 const resetFiltersBtn = document.getElementById("resetFiltersBtn");
 const statusBannerEl = document.getElementById("statusBanner");
 const langSwitchEl = document.getElementById("langSwitch");
@@ -230,6 +231,9 @@ function buildOverviewCards(bundle) {
     [textFor("Layer 3 후보 수", "Layer 3 Candidates"), bundle.overview.layer3_candidate_count],
     [textFor("Layer 4 규칙 수", "Layer 4 Rules"), bundle.overview.layer4_rule_count],
     [textFor("Layer 4 SIR 필드 수", "Layer 4 SIR Fields"), bundle.overview.layer4_field_count],
+    [textFor("검색 청크 수", "Retrieval Chunks"), bundle.overview.retrieval_chunk_count ?? 0],
+    [textFor("검색 쿼리 수", "Retrieval Queries"), bundle.overview.retrieval_query_count ?? 0],
+    [textFor("인덱스 상태", "Index Status"), bundle.overview.retrieval_index_status ?? "not_built"],
   ];
   overviewCardsEl.innerHTML = cards
     .map(
@@ -376,6 +380,29 @@ function renderLayer4Item(item) {
     </div>`;
 }
 
+function renderRetrievalChunkItem(item) {
+  return `
+    <div class="data-box">
+      <h4>${escapeHtml(item.chunk_id)}</h4>
+      <div class="pill-row">
+        <span class="pill accent">${escapeHtml(item.chunk_type)}</span>
+        ${item.citation_label ? `<span class="pill">${escapeHtml(item.citation_label)}</span>` : ""}
+        ${item.rule_id ? `<span class="pill">${escapeHtml(item.rule_id)}</span>` : ""}
+      </div>
+      ${
+        item.rule_family_label || item.logic_type_label
+          ? `
+          <div class="pill-row">
+            ${item.rule_family_label ? `<span class="pill">${escapeHtml(labelText(item.rule_family_label))}</span>` : ""}
+            ${item.logic_type_label ? `<span class="pill">${escapeHtml(labelText(item.logic_type_label))}</span>` : ""}
+          </div>`
+          : ""
+      }
+      <p><strong>${escapeHtml(textFor("임베딩 미리보기", "Embedding Preview"))}:</strong> ${escapeHtml(item.retrieval_text_preview || "")}</p>
+      <p><strong>${escapeHtml(textFor("대통령령 힌트", "Delegated Detail Hint"))}:</strong> ${escapeHtml(item.delegated_detail_hint ? textFor("있음", "yes") : textFor("없음", "no"))}</p>
+    </div>`;
+}
+
 function renderDetail() {
   const clause = state.bundle.clauses.find((item) => item.record_id === state.selectedRecordId);
   if (!clause) {
@@ -461,6 +488,24 @@ function renderDetail() {
         ${clause.layer4.length ? clause.layer4.map(renderLayer4Item).join("") : `<div class="empty-state">${escapeHtml(textFor("이 조항은 아직 Layer 4 MVP 규칙으로 채택되지 않았습니다.", "This clause has not yet been included in the Layer 4 MVP rule pack."))}</div>`}
       </div>
     </section>
+
+    <section class="layer-card">
+      <h3>${escapeHtml(textFor("Layer 5. 임베딩 검색 코퍼스", "Layer 5. Embedding Retrieval Corpus"))}</h3>
+      <p class="layer-note">${escapeHtml(textFor("이 조항이 어떤 검색 청크로 변환되었는지와, 현재 로컬 임베딩 인덱스가 준비되었는지를 보여줍니다.", "This layer shows which retrieval chunks this clause contributes and whether the local embedding index is ready."))}</p>
+      <div class="pill-row">
+        <span class="pill accent">${escapeHtml(textFor(`관련 청크 ${clause.retrieval.summary.total_related_chunk_count}`, `Related chunks ${clause.retrieval.summary.total_related_chunk_count}`))}</span>
+        <span class="pill">${escapeHtml(textFor(`직접 청크 ${clause.retrieval.summary.direct_chunk_count}`, `Direct chunks ${clause.retrieval.summary.direct_chunk_count}`))}</span>
+        <span class="pill">${escapeHtml(textFor(`문맥 청크 ${clause.retrieval.summary.article_chunk_count}`, `Context chunks ${clause.retrieval.summary.article_chunk_count}`))}</span>
+        <span class="pill">${escapeHtml(textFor(`인덱스 ${clause.retrieval.summary.vector_index_ready ? "준비됨" : "미구축"}`, `Index ${clause.retrieval.summary.vector_index_ready ? "ready" : "not built"}`))}</span>
+      </div>
+      <div class="stack">
+        ${
+          clause.retrieval.direct_chunks.length || clause.retrieval.article_chunks.length
+            ? [...clause.retrieval.direct_chunks, ...clause.retrieval.article_chunks].map(renderRetrievalChunkItem).join("")
+            : `<div class="empty-state">${escapeHtml(textFor("이 조항과 연결된 검색 청크가 없습니다.", "No retrieval chunks are linked to this clause."))}</div>`
+        }
+      </div>
+    </section>
   `;
 }
 
@@ -482,6 +527,42 @@ function renderFieldCatalog(bundle) {
     .join("");
 }
 
+function renderRetrievalSnapshot(bundle) {
+  const manifest = bundle.retrieval?.manifest || {};
+  const queryManifest = bundle.retrieval?.query_manifest || {};
+  const indexManifest = bundle.retrieval?.index_manifest || {};
+  const chunkTypeCounts = Object.entries(manifest.chunk_type_counts || {});
+
+  retrievalSnapshotEl.innerHTML = [
+    `
+      <article class="field-card retrieval-snapshot-card">
+        <h3>${escapeHtml(textFor("인덱스 상태", "Index Status"))}</h3>
+        <div class="pill-row">
+          <span class="pill accent">${escapeHtml(indexManifest.index_status || "not_built")}</span>
+          <span class="pill">${escapeHtml(indexManifest.model_id || textFor("모델 없음", "no model"))}</span>
+        </div>
+        <p>${escapeHtml(textFor("현재 로컬 벡터 인덱스와 임베딩 모델 상태입니다.", "Current local vector index and embedding model status."))}</p>
+        <div class="pill-row">
+          <span class="pill">${escapeHtml(textFor(`청크 ${manifest.chunk_count || 0}`, `Chunks ${manifest.chunk_count || 0}`))}</span>
+          <span class="pill">${escapeHtml(textFor(`쿼리 ${queryManifest.query_count || 0}`, `Queries ${queryManifest.query_count || 0}`))}</span>
+          <span class="pill">${escapeHtml(textFor(`차원 ${indexManifest.embedding_dimension || 0}`, `Dim ${indexManifest.embedding_dimension || 0}`))}</span>
+        </div>
+      </article>
+    `,
+    ...chunkTypeCounts.map(
+      ([chunkType, count]) => `
+        <article class="field-card retrieval-snapshot-card">
+          <h3>${escapeHtml(chunkType)}</h3>
+          <div class="pill-row">
+            <span class="pill accent">${escapeHtml(textFor(`개수 ${count}`, `Count ${count}`))}</span>
+          </div>
+          <p>${escapeHtml(textFor("이 청크 타입이 검색 코퍼스에서 차지하는 비중입니다.", "This is the number of chunks of this type in the retrieval corpus."))}</p>
+        </article>
+      `
+    ),
+  ].join("");
+}
+
 function updateLanguageButtons() {
   langSwitchEl.querySelectorAll("[data-lang]").forEach((button) => {
     button.classList.toggle("active", button.dataset.lang === state.lang);
@@ -494,6 +575,7 @@ function rerenderAll() {
   buildPipeline(state.bundle);
   fillTopicFilter(state.bundle);
   renderFieldCatalog(state.bundle);
+  renderRetrievalSnapshot(state.bundle);
   applyFilters();
 }
 
@@ -521,6 +603,7 @@ async function init() {
   buildPipeline(bundle);
   fillTopicFilter(bundle);
   renderFieldCatalog(bundle);
+  renderRetrievalSnapshot(bundle);
   setStatus(textFor("대시보드 데이터 로딩 완료", "Dashboard data loaded"), false);
 
   searchInputEl.addEventListener("input", applyFilters);

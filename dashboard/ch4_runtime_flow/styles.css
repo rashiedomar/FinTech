@@ -381,6 +381,11 @@ body {
   gap: 16px;
 }
 
+.embedding-stage-grid {
+  display: grid;
+  gap: 18px;
+}
+
 .field-group {
   border: 1px solid rgba(31, 46, 42, 0.08);
   border-radius: 22px;
@@ -475,6 +480,35 @@ body {
   margin: 0;
   color: var(--muted);
   line-height: 1.65;
+}
+
+.embedding-hero {
+  background:
+    radial-gradient(circle at top right, rgba(40, 91, 89, 0.18), transparent 34%),
+    linear-gradient(180deg, rgba(255, 252, 247, 0.92), rgba(243, 248, 247, 0.88));
+  border-color: rgba(40, 91, 89, 0.18);
+}
+
+.retrieval-item-card {
+  background:
+    linear-gradient(180deg, rgba(244, 249, 248, 0.96), rgba(255, 255, 255, 0.72));
+  border-color: rgba(40, 91, 89, 0.16);
+}
+
+.retrieval-query-card {
+  background:
+    linear-gradient(180deg, rgba(250, 244, 235, 0.98), rgba(255, 255, 255, 0.68));
+  border-color: rgba(184, 133, 48, 0.18);
+}
+
+.retrieval-query-note {
+  background:
+    linear-gradient(180deg, rgba(248, 242, 233, 0.96), rgba(255, 255, 255, 0.68));
+  border-color: rgba(184, 133, 48, 0.16);
+}
+
+.retrieval-support-list {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
 .source-span {
@@ -592,4 +626,3 @@ body {
     width: 100%;
   }
 }
-

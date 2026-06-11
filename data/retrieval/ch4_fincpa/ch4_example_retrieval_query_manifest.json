@@ -1,0 +1,29 @@
+{
+  "artifact_type": "ch4_retrieval_query_manifest",
+  "version": "0.1.0",
+  "purpose": "Example retrieval queries derived from current deterministic Chapter 4 review outputs.",
+  "query_count": 8,
+  "processed_input_count": 5,
+  "processed_inputs": [
+    "deposit_ad_missing_disclaimer",
+    "insurance_ad_missing_warning",
+    "investment_ad_guaranteed_return_violation",
+    "loan_ad_content_only",
+    "solicitation_improper_claim_violation"
+  ],
+  "query_status_counts": {
+    "failed": 8
+  },
+  "rule_family_counts": {
+    "advertising": 7,
+    "solicitation": 1
+  },
+  "output_paths": {
+    "queries_jsonl": "data/retrieval/ch4_fincpa/ch4_example_retrieval_queries.jsonl"
+  },
+  "notes": [
+    "Each query is tied to one failed or uncertain rule result.",
+    "The query contract is designed for vector retrieval plus metadata filtering.",
+    "These queries are examples only; production retrieval should build the same structure on demand after runtime evaluation."
+  ]
+}
