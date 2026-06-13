@@ -7,7 +7,7 @@ const state = {
   bundle: null,
   filteredClauses: [],
   selectedRecordId: null,
-  lang: "both",
+  lang: "ko",
 };
 
 const TOPIC_LABELS = {
@@ -169,9 +169,7 @@ const statusBannerEl = document.getElementById("statusBanner");
 const langSwitchEl = document.getElementById("langSwitch");
 
 function textFor(ko, en) {
-  if (state.lang === "ko") return ko;
-  if (state.lang === "en") return en;
-  return `${ko} / ${en}`;
+  return ko;
 }
 
 function escapeHtml(value) {
@@ -210,6 +208,34 @@ function normalizeLabelList(items, mapping = null) {
   return [normalizeLabel(items, mapping)];
 }
 
+function formatYesNo(value) {
+  const normalized = String(value ?? "").trim().toLowerCase();
+  if (["yes", "true"].includes(normalized)) return "예";
+  if (["no", "false"].includes(normalized)) return "아니오";
+  return String(value ?? "");
+}
+
+function formatReadyState(value) {
+  const normalized = String(value ?? "").trim().toLowerCase();
+  if (normalized === "yes") return "반영";
+  if (normalized === "review") return "검토 필요";
+  if (normalized === "no") return "미반영";
+  return String(value ?? "");
+}
+
+function buildFieldDescription(field) {
+  if (field.description_ko) return field.description_ko;
+  const fieldLabel = labelText(normalizeLabel(field.field_label || field.field_name, FIELD_NAME_LABELS));
+  const groupLabel = labelText(normalizeLabel(field.field_group_label || field.field_group, DETECTION_TARGET_LABELS));
+  const families = normalizeLabelList(field.rule_family_labels || field.rule_families, RULE_FAMILY_LABELS)
+    .map((item) => labelText(item))
+    .filter(Boolean)
+    .join(", ");
+  const articleText = (field.article_refs || []).join(", ");
+  const base = `${fieldLabel} 필드는 ${groupLabel} 영역에서 확인하며 ${families || "관련"} 규칙과 연결됩니다.`;
+  return articleText ? `${base} 관련 조항은 ${articleText}입니다.` : base;
+}
+
 function renderPills(labels, accent = false) {
   if (!labels || !labels.length) return "";
   return `<div class="pill-row">${labels
@@ -224,12 +250,12 @@ function setStatus(message, visible = true) {
 
 function buildOverviewCards(bundle) {
   const cards = [
-    [textFor("Parse 조항 수", "Parsed Clauses"), bundle.overview.parse_clause_count],
-    [textFor("Layer 1 조항 수", "Layer 1 Clauses"), bundle.overview.layer1_clause_count],
-    [textFor("Layer 2 의무 수", "Layer 2 Obligations"), bundle.overview.layer2_obligation_count],
-    [textFor("Layer 3 후보 수", "Layer 3 Candidates"), bundle.overview.layer3_candidate_count],
-    [textFor("Layer 4 규칙 수", "Layer 4 Rules"), bundle.overview.layer4_rule_count],
-    [textFor("Layer 4 SIR 필드 수", "Layer 4 SIR Fields"), bundle.overview.layer4_field_count],
+    [textFor("파싱 조항 수", "Parsed Clauses"), bundle.overview.parse_clause_count],
+    [textFor("1단계 조항 수", "Layer 1 Clauses"), bundle.overview.layer1_clause_count],
+    [textFor("2단계 의무 수", "Layer 2 Obligations"), bundle.overview.layer2_obligation_count],
+    [textFor("3단계 후보 수", "Layer 3 Candidates"), bundle.overview.layer3_candidate_count],
+    [textFor("4단계 규칙 수", "Layer 4 Rules"), bundle.overview.layer4_rule_count],
+    [textFor("4단계 SIR 필드 수", "Layer 4 SIR Fields"), bundle.overview.layer4_field_count],
   ];
   overviewCardsEl.innerHTML = cards
     .map(
@@ -313,13 +339,13 @@ function renderClauseList() {
       return `
         <article class="clause-item ${active}" data-record-id="${escapeHtml(clause.record_id)}">
           <h3>${escapeHtml(clause.article_id)} ${escapeHtml(clause.paragraph_id)} ${escapeHtml(clause.article_title)}</h3>
-          <p>${escapeHtml(clause.section_title)} · p.${escapeHtml(clause.page_start)}</p>
+          <p>${escapeHtml(clause.section_title)} · 페이지 ${escapeHtml(clause.page_start)}</p>
           <p>${escapeHtml((clause.normalized_text || clause.raw_text || "").slice(0, 110))}${(clause.normalized_text || clause.raw_text || "").length > 110 ? "..." : ""}</p>
           ${clause.layer1 ? renderPills([normalizeLabel(clause.layer1.topic_family_label || clause.layer1.topic_family, TOPIC_LABELS)], true) : ""}
           <div class="pill-row">
-            <span class="pill">L2 ${clause.summary.layer2_count}</span>
-            <span class="pill">L3 ${clause.summary.layer3_count}</span>
-            <span class="pill">L4 ${clause.summary.layer4_count}</span>
+            <span class="pill">2단계 ${clause.summary.layer2_count}</span>
+            <span class="pill">3단계 ${clause.summary.layer3_count}</span>
+            <span class="pill">4단계 ${clause.summary.layer4_count}</span>
           </div>
         </article>`;
     })
@@ -334,46 +360,52 @@ function renderClauseList() {
   });
 }
 
-function renderLayer2Item(item) {
+function renderLayer2Item(item, index) {
+  const headingNumber = item.obligation_order || index + 1;
   return `
     <div class="data-box">
-      <h4>${escapeHtml(item.obligation_label)}</h4>
+      <h4>${escapeHtml(`의무 ${headingNumber}`)}</h4>
       ${renderPills(normalizeLabelList(item.product_scope_labels || item.product_scope, PRODUCT_SCOPE_LABELS), true)}
       ${renderPills(normalizeLabelList(item.channel_scope_labels || item.channel_scope, CHANNEL_SCOPE_LABELS))}
-      <p><strong>${escapeHtml(textFor("의무 요약", "Obligation Summary"))}:</strong> ${escapeHtml(item.obligation_summary)}</p>
+      <p><strong>관련 조항:</strong> ${escapeHtml(`${item.article_id}${item.paragraph_id ? ` ${item.paragraph_id}` : ""}`)}</p>
       <p><strong>${escapeHtml(textFor("트리거", "Trigger"))}:</strong> ${escapeHtml(labelText(normalizeLabel(item.trigger_type_label || item.trigger_type, TRIGGER_TYPE_LABELS)))}</p>
       <p><strong>${escapeHtml(textFor("운영 가능성", "Operationality"))}:</strong> ${escapeHtml(labelText(normalizeLabel(item.operationality_label || item.operationality, OPERATIONALITY_LABELS)))}</p>
+      <p><strong>조항 원문:</strong></p>
       <pre>${escapeHtml(item.source_span_text || "")}</pre>
     </div>`;
 }
 
-function renderLayer3Item(item) {
+function renderLayer3Item(item, index) {
   return `
     <div class="data-box">
-      <h4>${escapeHtml(item.rule_candidate_id)}</h4>
+      <h4>${escapeHtml(`후보 규칙 ${index + 1}`)}</h4>
       ${renderPills([normalizeLabel(item.rule_family_label || item.rule_family, RULE_FAMILY_LABELS)], true)}
-      <p><strong>${escapeHtml(textFor("후보 규칙", "Candidate Rule"))}:</strong> ${escapeHtml(item.rule_candidate_summary)}</p>
-      <p><strong>Logic:</strong> ${escapeHtml(labelText(normalizeLabel(item.logic_type_label || item.logic_type, LOGIC_TYPE_LABELS)))}</p>
-      <p><strong>Detection:</strong> ${escapeHtml(labelText(normalizeLabel(item.detection_target_label || item.detection_target, DETECTION_TARGET_LABELS)))}</p>
+      <p><strong>관련 조항:</strong> ${escapeHtml(`${item.article_id}${item.paragraph_id ? ` ${item.paragraph_id}` : ""}`)}</p>
+      <p><strong>판정 방식:</strong> ${escapeHtml(labelText(normalizeLabel(item.logic_type_label || item.logic_type, LOGIC_TYPE_LABELS)))}</p>
+      <p><strong>탐지 대상:</strong> ${escapeHtml(labelText(normalizeLabel(item.detection_target_label || item.detection_target, DETECTION_TARGET_LABELS)))}</p>
       <p><strong>${escapeHtml(textFor("SIR 연결", "SIR Link"))}:</strong> ${escapeHtml(labelText(normalizeLabel(item.sir_link_type_label || item.sir_link_type, SIR_LINK_TYPE_LABELS)))}</p>
       ${renderPills(normalizeLabelList(item.sir_candidate_field_labels || item.sir_candidate_fields, FIELD_NAME_LABELS))}
       <p><strong>${escapeHtml(textFor("증거원", "Evidence Source"))}:</strong> ${escapeHtml(labelText(normalizeLabel(item.evidence_source_label || item.evidence_source, EVIDENCE_SOURCE_LABELS)))}</p>
-      <p><strong>ready_for_v1:</strong> ${escapeHtml(item.ready_for_v1)}</p>
+      <p><strong>1차 반영 상태:</strong> ${escapeHtml(formatReadyState(item.ready_for_v1))}</p>
+      <p><strong>조항 원문:</strong></p>
+      <pre>${escapeHtml(item.source_span_text || "")}</pre>
     </div>`;
 }
 
-function renderLayer4Item(item) {
+function renderLayer4Item(item, index) {
   return `
     <div class="data-box">
-      <h4>${escapeHtml(item.rule_id)}</h4>
+      <h4>${escapeHtml(`확정 규칙 ${index + 1}`)}</h4>
       ${renderPills([normalizeLabel(item.rule_family_label || item.rule_family, RULE_FAMILY_LABELS)], true)}
       ${renderPills(normalizeLabelList(item.product_scope_labels || item.product_scope, PRODUCT_SCOPE_LABELS))}
-      <p><strong>${escapeHtml(textFor("MVP 규칙 요약", "MVP Rule Summary"))}:</strong> ${escapeHtml(item.rule_candidate_summary)}</p>
-      <p><strong>Logic:</strong> ${escapeHtml(labelText(normalizeLabel(item.logic_type_label || item.logic_type, LOGIC_TYPE_LABELS)))}</p>
-      <p><strong>Detection:</strong> ${escapeHtml(labelText(normalizeLabel(item.detection_target_label || item.detection_target, DETECTION_TARGET_LABELS)))}</p>
-      <p><strong>${escapeHtml(textFor("평가 힌트", "Evaluation Hint"))}:</strong> ${escapeHtml(item.evaluation_hint)}</p>
+      <p><strong>관련 조항:</strong> ${escapeHtml(`${item.article_id}${item.paragraph_id ? ` ${item.paragraph_id}` : ""}`)}</p>
+      <p><strong>판정 방식:</strong> ${escapeHtml(labelText(normalizeLabel(item.logic_type_label || item.logic_type, LOGIC_TYPE_LABELS)))}</p>
+      <p><strong>탐지 대상:</strong> ${escapeHtml(labelText(normalizeLabel(item.detection_target_label || item.detection_target, DETECTION_TARGET_LABELS)))}</p>
+      <p><strong>${escapeHtml(textFor("SIR 연결", "SIR Link"))}:</strong> ${escapeHtml(labelText(normalizeLabel(item.sir_link_type_label || item.sir_link_type, SIR_LINK_TYPE_LABELS)))}</p>
       ${renderPills(normalizeLabelList(item.sir_candidate_field_labels || item.sir_candidate_fields, FIELD_NAME_LABELS))}
       <p><strong>${escapeHtml(textFor("증거원", "Evidence Source"))}:</strong> ${escapeHtml(labelText(normalizeLabel(item.evidence_source_label || item.evidence_source, EVIDENCE_SOURCE_LABELS)))}</p>
+      <p><strong>조항 원문:</strong></p>
+      <pre>${escapeHtml(item.source_span_text || "")}</pre>
     </div>`;
 }
 
@@ -387,79 +419,71 @@ function renderDetail() {
 
   detailHeaderEl.innerHTML = `
     <h2>${escapeHtml(clause.article_id)} ${escapeHtml(clause.paragraph_id)} ${escapeHtml(clause.article_title)}</h2>
-    <p>${escapeHtml(clause.section_title)} · 페이지 ${escapeHtml(clause.page_start)} · record_id: ${escapeHtml(clause.record_id)}</p>
+    <p>${escapeHtml(clause.section_title)} · 페이지 ${escapeHtml(clause.page_start)}</p>
     <div class="pill-row">
-      <span class="pill accent">Layer 2 ${clause.summary.layer2_count}</span>
-      <span class="pill accent">Layer 3 ${clause.summary.layer3_count}</span>
-      <span class="pill accent">Layer 4 ${clause.summary.layer4_count}</span>
-      <span class="pill accent">SIR fields ${clause.summary.sir_field_count}</span>
+      <span class="pill accent">2단계 ${clause.summary.layer2_count}</span>
+      <span class="pill accent">3단계 ${clause.summary.layer3_count}</span>
+      <span class="pill accent">4단계 ${clause.summary.layer4_count}</span>
+      <span class="pill accent">SIR 필드 ${clause.summary.sir_field_count}</span>
     </div>
   `;
 
   detailBodyEl.innerHTML = `
     <section class="layer-card">
-      <h3>${escapeHtml(textFor("Layer 0. 파싱", "Layer 0. Parsing"))}</h3>
+      <h3>${escapeHtml(textFor("0단계. 파싱", "Layer 0. Parsing"))}</h3>
       <p class="layer-note">${escapeHtml(textFor("공식 법령 PDF에서 잘라낸 원문과 정규화 텍스트입니다.", "Raw and normalized source text segmented from the official PDF."))}</p>
       <div class="grid-two">
         <div class="data-box">
-          <h4>${escapeHtml(textFor("원문 raw_text", "Source raw_text"))}</h4>
+          <h4>${escapeHtml(textFor("원문", "Source raw_text"))}</h4>
           <pre>${escapeHtml(clause.raw_text)}</pre>
         </div>
         <div class="data-box">
-          <h4>${escapeHtml(textFor("정규화 normalized_text", "Normalized normalized_text"))}</h4>
+          <h4>${escapeHtml(textFor("정규화 텍스트", "Normalized normalized_text"))}</h4>
           <pre>${escapeHtml(clause.normalized_text)}</pre>
         </div>
       </div>
     </section>
 
     <section class="layer-card">
-      <h3>${escapeHtml(textFor("Layer 1. 조항 메타데이터", "Layer 1. Clause Metadata"))}</h3>
+      <h3>${escapeHtml(textFor("1단계. 조항 메타데이터", "Layer 1. Clause Metadata"))}</h3>
       <p class="layer-note">${escapeHtml(textFor("이 조항이 어떤 주제인지, 어떤 범위인지, 다음 단계에서 분해가 필요한지 부여한 레이어입니다.", "This layer adds topic, scope, and whether decomposition is needed."))}</p>
       ${
         clause.layer1
           ? `
-          <div class="grid-two">
-            <div class="data-box">
-              <h4>${escapeHtml(textFor("핵심 메타데이터", "Core Metadata"))}</h4>
-              ${renderPills([normalizeLabel(clause.layer1.topic_family_label || clause.layer1.topic_family, TOPIC_LABELS)], true)}
-              ${renderPills([normalizeLabel(clause.layer1.obligation_mode_label || clause.layer1.obligation_mode, OBLIGATION_MODE_LABELS)])}
-              ${renderPills(normalizeLabelList(clause.layer1.product_scope_labels || clause.layer1.product_scope, PRODUCT_SCOPE_LABELS))}
-              ${renderPills(normalizeLabelList(clause.layer1.channel_scope_labels || clause.layer1.channel_scope, CHANNEL_SCOPE_LABELS))}
-              <p><strong>${escapeHtml(textFor("분해 필요", "Needs Decomposition"))}:</strong> ${escapeHtml(clause.layer1.needs_decomposition)}</p>
-              <p><strong>${escapeHtml(textFor("우리 workflow 관련성", "Workflow Relevance"))}:</strong> ${escapeHtml(clause.layer1.is_relevant_to_theme2)}</p>
-            </div>
-            <div class="data-box">
-              <h4>Gemini 설명</h4>
-              <p>${escapeHtml(clause.layer1.gemini_reasoning_summary)}</p>
-              <p><strong>${escapeHtml(textFor("모델", "Model"))}:</strong> ${escapeHtml(clause.layer1.gemini_model)}</p>
-              <p><strong>${escapeHtml(textFor("신뢰도", "Confidence"))}:</strong> ${escapeHtml(clause.layer1.gemini_confidence)}</p>
-            </div>
+          <div class="data-box">
+            <h4>${escapeHtml(textFor("핵심 메타데이터", "Core Metadata"))}</h4>
+            ${renderPills([normalizeLabel(clause.layer1.topic_family_label || clause.layer1.topic_family, TOPIC_LABELS)], true)}
+            ${renderPills([normalizeLabel(clause.layer1.obligation_mode_label || clause.layer1.obligation_mode, OBLIGATION_MODE_LABELS)])}
+            ${renderPills(normalizeLabelList(clause.layer1.product_scope_labels || clause.layer1.product_scope, PRODUCT_SCOPE_LABELS))}
+            ${renderPills(normalizeLabelList(clause.layer1.channel_scope_labels || clause.layer1.channel_scope, CHANNEL_SCOPE_LABELS))}
+            <p><strong>${escapeHtml(textFor("분해 필요", "Needs Decomposition"))}:</strong> ${escapeHtml(formatYesNo(clause.layer1.needs_decomposition))}</p>
+            <p><strong>${escapeHtml(textFor("프로젝트 관련성", "Workflow Relevance"))}:</strong> ${escapeHtml(formatYesNo(clause.layer1.is_relevant_to_theme2))}</p>
           </div>`
-          : `<div class="empty-state">${escapeHtml(textFor("Layer 1 데이터가 없습니다.", "No Layer 1 data for this clause."))}</div>`
+          : `<div class="empty-state">${escapeHtml(textFor("1단계 데이터가 없습니다.", "No Layer 1 data for this clause."))}</div>`
       }
     </section>
 
     <section class="layer-card">
-      <h3>${escapeHtml(textFor("Layer 2. 의무 분해", "Layer 2. Obligation Decomposition"))}</h3>
+      <h3>${escapeHtml(textFor("2단계. 의무 분해", "Layer 2. Obligation Decomposition"))}</h3>
       <p class="layer-note">${escapeHtml(textFor("한 조항 안의 여러 의무를 작게 쪼개서 이후 규칙 설계가 가능하도록 만든 레이어입니다.", "This layer splits one clause into smaller obligation units for later rule design."))}</p>
       <div class="stack">
-        ${clause.layer2.length ? clause.layer2.map(renderLayer2Item).join("") : `<div class="empty-state">${escapeHtml(textFor("Layer 2 의무가 없습니다.", "No Layer 2 obligations for this clause."))}</div>`}
+        ${clause.layer2.length ? clause.layer2.map((item, index) => renderLayer2Item(item, index)).join("") : `<div class="empty-state">${escapeHtml(textFor("2단계 의무가 없습니다.", "No Layer 2 obligations for this clause."))}</div>`}
       </div>
     </section>
 
     <section class="layer-card">
-      <h3>${escapeHtml(textFor("Layer 3. 규칙 / SIR 후보", "Layer 3. Rule / SIR Candidates"))}</h3>
-      <p class="layer-note">${escapeHtml(textFor("Layer 2 의무를 기준으로 미래 규칙 형태와 SIR 필드 후보를 제안한 레이어입니다.", "This layer proposes future rule shapes and candidate SIR fields from each obligation."))}</p>
+      <h3>${escapeHtml(textFor("3단계. 규칙 / SIR 후보", "Layer 3. Rule / SIR Candidates"))}</h3>
+      <p class="layer-note">${escapeHtml(textFor("2단계 의무를 기준으로 미래 규칙 형태와 SIR 필드 후보를 제안한 단계입니다.", "This layer proposes future rule shapes and candidate SIR fields from each obligation."))}</p>
       <div class="stack">
-        ${clause.layer3.length ? clause.layer3.map(renderLayer3Item).join("") : `<div class="empty-state">${escapeHtml(textFor("Layer 3 후보가 없습니다.", "No Layer 3 candidates for this clause."))}</div>`}
+        ${clause.layer3.length ? clause.layer3.map((item, index) => renderLayer3Item(item, index)).join("") : `<div class="empty-state">${escapeHtml(textFor("3단계 후보가 없습니다.", "No Layer 3 candidates for this clause."))}</div>`}
       </div>
     </section>
 
     <section class="layer-card">
-      <h3>${escapeHtml(textFor("Layer 4. 최종 MVP 고정", "Layer 4. Final MVP Freeze"))}</h3>
-      <p class="layer-note">${escapeHtml(textFor("Layer 3 후보 중 ready_for_v1=yes만 살려서 실제 MVP 규칙과 SIR 필드로 고정한 레이어입니다.", "This layer keeps only ready_for_v1=yes candidates and freezes them into the MVP rule pack and SIR fields."))}</p>
+      <h3>${escapeHtml(textFor("4단계. 1차 규칙 확정", "Layer 4. Final MVP Freeze"))}</h3>
+      <p class="layer-note">${escapeHtml(textFor("3단계 후보 중 1차 반영 대상으로 확정된 항목만 골라 실제 규칙과 SIR 필드로 고정한 단계입니다.", "This layer keeps only ready_for_v1=yes candidates and freezes them into the MVP rule pack and SIR fields."))}</p>
       <div class="stack">
-        ${clause.layer4.length ? clause.layer4.map(renderLayer4Item).join("") : `<div class="empty-state">${escapeHtml(textFor("이 조항은 아직 Layer 4 MVP 규칙으로 채택되지 않았습니다.", "This clause has not yet been included in the Layer 4 MVP rule pack."))}</div>`}
+        ${clause.layer4.length ? clause.layer4.map((item, index) => renderLayer4Item(item, index)).join("") : `<div class="empty-state">${escapeHtml(textFor("이 조항은 아직 4단계 1차 규칙으로 채택되지 않았습니다.", "This clause has not yet been included in the Layer 4 MVP rule pack."))}</div>`}
       </div>
     </section>
   `;
@@ -470,13 +494,15 @@ function renderFieldCatalog(bundle) {
     .map(
       (field) => `
       <article class="field-card">
-        <h3>${escapeHtml(labelText(normalizeLabel(field.field_label || field.field_name, FIELD_NAME_LABELS)))} <span style="opacity:.6;font-weight:500;">${escapeHtml(field.field_name)}</span></h3>
+        <h3>${escapeHtml(labelText(normalizeLabel(field.field_label || field.field_name, FIELD_NAME_LABELS)))}</h3>
         ${renderPills([normalizeLabel(field.field_group_label || field.field_group, DETECTION_TARGET_LABELS)], true)}
-        <p>${escapeHtml(field.description || "")}</p>
+        ${renderPills(normalizeLabelList(field.rule_family_labels || field.rule_families, RULE_FAMILY_LABELS))}
+        <p>${escapeHtml(buildFieldDescription(field))}</p>
         <div class="pill-row">
-          <span class="pill">priority ${escapeHtml(field.mvp_priority)}</span>
-          <span class="pill">rules ${escapeHtml(field.source_rule_count)}</span>
-          <span class="pill">obligations ${escapeHtml(field.source_obligation_count)}</span>
+          <span class="pill">우선순위 ${escapeHtml(field.mvp_priority)}</span>
+          <span class="pill">연결 규칙 ${escapeHtml(field.source_rule_count)}</span>
+          <span class="pill">연결 의무 ${escapeHtml(field.source_obligation_count)}</span>
+          <span class="pill">관련 조항 ${escapeHtml((field.article_refs || []).length)}</span>
         </div>
       </article>`
     )
@@ -484,6 +510,7 @@ function renderFieldCatalog(bundle) {
 }
 
 function updateLanguageButtons() {
+  if (!langSwitchEl) return;
   langSwitchEl.querySelectorAll("[data-lang]").forEach((button) => {
     button.classList.toggle("active", button.dataset.lang === state.lang);
   });
@@ -527,13 +554,15 @@ async function init() {
   searchInputEl.addEventListener("input", applyFilters);
   topicFilterEl.addEventListener("change", applyFilters);
   ruleFilterEl.addEventListener("change", applyFilters);
-  langSwitchEl.querySelectorAll("[data-lang]").forEach((button) => {
-    button.addEventListener("click", () => {
-      state.lang = button.dataset.lang;
-      updateLanguageButtons();
-      rerenderAll();
+  if (langSwitchEl) {
+    langSwitchEl.querySelectorAll("[data-lang]").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.lang = button.dataset.lang;
+        updateLanguageButtons();
+        rerenderAll();
+      });
     });
-  });
+  }
   resetFiltersBtn.addEventListener("click", () => {
     searchInputEl.value = "";
     topicFilterEl.value = "";

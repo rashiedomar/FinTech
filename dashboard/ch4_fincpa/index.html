@@ -3,31 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FCPA Chapter 4 Dashboard</title>
+    <title>금융소비자보호법 제4장 구조 대시보드</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <div class="app-shell">
       <header class="topbar">
         <div>
-          <p class="eyebrow">Law Parsing -> Layer 1 -> Layer 2 -> Layer 3 -> Layer 4</p>
+          <p class="eyebrow">파싱 -> 1단계 -> 2단계 -> 3단계 -> 4단계</p>
           <h1>금융소비자보호법 제4장 구조 대시보드</h1>
           <p class="subhead">
-            조항 하나를 클릭하면 원문부터 최종 MVP SIR 필드와 규칙까지 한 화면에서 추적할 수 있습니다.
+            조항 하나를 클릭하면 원문부터 최종 1차 SIR 필드와 규칙까지 한 화면에서 추적할 수 있습니다.
           </p>
         </div>
         <div class="topbar-actions">
-          <div class="lang-switch" id="langSwitch">
-            <button class="ghost-btn active" data-lang="both">KO + EN</button>
-            <button class="ghost-btn" data-lang="ko">한국어</button>
-            <button class="ghost-btn" data-lang="en">English</button>
-          </div>
           <button id="resetFiltersBtn" class="ghost-btn">필터 초기화</button>
         </div>
       </header>
 
       <section id="overviewCards" class="overview-grid"></section>
-      <div id="statusBanner" class="status-banner">Loading dashboard data...</div>
+      <div id="statusBanner" class="status-banner">대시보드 데이터를 불러오는 중입니다...</div>
 
       <section class="pipeline-section">
         <h2>레이어 흐름</h2>
@@ -48,7 +43,7 @@
               </select>
             </label>
             <label>
-              <span>Layer 4 규칙 유무</span>
+              <span>4단계 규칙 유무</span>
               <select id="ruleFilter">
                 <option value="">전체</option>
                 <option value="has_rules">규칙 있음</option>
@@ -72,8 +67,8 @@
 
       <section class="catalog-section">
         <div class="catalog-header">
-          <h2>Layer 4 MVP SIR 필드 카탈로그</h2>
-          <p>최종 MVP에 살아남은 필드만 모아서 보여줍니다.</p>
+          <h2>4단계 1차 SIR 필드 카탈로그</h2>
+          <p>1차 버전에 포함된 필드만 모아서 보여줍니다.</p>
         </div>
         <div id="fieldCatalog" class="field-catalog"></div>
       </section>

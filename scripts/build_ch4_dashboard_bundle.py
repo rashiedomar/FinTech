@@ -186,42 +186,58 @@ def compact_counter(rows: list[dict], key: str) -> dict[str, int]:
     return dict(Counter(row[key] for row in rows if row.get(key)))
 
 
+def strip_keys(row: dict, keys: set[str]) -> dict:
+    return {key: value for key, value in row.items() if key not in keys}
+
+
+def build_field_description_ko(field: dict) -> str:
+    field_label = label_map_value(FIELD_NAME_LABELS, field["field_name"])["ko"]
+    field_group = label_map_value(DETECTION_TARGET_LABELS, field["field_group"])["ko"]
+    families = [label_map_value(RULE_FAMILY_LABELS, value)["ko"] for value in field["rule_families"]]
+    family_text = ", ".join(families) if families else "관련"
+    article_text = ", ".join(field["article_refs"]) if field.get("article_refs") else ""
+    base = f"{field_label} 필드는 {field_group} 영역에서 확인하며 {family_text} 규칙과 연결됩니다."
+    if article_text:
+        return f"{base} 관련 조항은 {article_text}입니다."
+    return base
+
+
 def build_layer_explanations() -> list[dict]:
     return [
         {
             "layer_id": "parse",
-            "title_ko": "Layer 0. 파싱",
-            "title_en": "Layer 0. Parsing",
+            "title_ko": "0단계. 파싱",
+            "title_en": "0단계. 파싱",
             "meaning_ko": "공식 PDF를 조항 단위로 잘라서 원문과 정규화 텍스트를 만든 단계",
-            "meaning_en": "Official PDF segmented into clause-level source records with raw and normalized text.",
+            "meaning_en": "공식 PDF를 조항 단위로 잘라서 원문과 정규화 텍스트를 만든 단계",
         },
         {
             "layer_id": "layer1",
-            "title_ko": "Layer 1. 조항 메타데이터",
-            "title_en": "Layer 1. Clause Metadata",
+            "title_ko": "1단계. 조항 메타데이터",
+            "title_en": "1단계. 조항 메타데이터",
             "meaning_ko": "각 조항이 어떤 주제인지, 어떤 상품군인지, 분해가 필요한지 붙인 단계",
-            "meaning_en": "High-level clause metadata such as topic, scope, and whether decomposition is needed.",
+            "meaning_en": "각 조항이 어떤 주제인지, 어떤 상품군인지, 분해가 필요한지 붙인 단계",
         },
         {
             "layer_id": "layer2",
-            "title_ko": "Layer 2. 의무 분해",
-            "title_en": "Layer 2. Obligation Decomposition",
+            "title_ko": "2단계. 의무 분해",
+            "title_en": "2단계. 의무 분해",
             "meaning_ko": "한 조항 안의 여러 의무를 더 작은 단위로 분해한 단계",
-            "meaning_en": "One clause split into smaller legal obligation units.",
+            "meaning_en": "한 조항 안의 여러 의무를 더 작은 단위로 분해한 단계",
         },
         {
             "layer_id": "layer3",
-            "title_ko": "Layer 3. 규칙/SIR 후보",
-            "title_en": "Layer 3. Rule and SIR Candidates",
+            "title_ko": "3단계. 규칙/SIR 후보",
+            "title_en": "3단계. 규칙/SIR 후보",
             "meaning_ko": "각 의무를 미래 규칙과 SIR 필드 후보로 연결한 단계",
-            "meaning_en": "Each obligation mapped to a future rule shape and candidate SIR fields.",
+            "meaning_en": "각 의무를 미래 규칙과 SIR 필드 후보로 연결한 단계",
         },
         {
             "layer_id": "layer4",
-            "title_ko": "Layer 4. 최종 MVP 고정",
-            "title_en": "Layer 4. Final MVP Freeze",
-            "meaning_ko": "Layer 3 후보 중 ready_for_v1=yes만 골라 MVP 규칙팩과 SIR 스키마로 고정한 단계",
-            "meaning_en": "Only ready_for_v1=yes candidates included in the frozen MVP rule pack and SIR schema.",
+            "title_ko": "4단계. 1차 규칙 확정",
+            "title_en": "4단계. 1차 규칙 확정",
+            "meaning_ko": "3단계 후보 중 1차 반영 대상으로 확정된 항목만 골라 규칙팩과 SIR 스키마로 고정한 단계",
+            "meaning_en": "3단계 후보 중 1차 반영 대상으로 확정된 항목만 골라 규칙팩과 SIR 스키마로 고정한 단계",
         },
     ]
 
@@ -285,48 +301,87 @@ def main() -> None:
             },
         }
         if l1:
+            l1_clean = strip_keys(
+                l1,
+                {
+                    "reviewer_note",
+                    "gemini_model",
+                    "gemini_confidence",
+                    "gemini_reasoning_summary",
+                },
+            )
             clause["layer1"] = {
-                **l1,
-                "topic_family_label": label_map_value(TOPIC_LABELS, l1["topic_family"]),
-                "obligation_mode_label": label_map_value(OBLIGATION_MODE_LABELS, l1["obligation_mode"]),
-                "product_scope_labels": list_labels(PRODUCT_SCOPE_LABELS, l1["product_scope"]),
-                "channel_scope_labels": list_labels(CHANNEL_SCOPE_LABELS, l1["channel_scope"]),
+                **l1_clean,
+                "topic_family_label": label_map_value(TOPIC_LABELS, l1_clean["topic_family"]),
+                "obligation_mode_label": label_map_value(OBLIGATION_MODE_LABELS, l1_clean["obligation_mode"]),
+                "product_scope_labels": list_labels(PRODUCT_SCOPE_LABELS, l1_clean["product_scope"]),
+                "channel_scope_labels": list_labels(CHANNEL_SCOPE_LABELS, l1_clean["channel_scope"]),
             }
         for item in l2_list:
+            item_clean = strip_keys(
+                item,
+                {
+                    "reviewer_note",
+                    "gemini_model",
+                    "gemini_confidence",
+                    "gemini_reasoning_summary",
+                    "obligation_summary",
+                },
+            )
             clause["layer2"].append(
                 {
-                    **item,
-                    "obligation_mode_label": label_map_value(OBLIGATION_MODE_LABELS, item["obligation_mode"]),
-                    "product_scope_labels": list_labels(PRODUCT_SCOPE_LABELS, item["product_scope"]),
-                    "channel_scope_labels": list_labels(CHANNEL_SCOPE_LABELS, item["channel_scope"]),
-                    "trigger_type_label": label_map_value(TRIGGER_TYPE_LABELS, item["trigger_type"]),
-                    "operationality_label": label_map_value(OPERATIONALITY_LABELS, item["operationality"]),
+                    **item_clean,
+                    "obligation_mode_label": label_map_value(OBLIGATION_MODE_LABELS, item_clean["obligation_mode"]),
+                    "product_scope_labels": list_labels(PRODUCT_SCOPE_LABELS, item_clean["product_scope"]),
+                    "channel_scope_labels": list_labels(CHANNEL_SCOPE_LABELS, item_clean["channel_scope"]),
+                    "trigger_type_label": label_map_value(TRIGGER_TYPE_LABELS, item_clean["trigger_type"]),
+                    "operationality_label": label_map_value(OPERATIONALITY_LABELS, item_clean["operationality"]),
                 }
             )
         for item in l3_list:
+            item_clean = strip_keys(
+                item,
+                {
+                    "reviewer_note",
+                    "gemini_model",
+                    "gemini_confidence",
+                    "gemini_reasoning_summary",
+                    "obligation_summary",
+                    "rule_candidate_summary",
+                },
+            )
             clause["layer3"].append(
                 {
-                    **item,
-                    "rule_family_label": label_map_value(RULE_FAMILY_LABELS, item["rule_family"]),
-                    "logic_type_label": label_map_value(LOGIC_TYPE_LABELS, item["logic_type"]),
-                    "detection_target_label": label_map_value(DETECTION_TARGET_LABELS, item["detection_target"]),
-                    "sir_link_type_label": label_map_value(SIR_LINK_TYPE_LABELS, item["sir_link_type"]),
-                    "evidence_source_label": label_map_value(EVIDENCE_SOURCE_LABELS, item["evidence_source"]),
-                    "sir_candidate_field_labels": [label_map_value(FIELD_NAME_LABELS, field) for field in item["sir_candidate_fields"].split("|") if field],
+                    **item_clean,
+                    "rule_family_label": label_map_value(RULE_FAMILY_LABELS, item_clean["rule_family"]),
+                    "logic_type_label": label_map_value(LOGIC_TYPE_LABELS, item_clean["logic_type"]),
+                    "detection_target_label": label_map_value(DETECTION_TARGET_LABELS, item_clean["detection_target"]),
+                    "sir_link_type_label": label_map_value(SIR_LINK_TYPE_LABELS, item_clean["sir_link_type"]),
+                    "evidence_source_label": label_map_value(EVIDENCE_SOURCE_LABELS, item_clean["evidence_source"]),
+                    "sir_candidate_field_labels": [label_map_value(FIELD_NAME_LABELS, field) for field in item_clean["sir_candidate_fields"].split("|") if field],
                 }
             )
         for item in l4_list:
+            item_clean = strip_keys(
+                item,
+                {
+                    "reviewer_note",
+                    "obligation_summary",
+                    "rule_candidate_summary",
+                    "evaluation_hint",
+                },
+            )
             clause["layer4"].append(
                 {
-                    **item,
-                    "rule_family_label": label_map_value(RULE_FAMILY_LABELS, item["rule_family"]),
-                    "logic_type_label": label_map_value(LOGIC_TYPE_LABELS, item["logic_type"]),
-                    "detection_target_label": label_map_value(DETECTION_TARGET_LABELS, item["detection_target"]),
-                    "sir_link_type_label": label_map_value(SIR_LINK_TYPE_LABELS, item["sir_link_type"]),
-                    "evidence_source_label": label_map_value(EVIDENCE_SOURCE_LABELS, item["evidence_source"]),
-                    "sir_candidate_field_labels": [label_map_value(FIELD_NAME_LABELS, field) for field in item["sir_candidate_fields"]],
-                    "product_scope_labels": list_labels(PRODUCT_SCOPE_LABELS, item["product_scope"]),
-                    "channel_scope_labels": list_labels(CHANNEL_SCOPE_LABELS, item["channel_scope"]),
+                    **item_clean,
+                    "rule_family_label": label_map_value(RULE_FAMILY_LABELS, item_clean["rule_family"]),
+                    "logic_type_label": label_map_value(LOGIC_TYPE_LABELS, item_clean["logic_type"]),
+                    "detection_target_label": label_map_value(DETECTION_TARGET_LABELS, item_clean["detection_target"]),
+                    "sir_link_type_label": label_map_value(SIR_LINK_TYPE_LABELS, item_clean["sir_link_type"]),
+                    "evidence_source_label": label_map_value(EVIDENCE_SOURCE_LABELS, item_clean["evidence_source"]),
+                    "sir_candidate_field_labels": [label_map_value(FIELD_NAME_LABELS, field) for field in item_clean["sir_candidate_fields"]],
+                    "product_scope_labels": list_labels(PRODUCT_SCOPE_LABELS, item_clean["product_scope"]),
+                    "channel_scope_labels": list_labels(CHANNEL_SCOPE_LABELS, item_clean["channel_scope"]),
                 }
             )
 
@@ -347,7 +402,8 @@ def main() -> None:
     for field in layer4_schema["fields"]:
         field_catalog.append(
             {
-                **field,
+                **{key: value for key, value in field.items() if key != "description"},
+                "description_ko": build_field_description_ko(field),
                 "field_label": label_map_value(FIELD_NAME_LABELS, field["field_name"]),
                 "field_group_label": label_map_value(DETECTION_TARGET_LABELS, field["field_group"]),
                 "rule_family_labels": [label_map_value(RULE_FAMILY_LABELS, value) for value in field["rule_families"]],
@@ -357,7 +413,7 @@ def main() -> None:
     bundle = {
         "meta": {
             "title_ko": "금융소비자보호법 제4장 데이터 구조 대시보드",
-            "title_en": "FCPA Chapter 4 Data Structure Dashboard",
+            "title_en": "금융소비자보호법 제4장 데이터 구조 대시보드",
             "source_pdf": str(PARSE_PATH.parents[2] / "raw" / "official" / "law_fincpa_main_2026-01-02.pdf"),
             "layer_explanations": build_layer_explanations(),
         },
