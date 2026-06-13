@@ -39,10 +39,10 @@ const EXAMPLES = [
 const STAGES = [
   { id: "schema", title: "런타임 스키마", subtitle: "입력 문구가 정규화된 실행 계약으로 바뀝니다." },
   { id: "sir", title: "SIR 추출", subtitle: "텍스트와 메타데이터를 구조화된 필드 상태로 매핑합니다." },
-  { id: "rules", title: "적용 규칙", subtitle: "현재 입력에 관련된 Layer 4 규칙만 남깁니다." },
+  { id: "rules", title: "적용 규칙", subtitle: "현재 입력에 연결된 확정 규칙만 남깁니다." },
   { id: "law", title: "법적 근거", subtitle: "실패 또는 불확실 규칙의 법 조항 근거를 보여줍니다." },
-  { id: "result", title: "결정형 결과", subtitle: "비LLM 코어가 법적 검토 결론을 출력합니다." },
-  { id: "llm", title: "오프라인 LLM 자문", subtitle: "번들된 Gemini 출력이 설명과 안전한 수정안을 제공합니다." },
+  { id: "result", title: "결정형 결과", subtitle: "결정형 코어가 법적 검토 결론을 출력합니다." },
+  { id: "advisory", title: "Gemini 설명 및 수정 제안", subtitle: "사전 생성된 설명 결과와 보수적 수정안을 보여줍니다." },
   { id: "human", title: "인간 승인 + 감사 패킷", subtitle: "리뷰어가 최종 조치를 선택하고 패킷을 내려받습니다." },
 ];
 
@@ -151,7 +151,7 @@ const stageElements = {
   rules: document.getElementById("stage-rules"),
   law: document.getElementById("stage-law"),
   result: document.getElementById("stage-result"),
-  llm: document.getElementById("stage-llm"),
+  advisory: document.getElementById("stage-advisory"),
   human: document.getElementById("stage-human"),
 };
 
@@ -375,7 +375,7 @@ function renderAllStages() {
   renderRulesStage();
   renderLawStage();
   renderResultStage();
-  renderLlmStage();
+  renderAdvisoryStage();
   renderHumanStage();
 }
 
@@ -469,12 +469,14 @@ function renderRulesStage() {
     .map((rule) => {
       const statusClass = mapStatusClass(rule.status);
       const fieldBadges = rule.candidate_fields.map((field) => `<span class="meta-pill">${escapeHtml(formatFieldLabel(field))}</span>`).join("");
+      const title = rule.legal_basis?.citation_label || rule.article_id;
+      const summary = rule.legal_basis?.summary || rule.summary || "";
       return `
         <div class="rule-card">
           <div class="stage-head">
             <div class="stage-title">
-              <h4>${escapeHtml(rule.rule_id)}</h4>
-              <p>${escapeHtml(rule.summary)}</p>
+              <h4>${escapeHtml(title)}</h4>
+              <p>${escapeHtml(summary)}</p>
             </div>
             <span class="status-pill ${statusClass}">${escapeHtml(formatStatusLabel(rule.status))}</span>
           </div>
@@ -555,28 +557,24 @@ function renderResultStage() {
         </div>
       </div>
     `,
-    footerButton: buildFooterButton(4, "오프라인 LLM 자문 보기"),
+    footerButton: buildFooterButton(4, "다음 단계 보기"),
   });
 }
 
-function renderLlmStage() {
+function renderAdvisoryStage() {
   const report = state.trace.review_report;
   const artifacts = getActiveExampleArtifacts();
-  const advisoryOutput = artifacts?.geminiAdvisoryOutput;
-  const advisoryInput = artifacts?.llmAdvisoryInput;
+  const advisoryOutput = artifacts?.advisoryOutput;
+  const advisoryInput = artifacts?.advisoryInput;
   const suggestedRewriteReport = artifacts?.suggestedRewriteReport;
-  const modelName =
-    artifacts?.humanReviewCompleted?.completed_review?.llm_model ||
-    artifacts?.geminiRawResponse?.modelVersion ||
-    "gemini-2.5-flash";
 
   if (!advisoryOutput || !advisoryInput) {
-    stageElements.llm.innerHTML = buildStageFrame({
+    stageElements.advisory.innerHTML = buildStageFrame({
       stage: STAGES[5],
       body: `
         <div class="citation-card">
-          <h4>이 입력에는 오프라인 자문이 번들되어 있지 않습니다</h4>
-          <p>GitHub 데모는 Gemini를 실시간 호출하지 않습니다. 번들된 원본 예시를 그대로 선택하면 사전 계산된 Gemini 설명, 수정안, 인간 검토 패킷을 볼 수 있습니다.</p>
+          <h4>이 입력에는 사전 생성 설명 결과가 연결되어 있지 않습니다</h4>
+          <p>원본 예시를 그대로 선택하면 미리 준비된 설명, 수정 제안, 인간 검토 패킷을 함께 확인할 수 있습니다.</p>
           <p class="source-span">현재 실행 결과도 인간 승인 단계에서 감사 패킷으로 내려받을 수 있습니다.</p>
         </div>
       `,
@@ -611,21 +609,21 @@ function renderLlmStage() {
       ? `
         <div class="action-row">
           <button type="button" class="run-btn suggest-btn" data-use-suggested-prompt="1">수정안 적용하기</button>
-          <p class="profile-hint">입력창을 번들된 Gemini 수정안으로 바꾼 뒤 다시 워크플로를 실행할 수 있습니다.</p>
+          <p class="profile-hint">입력창을 준비된 수정 문구로 바꾼 뒤 다시 워크플로를 실행할 수 있습니다.</p>
         </div>
       `
       : "";
 
-  stageElements.llm.innerHTML = buildStageFrame({
+  stageElements.advisory.innerHTML = buildStageFrame({
     stage: STAGES[5],
     body: `
-      <div class="result-card llm-hero">
+      <div class="result-card advisory-hero">
         <div class="result-banner">
           <div>
-            <p class="eyebrow">번들된 Gemini 자문</p>
-            <h3>${escapeHtml(modelName)}</h3>
+            <p class="eyebrow">사전 생성 설명 결과</p>
+            <h3>설명 요약과 수정 제안</h3>
           </div>
-          <span class="status-pill status-present">오프라인 준비 완료</span>
+          <span class="status-pill status-present">사전 준비 완료</span>
         </div>
         <div class="result-metrics">
           ${metricBlock(formatDecisionLabel(report.final_decision), "결정형 결과")}
@@ -733,10 +731,10 @@ function renderHumanStage() {
 
       <div class="rule-card advisory-card">
         <h4>감사 패킷 내려받기</h4>
-        <p>감사 패킷에는 정규화 입력, 결정형 결과, 법적 근거, 오프라인 Gemini 자문, 그리고 리뷰어 최종 결정을 함께 담습니다.</p>
+        <p>감사 패킷에는 정규화 입력, 결정형 결과, 법적 근거, 설명 결과, 그리고 리뷰어 최종 결정을 함께 담습니다.</p>
         <div class="action-row">
           <button type="button" class="ghost-btn" data-download-packet="audit">감사 JSON 내려받기</button>
-          <button type="button" class="ghost-btn" data-download-packet="advisory_input">LLM 입력 JSON 내려받기</button>
+          <button type="button" class="ghost-btn" data-download-packet="advisory_input">설명 입력 JSON 내려받기</button>
           <button type="button" class="ghost-btn" data-download-packet="human_packet">인간 검토 JSON 내려받기</button>
         </div>
       </div>
@@ -853,14 +851,14 @@ function describeSuggestedOutcome(report) {
 }
 
 function applySuggestedPrompt() {
-  const advisoryOutput = getActiveExampleArtifacts()?.geminiAdvisoryOutput;
+  const advisoryOutput = getActiveExampleArtifacts()?.advisoryOutput;
   const suggestedPrompt = String(advisoryOutput?.conservative_rewrite_suggestion || "").trim();
   if (!suggestedPrompt) {
     showStatus("이 케이스에는 번들된 수정 문구가 없습니다.", true);
     return;
   }
   promptInput.value = suggestedPrompt;
-  profileHint.textContent = "번들된 Gemini 수정 문구를 입력창에 넣었습니다. 다시 실행해 결과를 확인하세요.";
+  profileHint.textContent = "준비된 수정 문구를 입력창에 넣었습니다. 다시 실행해 결과를 확인하세요.";
   showStatus("수정 문구를 입력창에 반영했습니다.", false);
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
@@ -871,8 +869,8 @@ function downloadPacket(kind) {
   let filename = "runtime-export.json";
 
   if (kind === "advisory_input") {
-    payload = artifacts?.llmAdvisoryInput || buildFallbackAdvisoryInputExport();
-    filename = `${state.trace.review_report.input_id}.llm_advisory_input.export.json`;
+    payload = artifacts?.advisoryInput || buildFallbackAdvisoryInputExport();
+    filename = `${state.trace.review_report.input_id}.advisory_input.export.json`;
   } else if (kind === "human_packet") {
     payload = buildHumanPacketExport();
     filename = `${state.trace.review_report.input_id}.human_review.export.json`;
@@ -894,9 +892,9 @@ function downloadPacket(kind) {
 
 function buildFallbackAdvisoryInputExport() {
   return {
-    artifact_type: "ch4_llm_advisory_input_export",
+    artifact_type: "ch4_advisory_input_export",
     version: "0.1.0",
-    note: "Fallback export built in the browser because no bundled advisory input was available for this exact prompt.",
+    note: "정확히 일치하는 사전 생성 설명 입력이 없어 브라우저에서 대체 내보내기를 만들었습니다.",
     normalized_input: state.trace.normalized_input,
     deterministic_core: state.trace.review_report,
     triggered_citations: state.trace.triggered_citations,
@@ -926,9 +924,8 @@ function buildHumanPacketExport() {
       reviewer_id: state.reviewerId || DEFAULT_REVIEWER_ID,
       decision: state.humanDecision || recommendDecision(reviewReport),
       reviewer_note: state.reviewerNote || defaultHumanNote(reviewReport, state.humanDecision),
-      llm_model: artifacts?.humanReviewCompleted?.completed_review?.llm_model || "gemini-2.5-flash",
-      llm_reviewer_summary: artifacts?.geminiAdvisoryOutput?.reviewer_summary || null,
-      llm_recommended_rewrite: artifacts?.geminiAdvisoryOutput?.conservative_rewrite_suggestion || null,
+      advisory_summary: artifacts?.advisoryOutput?.reviewer_summary || null,
+      recommended_rewrite: artifacts?.advisoryOutput?.conservative_rewrite_suggestion || null,
     },
   };
 }
@@ -948,8 +945,8 @@ function buildAuditExport() {
       triggered_citations: state.trace.triggered_citations,
       sir_fields: state.trace.sir.fields,
     },
-    llm_advisory: artifacts?.geminiAdvisoryOutput || null,
-    llm_advisory_input: artifacts?.llmAdvisoryInput || null,
+    advisory_summary: artifacts?.advisoryOutput || null,
+    advisory_input: artifacts?.advisoryInput || null,
     suggested_rewrite_report: artifacts?.suggestedRewriteReport || null,
     human_review: buildHumanPacketExport(),
     evidence_package: artifacts?.evidencePackage || null,

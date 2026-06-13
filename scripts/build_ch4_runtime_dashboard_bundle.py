@@ -59,9 +59,9 @@ def build_suggested_rewrite_report(example_payload: dict, advisory_output: dict 
     payload = copy.deepcopy(example_payload)
     payload["content_text"] = rewrite_text
     if payload.get("title"):
-        payload["title"] = f"{payload['title']} (LLM rewrite)"
+        payload["title"] = f"{payload['title']} (수정 제안 재검증)"
     else:
-        payload["title"] = "LLM rewrite"
+        payload["title"] = "수정 제안 재검증"
     return evaluate_runtime_input(payload, repo_root=ROOT_DIR)
 
 
@@ -70,20 +70,20 @@ def load_example_artifacts(examples: dict[str, dict]) -> dict[str, dict]:
     for example_id, example_payload in examples.items():
         review_report = load_optional_json(RESULTS_DIR / f"{example_id}.review_report.json")
         evidence_package = load_optional_json(RESULTS_DIR / f"{example_id}.evidence_package.json")
-        llm_advisory_input = load_optional_json(RESULTS_DIR / f"{example_id}.llm_advisory_input.json")
+        advisory_input = load_optional_json(RESULTS_DIR / f"{example_id}.llm_advisory_input.json")
         human_review_packet = load_optional_json(RESULTS_DIR / f"{example_id}.human_review_packet.json")
-        gemini_advisory_output = load_optional_json(RESULTS_DIR / f"{example_id}.gemini_advisory_output.json")
+        advisory_output = load_optional_json(RESULTS_DIR / f"{example_id}.gemini_advisory_output.json")
         human_review_completed = load_optional_json(RESULTS_DIR / f"{example_id}.human_review_completed.json")
         review_trace = load_optional_json(RESULTS_DIR / f"{example_id}.review_trace.json")
         workflow_bridge_summary = load_optional_text(RESULTS_DIR / f"{example_id}.workflow_bridge_summary.md")
         example_summary = load_optional_text(RESULTS_DIR / f"{example_id}.summary.md")
-        suggested_rewrite_report = build_suggested_rewrite_report(example_payload, gemini_advisory_output)
+        suggested_rewrite_report = build_suggested_rewrite_report(example_payload, advisory_output)
         artifacts_by_example[example_id] = {
             "reviewReport": review_report,
             "evidencePackage": evidence_package,
-            "llmAdvisoryInput": llm_advisory_input,
+            "advisoryInput": advisory_input,
             "humanReviewPacket": human_review_packet,
-            "geminiAdvisoryOutput": gemini_advisory_output,
+            "advisoryOutput": advisory_output,
             "humanReviewCompleted": human_review_completed,
             "reviewTrace": review_trace,
             "workflowBridgeSummary": workflow_bridge_summary,

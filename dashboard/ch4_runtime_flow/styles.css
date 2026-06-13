@@ -492,7 +492,7 @@ body {
     linear-gradient(180deg, rgba(252, 247, 240, 0.96), rgba(255, 255, 255, 0.74));
 }
 
-.llm-hero {
+.advisory-hero {
   background:
     radial-gradient(circle at top right, rgba(165, 63, 43, 0.14), transparent 34%),
     linear-gradient(180deg, rgba(255, 251, 245, 0.96), rgba(252, 246, 238, 0.88));
