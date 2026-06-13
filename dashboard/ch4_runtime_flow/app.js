@@ -1,52 +1,129 @@
 const EXAMPLES = [
   {
     id: "loan_ad_content_only",
-    label: "Loan Ad",
-    description: "Loan ad missing rate basis and interest timing.",
+    label: "대출 광고",
+    description: "금리 기준과 이자 부과 시기가 빠진 대출 광고 예시입니다.",
   },
   {
     id: "investment_ad_guaranteed_return_violation",
-    label: "Investment Ad",
-    description: "Investment ad using guaranteed-return language.",
+    label: "투자 광고",
+    description: "원금 보장·확정 수익 표현을 사용한 투자 광고 예시입니다.",
   },
   {
     id: "insurance_ad_missing_warning",
-    label: "Insurance Ad",
-    description: "Insurance ad missing required warning content.",
+    label: "보험 광고",
+    description: "필수 경고 문구가 빠진 보험 광고 예시입니다.",
   },
   {
     id: "deposit_ad_missing_disclaimer",
-    label: "Deposit Ad",
-    description: "Deposit ad missing disclaimer and using strong return framing.",
+    label: "예금 광고",
+    description: "필수 안내 문구가 빠지고 수익 표현이 강한 예금 광고 예시입니다.",
   },
   {
     id: "solicitation_improper_claim_violation",
-    label: "Solicitation Script",
-    description: "Improper solicitation language under Article 21.",
+    label: "권유 스크립트",
+    description: "제21조 부당 권유 표현이 포함된 권유 스크립트 예시입니다.",
   },
   {
     id: "access_request_record_only",
-    label: "Access Request",
-    description: "Recordkeeping flow example.",
+    label: "열람 요청",
+    description: "기록 보존·열람 처리 흐름 예시입니다.",
   },
   {
     id: "investment_solicitation_full",
-    label: "Compliant Flow",
-    description: "Richer metadata example that passes.",
+    label: "준수 예시",
+    description: "메타데이터가 충분하고 통과하는 예시입니다.",
   },
 ];
 
 const STAGES = [
-  { id: "schema", title: "Runtime Schema", subtitle: "Prompt becomes the normalized runtime contract." },
-  { id: "sir", title: "SIR Extraction", subtitle: "The runtime maps text and metadata into structured field states." },
-  { id: "rules", title: "Active Rules", subtitle: "Only the relevant Layer 4 rules remain in scope." },
-  { id: "law", title: "Triggered Law", subtitle: "Failed or uncertain rules surface their legal basis." },
-  { id: "result", title: "Deterministic Result", subtitle: "The non-LLM core emits the legal review decision." },
-  { id: "llm", title: "Offline LLM Advisory", subtitle: "Bundled Gemini output explains the case and suggests safer copy." },
-  { id: "human", title: "Human Approval + Audit", subtitle: "A reviewer chooses the action and exports the final packet." },
+  { id: "schema", title: "런타임 스키마", subtitle: "입력 문구가 정규화된 실행 계약으로 바뀝니다." },
+  { id: "sir", title: "SIR 추출", subtitle: "텍스트와 메타데이터를 구조화된 필드 상태로 매핑합니다." },
+  { id: "rules", title: "적용 규칙", subtitle: "현재 입력에 관련된 Layer 4 규칙만 남깁니다." },
+  { id: "law", title: "법적 근거", subtitle: "실패 또는 불확실 규칙의 법 조항 근거를 보여줍니다." },
+  { id: "result", title: "결정형 결과", subtitle: "비LLM 코어가 법적 검토 결론을 출력합니다." },
+  { id: "llm", title: "오프라인 LLM 자문", subtitle: "번들된 Gemini 출력이 설명과 안전한 수정안을 제공합니다." },
+  { id: "human", title: "인간 승인 + 감사 패킷", subtitle: "리뷰어가 최종 조치를 선택하고 패킷을 내려받습니다." },
 ];
 
 const DEFAULT_REVIEWER_ID = "team_demo_reviewer";
+
+const FIELD_LABELS = {
+  seller_identity: "판매자 식별",
+  product_identity: "상품 식별",
+  product_core_terms: "핵심 상품 조건",
+  explanation_material: "설명 자료",
+  explanation_confirmation: "설명 확인",
+  prohibited_claim_signal: "금지 표현 신호",
+  deposit_disclaimer: "예금 안내 문구",
+  investment_warning: "투자 위험 경고",
+  insurance_warning: "보험 경고 문구",
+  loan_conditions: "대출 조건",
+  loan_rate_basis: "대출 금리 기준",
+  loan_interest_timing: "대출 이자 시기",
+  loan_costs: "대출 비용",
+  solicitation_purpose: "권유 목적",
+  representative_identity: "담당자 식별",
+  staff_registry: "인력 등록부",
+  internal_control_standard: "내부통제 기준",
+  activity_record: "활동 기록",
+  record_integrity_control: "기록 무결성 통제",
+  access_request: "열람 요청",
+  access_response: "열람 응답",
+  advisory_independence: "자문 독립성",
+  intermediary_status: "대리·중개 상태",
+  consumer_profile: "소비자 프로필",
+  suitability_check: "적합성 점검",
+  adequacy_check: "적정성 점검",
+  contract_document_delivery: "계약 문서 제공",
+};
+
+const STATUS_LABELS = {
+  present: "확인됨",
+  not_evidenced: "미확인",
+  not_applicable: "해당 없음",
+  uncertain: "불확실",
+  passed: "통과",
+  failed: "실패",
+  pending: "대기",
+};
+
+const DECISION_LABELS = {
+  compliant: "준수",
+  non_compliant: "위반",
+  insufficient_scope: "범위 부족",
+  needs_human_review: "인간 검토 필요",
+  approve: "승인",
+  approve_with_edits: "수정 후 승인",
+  reject: "반려",
+  escalate: "에스컬레이션",
+  pending: "대기",
+};
+
+const RULE_FAMILY_LABELS = {
+  advertising: "광고",
+  solicitation: "권유",
+  explanation: "설명의무",
+  suitability: "적합성",
+  adequacy: "적정성",
+  internal_control: "내부통제",
+  recordkeeping: "기록 보존",
+  contract_documents: "계약 문서",
+  intermediary: "대리·중개",
+  advisory: "자문",
+  general_principle: "일반 원칙",
+  unfair_sales: "불공정 영업행위",
+};
+
+const LOGIC_TYPE_LABELS = {
+  required_presence: "필수 정보 존재",
+  prohibited_presence: "금지 신호 존재",
+  required_process: "필수 절차 존재",
+  required_record: "필수 기록 존재",
+  required_response: "필수 대응 존재",
+  delegated_detail: "하위 규정 필요",
+  principle_guardrail: "원칙형 가드레일",
+};
 
 const state = {
   selectedExample: null,
@@ -82,7 +159,7 @@ init();
 
 function init() {
   if (!runtimeBundle || !runtimeEngine) {
-    showStatus("Runtime bundle failed to load. Rebuild runtime-bundle.js first.", true);
+    showStatus("런타임 번들을 불러오지 못했습니다. `runtime-bundle.js`를 다시 빌드하세요.", true);
     return;
   }
   renderExampleChips();
@@ -188,14 +265,14 @@ async function selectExample(example) {
   try {
     const payload = runtimeBundle.examples?.[example.id];
     if (!payload) {
-      throw new Error(`Example missing from runtime bundle: ${example.id}`);
+      throw new Error(`런타임 번들에 예시가 없습니다: ${example.id}`);
     }
     state.selectedExample = { ...example, payload };
     promptInput.value = payload.content_text || "";
-    profileHint.textContent = `${example.label} profile applied: ${example.description}`;
+    profileHint.textContent = `${example.label} 프로필을 적용했습니다. ${example.description}`;
     renderExampleChips();
   } catch (error) {
-    showStatus(`Could not load example: ${error.message}`, true);
+    showStatus(`예시를 불러오지 못했습니다: ${error.message}`, true);
   }
 }
 
@@ -207,7 +284,7 @@ function clearComposer() {
   state.reviewerId = DEFAULT_REVIEWER_ID;
   state.reviewerNote = "";
   promptInput.value = "";
-  profileHint.textContent = "Custom input runs with automatic inference.";
+  profileHint.textContent = "직접 입력은 자동 추론 모드로 실행됩니다.";
   runtimeExperience.classList.add("hidden");
   clearStageCards();
   renderExampleChips();
@@ -218,20 +295,20 @@ function onPromptInputChange() {
   if (!state.selectedExample) {
     return;
   }
-  profileHint.textContent = `${state.selectedExample.label} profile still applied. Clear to switch to full auto inference.`;
+  profileHint.textContent = `${state.selectedExample.label} 프로필이 유지됩니다. 자동 전체 추론으로 바꾸려면 초기화를 누르세요.`;
 }
 
 async function runWorkflow() {
   const text = promptInput.value.trim();
   if (!text) {
-    showStatus("Add a prompt or select an example first.", true);
+    showStatus("먼저 문구를 입력하거나 예시를 선택하세요.", true);
     return;
   }
 
   const payload = buildPayloadFromComposer(text);
   runBtn.disabled = true;
-  runBtn.textContent = "Building...";
-  showStatus("Running deterministic Chapter 4 workflow in the browser...", false);
+  runBtn.textContent = "실행 중...";
+  showStatus("브라우저에서 제4장 결정형 워크플로를 실행하고 있습니다...", false);
 
   try {
     state.trace = runtimeEngine.buildRuntimeTrace(payload, runtimeBundle);
@@ -240,12 +317,12 @@ async function runWorkflow() {
     runtimeExperience.classList.remove("hidden");
     renderAllStages();
     updateStageButtons();
-    showStatus("Workflow built. Open each stage in order.", false);
+    showStatus("워크플로를 생성했습니다. 순서대로 각 단계를 열어보세요.", false);
   } catch (error) {
-    showStatus(`Run failed: ${error.message}`, true);
+    showStatus(`실행 실패: ${error.message}`, true);
   } finally {
     runBtn.disabled = false;
-    runBtn.textContent = "Build Workflow";
+    runBtn.textContent = "워크플로 실행";
   }
 }
 
@@ -359,7 +436,7 @@ function renderSchemaStage() {
   stageElements.schema.innerHTML = buildStageFrame({
     stage: STAGES[0],
     body: `<pre class="json-panel">${escapeHtml(JSON.stringify(state.trace.normalized_input, null, 2))}</pre>`,
-    footerButton: buildFooterButton(0, "Reveal SIR Extraction"),
+    footerButton: buildFooterButton(0, "SIR 추출 보기"),
   });
 }
 
@@ -373,16 +450,16 @@ function renderSirStage() {
   };
 
   const sections = [
-    renderFieldGroup("Present", grouped.present, "status-present"),
-    renderFieldGroup("Not Evidenced", grouped.missing, "status-missing"),
-    renderFieldGroup("Uncertain", grouped.uncertain, "status-uncertain"),
-    renderFieldGroup("Not Applicable", grouped.na, "status-na"),
+    renderFieldGroup("확인됨", grouped.present, "status-present"),
+    renderFieldGroup("미확인", grouped.missing, "status-missing"),
+    renderFieldGroup("불확실", grouped.uncertain, "status-uncertain"),
+    renderFieldGroup("해당 없음", grouped.na, "status-na"),
   ].join("");
 
   stageElements.sir.innerHTML = buildStageFrame({
     stage: STAGES[1],
     body: `<div class="field-groups">${sections}</div>`,
-    footerButton: buildFooterButton(1, "Reveal Active Rules"),
+    footerButton: buildFooterButton(1, "적용 규칙 보기"),
   });
 }
 
@@ -391,7 +468,7 @@ function renderRulesStage() {
   const cards = rules
     .map((rule) => {
       const statusClass = mapStatusClass(rule.status);
-      const fieldBadges = rule.candidate_fields.map((field) => `<span class="meta-pill">${field}</span>`).join("");
+      const fieldBadges = rule.candidate_fields.map((field) => `<span class="meta-pill">${escapeHtml(formatFieldLabel(field))}</span>`).join("");
       return `
         <div class="rule-card">
           <div class="stage-head">
@@ -399,14 +476,14 @@ function renderRulesStage() {
               <h4>${escapeHtml(rule.rule_id)}</h4>
               <p>${escapeHtml(rule.summary)}</p>
             </div>
-            <span class="status-pill ${statusClass}">${escapeHtml(rule.status)}</span>
+            <span class="status-pill ${statusClass}">${escapeHtml(formatStatusLabel(rule.status))}</span>
           </div>
           <div class="rule-meta">
-            <span class="meta-pill">${escapeHtml(rule.rule_family)}</span>
-            <span class="meta-pill">${escapeHtml(rule.logic_type)}</span>
+            <span class="meta-pill">${escapeHtml(formatRuleFamilyLabel(rule.rule_family))}</span>
+            <span class="meta-pill">${escapeHtml(formatLogicTypeLabel(rule.logic_type))}</span>
             <span class="meta-pill">${escapeHtml(rule.article_id)}</span>
           </div>
-          <div class="rule-meta">${fieldBadges || '<span class="meta-pill">no fields</span>'}</div>
+          <div class="rule-meta">${fieldBadges || '<span class="meta-pill">필드 없음</span>'}</div>
         </div>
       `;
     })
@@ -415,7 +492,7 @@ function renderRulesStage() {
   stageElements.rules.innerHTML = buildStageFrame({
     stage: STAGES[2],
     body: `<div class="rule-list">${cards}</div>`,
-    footerButton: buildFooterButton(2, "Reveal Triggered Law"),
+    footerButton: buildFooterButton(2, "법적 근거 보기"),
   });
 }
 
@@ -437,12 +514,12 @@ function renderLawStage() {
           `
         )
         .join("")
-    : `<div class="citation-card"><h4>No triggered law</h4><p>This run did not produce failed or uncertain rules, so no legal trigger cards were needed.</p></div>`;
+    : `<div class="citation-card"><h4>추가 법적 근거 없음</h4><p>이번 실행에서는 실패 또는 불확실 규칙이 없어 별도의 법적 근거 카드가 생성되지 않았습니다.</p></div>`;
 
   stageElements.law.innerHTML = buildStageFrame({
     stage: STAGES[3],
     body: `<div class="citation-list">${body}</div>`,
-    footerButton: buildFooterButton(3, "Reveal Deterministic Result"),
+    footerButton: buildFooterButton(3, "결정형 결과 보기"),
   });
 }
 
@@ -450,15 +527,15 @@ function renderResultStage() {
   const report = state.trace.review_report;
   const decisionClass = `result-${report.final_decision}`;
   const metrics = [
-    metricBlock(report.summary.applicable_rule_count, "Applicable rules"),
-    metricBlock(report.summary.failed_rule_count, "Failed rules"),
-    metricBlock(report.summary.missing_sir_field_count, "Missing fields"),
-    metricBlock(report.should_escalate ? "Yes" : "No", "Escalate"),
+    metricBlock(report.summary.applicable_rule_count, "적용 규칙 수"),
+    metricBlock(report.summary.failed_rule_count, "실패 규칙 수"),
+    metricBlock(report.summary.missing_sir_field_count, "누락 필드 수"),
+    metricBlock(report.should_escalate ? "예" : "아니오", "에스컬레이션"),
   ].join("");
 
   const missingFields = report.missing_sir_fields.length
-    ? report.missing_sir_fields.map((field) => `<span class="meta-pill">${field}</span>`).join("")
-    : `<span class="meta-pill">none</span>`;
+    ? report.missing_sir_fields.map((field) => `<span class="meta-pill">${escapeHtml(formatFieldLabel(field))}</span>`).join("")
+    : `<span class="meta-pill">없음</span>`;
 
   stageElements.result.innerHTML = buildStageFrame({
     stage: STAGES[4],
@@ -466,19 +543,19 @@ function renderResultStage() {
       <div class="result-card">
         <div class="result-banner">
           <div>
-            <p class="eyebrow">Final Deterministic Output</p>
-            <h3>${escapeHtml(report.final_decision)}</h3>
+            <p class="eyebrow">최종 결정형 결과</p>
+            <h3>${escapeHtml(formatDecisionLabel(report.final_decision))}</h3>
           </div>
-          <span class="status-pill ${decisionClass}">${escapeHtml(report.final_decision)}</span>
+          <span class="status-pill ${decisionClass}">${escapeHtml(formatDecisionLabel(report.final_decision))}</span>
         </div>
         <div class="result-metrics">${metrics}</div>
         <div>
-          <p class="mini-label">Missing SIR fields</p>
+          <p class="mini-label">누락된 SIR 필드</p>
           <div class="rule-meta">${missingFields}</div>
         </div>
       </div>
     `,
-    footerButton: buildFooterButton(4, "Reveal Offline LLM Advisory"),
+    footerButton: buildFooterButton(4, "오프라인 LLM 자문 보기"),
   });
 }
 
@@ -498,18 +575,18 @@ function renderLlmStage() {
       stage: STAGES[5],
       body: `
         <div class="citation-card">
-          <h4>Offline advisory not bundled for this exact input</h4>
-          <p>The GitHub demo does not call Gemini live. Pick an unchanged bundled example to see the precomputed Gemini explanation, safer rewrite, and human packet.</p>
-          <p class="source-span">Current run still has the full deterministic result and can be exported from the human stage as an audit package.</p>
+          <h4>이 입력에는 오프라인 자문이 번들되어 있지 않습니다</h4>
+          <p>GitHub 데모는 Gemini를 실시간 호출하지 않습니다. 번들된 원본 예시를 그대로 선택하면 사전 계산된 Gemini 설명, 수정안, 인간 검토 패킷을 볼 수 있습니다.</p>
+          <p class="source-span">현재 실행 결과도 인간 승인 단계에서 감사 패킷으로 내려받을 수 있습니다.</p>
         </div>
       `,
-      footerButton: buildFooterButton(5, "Reveal Human Approval + Audit"),
+      footerButton: buildFooterButton(5, "인간 승인 + 감사 패킷 보기"),
     });
     return;
   }
 
   const actions = (advisoryOutput.remediation_actions || [])
-    .map((action) => `<li>${escapeHtml(action)}</li>`)
+    .map((action) => `<li>${escapeHtml(normalizeNarrativeText(action))}</li>`)
     .join("");
   const citations = (advisoryOutput.citation_list || [])
     .map((citation) => `<span class="meta-pill">${escapeHtml(citation)}</span>`)
@@ -518,11 +595,11 @@ function renderLlmStage() {
   const rewriteOutcome = suggestedRewriteReport
     ? `
       <div class="rule-card advisory-card">
-        <h4>Suggested prompt check</h4>
+        <h4>수정안 재검증 결과</h4>
         <div class="rule-meta">
-          <span class="status-pill result-${escapeHtml(suggestedRewriteReport.final_decision)}">${escapeHtml(suggestedRewriteReport.final_decision)}</span>
-          <span class="meta-pill">${escapeHtml(String(suggestedRewriteReport.summary.failed_rule_count))} failed rules</span>
-          <span class="meta-pill">${escapeHtml(String(suggestedRewriteReport.summary.missing_sir_field_count))} missing fields</span>
+          <span class="status-pill result-${escapeHtml(suggestedRewriteReport.final_decision)}">${escapeHtml(formatDecisionLabel(suggestedRewriteReport.final_decision))}</span>
+          <span class="meta-pill">실패 규칙 ${escapeHtml(String(suggestedRewriteReport.summary.failed_rule_count))}개</span>
+          <span class="meta-pill">누락 필드 ${escapeHtml(String(suggestedRewriteReport.summary.missing_sir_field_count))}개</span>
         </div>
         <p>${escapeHtml(describeSuggestedOutcome(suggestedRewriteReport))}</p>
       </div>
@@ -533,8 +610,8 @@ function renderLlmStage() {
     report.final_decision !== "compliant"
       ? `
         <div class="action-row">
-          <button type="button" class="run-btn suggest-btn" data-use-suggested-prompt="1">Use Suggested Prompt</button>
-          <p class="profile-hint">This swaps the composer text to the bundled Gemini rewrite so you can run the deterministic flow again.</p>
+          <button type="button" class="run-btn suggest-btn" data-use-suggested-prompt="1">수정안 적용하기</button>
+          <p class="profile-hint">입력창을 번들된 Gemini 수정안으로 바꾼 뒤 다시 워크플로를 실행할 수 있습니다.</p>
         </div>
       `
       : "";
@@ -545,47 +622,47 @@ function renderLlmStage() {
       <div class="result-card llm-hero">
         <div class="result-banner">
           <div>
-            <p class="eyebrow">Bundled Gemini Advisory</p>
+            <p class="eyebrow">번들된 Gemini 자문</p>
             <h3>${escapeHtml(modelName)}</h3>
           </div>
-          <span class="status-pill status-present">offline ready</span>
+          <span class="status-pill status-present">오프라인 준비 완료</span>
         </div>
         <div class="result-metrics">
-          ${metricBlock(report.final_decision, "Deterministic decision")}
-          ${metricBlock((advisoryOutput.citation_list || []).length, "Grounded citations")}
-          ${metricBlock((advisoryOutput.remediation_actions || []).length, "Remediation actions")}
-          ${metricBlock(report.missing_sir_fields.length, "Focused missing fields")}
+          ${metricBlock(formatDecisionLabel(report.final_decision), "결정형 결과")}
+          ${metricBlock((advisoryOutput.citation_list || []).length, "근거 인용 수")}
+          ${metricBlock((advisoryOutput.remediation_actions || []).length, "수정 조치 수")}
+          ${metricBlock(report.missing_sir_fields.length, "집중 필드 수")}
         </div>
       </div>
 
       <div class="advisory-grid">
         <div class="rule-card advisory-card">
-          <h4>Reviewer summary</h4>
-          <p>${escapeHtml(advisoryOutput.reviewer_summary || "")}</p>
+          <h4>리뷰어 요약</h4>
+          <p>${escapeHtml(normalizeNarrativeText(advisoryOutput.reviewer_summary || ""))}</p>
         </div>
         <div class="rule-card advisory-card">
-          <h4>Plain-language rationale</h4>
-          <p>${escapeHtml(advisoryOutput.plain_language_rationale || "")}</p>
+          <h4>쉬운 설명</h4>
+          <p>${escapeHtml(normalizeNarrativeText(advisoryOutput.plain_language_rationale || ""))}</p>
         </div>
         <div class="rule-card advisory-card">
-          <h4>Remediation actions</h4>
-          <ul class="action-list">${actions || "<li>No remediation actions.</li>"}</ul>
+          <h4>수정 조치</h4>
+          <ul class="action-list">${actions || "<li>수정 조치가 없습니다.</li>"}</ul>
         </div>
         <div class="rule-card advisory-card">
-          <h4>Grounded citation list</h4>
-          <div class="rule-meta">${citations || '<span class="meta-pill">none</span>'}</div>
+          <h4>근거 인용 목록</h4>
+          <div class="rule-meta">${citations || '<span class="meta-pill">없음</span>'}</div>
         </div>
       </div>
 
       <div class="rule-card advisory-card">
-        <h4>Suggested safer prompt</h4>
+        <h4>권장 수정 문구</h4>
         <p class="suggested-prompt">${escapeHtml(advisoryOutput.conservative_rewrite_suggestion || "")}</p>
       </div>
 
       ${rewriteOutcome}
       ${suggestButton}
     `,
-    footerButton: buildFooterButton(5, "Reveal Human Approval + Audit"),
+    footerButton: buildFooterButton(5, "인간 승인 + 감사 패킷 보기"),
   });
 }
 
@@ -602,7 +679,7 @@ function renderHumanStage() {
           type="button"
           class="decision-btn ${state.humanDecision === action ? "active" : ""}"
           data-human-decision="${escapeHtml(action)}"
-        >${escapeHtml(action)}</button>
+        >${escapeHtml(formatDecisionLabel(action))}</button>
       `
     )
     .join("");
@@ -613,10 +690,10 @@ function renderHumanStage() {
 
   const evidenceSummary = evidencePackage?.coverage_summary || humanPacket?.evidence_summary || null;
   const metrics = [
-    metricBlock(state.humanDecision || "pending", "Selected decision"),
-    metricBlock(evidenceSummary?.triggered_rule_count ?? report.summary.failed_rule_count, "Triggered items"),
-    metricBlock(evidenceSummary?.citation_count ?? report.triggered_citations.length, "Citations"),
-    metricBlock(evidenceSummary?.retrieved_support_item_count ?? 0, "Support rows"),
+    metricBlock(formatDecisionLabel(state.humanDecision || "pending"), "선택된 조치"),
+    metricBlock(evidenceSummary?.triggered_rule_count ?? report.summary.failed_rule_count, "트리거 항목 수"),
+    metricBlock(evidenceSummary?.citation_count ?? report.triggered_citations.length, "인용 수"),
+    metricBlock(evidenceSummary?.retrieved_support_item_count ?? 0, "지원 근거 수"),
   ].join("");
 
   stageElements.human.innerHTML = buildStageFrame({
@@ -625,42 +702,42 @@ function renderHumanStage() {
       <div class="result-card">
         <div class="result-banner">
           <div>
-            <p class="eyebrow">Human Loop Packet</p>
-            <h3>${escapeHtml(state.humanDecision || "pending")}</h3>
+            <p class="eyebrow">인간 검토 패킷</p>
+            <h3>${escapeHtml(formatDecisionLabel(state.humanDecision || "pending"))}</h3>
           </div>
-          <span class="status-pill ${decisionStatusClass(state.humanDecision || report.final_decision)}">${escapeHtml(state.humanDecision || "pending")}</span>
+          <span class="status-pill ${decisionStatusClass(state.humanDecision || report.final_decision)}">${escapeHtml(formatDecisionLabel(state.humanDecision || "pending"))}</span>
         </div>
         <div class="result-metrics">${metrics}</div>
       </div>
 
       <div class="rule-card advisory-card">
-        <h4>Choose reviewer action</h4>
+        <h4>리뷰어 조치 선택</h4>
         <div class="decision-row">${actionButtons}</div>
       </div>
 
       <div class="advisory-grid">
         <label class="input-shell">
-          <span class="mini-label">Reviewer ID</span>
+          <span class="mini-label">리뷰어 ID</span>
           <input type="text" value="${escapeHtml(state.reviewerId)}" data-human-field="reviewer_id" />
         </label>
         <div class="rule-card advisory-card">
-          <h4>Triggered citations</h4>
-          <div class="rule-meta">${citations || '<span class="meta-pill">none</span>'}</div>
+          <h4>트리거된 인용</h4>
+          <div class="rule-meta">${citations || '<span class="meta-pill">없음</span>'}</div>
         </div>
       </div>
 
       <label class="textarea-shell">
-        <span class="mini-label">Reviewer note</span>
+        <span class="mini-label">리뷰어 메모</span>
         <textarea data-human-field="reviewer_note" rows="5">${escapeHtml(state.reviewerNote)}</textarea>
       </label>
 
       <div class="rule-card advisory-card">
-        <h4>Audit export</h4>
-        <p>The audit packet bundles the normalized input, deterministic result, triggered law, offline Gemini advisory when available, and the reviewer’s final decision.</p>
+        <h4>감사 패킷 내려받기</h4>
+        <p>감사 패킷에는 정규화 입력, 결정형 결과, 법적 근거, 오프라인 Gemini 자문, 그리고 리뷰어 최종 결정을 함께 담습니다.</p>
         <div class="action-row">
-          <button type="button" class="ghost-btn" data-download-packet="audit">Download Audit JSON</button>
-          <button type="button" class="ghost-btn" data-download-packet="advisory_input">Download LLM Input JSON</button>
-          <button type="button" class="ghost-btn" data-download-packet="human_packet">Download Human Packet JSON</button>
+          <button type="button" class="ghost-btn" data-download-packet="audit">감사 JSON 내려받기</button>
+          <button type="button" class="ghost-btn" data-download-packet="advisory_input">LLM 입력 JSON 내려받기</button>
+          <button type="button" class="ghost-btn" data-download-packet="human_packet">인간 검토 JSON 내려받기</button>
         </div>
       </div>
     `,
@@ -672,16 +749,16 @@ function renderFieldGroup(title, fields, statusClass) {
   const items = fields.length
     ? fields
         .map(
-          (field) => `
+      (field) => `
             <div class="field-chip">
-              <strong>${escapeHtml(field.field_name)}</strong>
-              <span class="status-pill ${statusClass}">${escapeHtml(field.status)}</span>
-              <p>${escapeHtml(field.value === null ? "null" : stringifyValue(field.value))}</p>
+              <strong>${escapeHtml(formatFieldLabel(field.field_name))}</strong>
+              <span class="status-pill ${statusClass}">${escapeHtml(formatStatusLabel(field.status))}</span>
+              <p>${escapeHtml(field.value === null ? "없음" : stringifyValue(field.value))}</p>
             </div>
           `
         )
         .join("")
-    : `<div class="field-chip"><strong>none</strong><p>No fields in this state.</p></div>`;
+    : `<div class="field-chip"><strong>없음</strong><p>이 상태의 필드는 없습니다.</p></div>`;
 
   return `
     <section class="field-group">
@@ -747,15 +824,15 @@ function defaultHumanNote(report, decision) {
     return "";
   }
   if (decision === "approve") {
-    return "Deterministic review passed. Human reviewer approves the content as currently written.";
+    return "결정형 검토를 통과했으므로 현재 문구를 승인합니다.";
   }
   if (decision === "approve_with_edits") {
-    return "Deterministic review requires limited edits before approval.";
+    return "결정형 검토 결과 일부 수정 후 승인할 수 있습니다.";
   }
   if (decision === "reject") {
-    return "Deterministic review found rule violations that must be corrected before release.";
+    return "결정형 검토에서 규칙 위반이 확인되어 배포 전 수정이 필요합니다.";
   }
-  return "Deterministic review found high-severity compliance issues. Escalating for compliance review and revision.";
+  return "결정형 검토에서 고위험 이슈가 확인되어 컴플라이언스 추가 검토로 에스컬레이션합니다.";
 }
 
 function decisionStatusClass(decision) {
@@ -767,24 +844,24 @@ function decisionStatusClass(decision) {
 
 function describeSuggestedOutcome(report) {
   if (report.final_decision === "compliant") {
-    return "If you rerun the workflow with this suggested prompt, the deterministic core passes the case.";
+    return "이 수정 문구로 다시 실행하면 결정형 코어가 해당 케이스를 통과합니다.";
   }
   if (report.summary.missing_sir_field_count > 0) {
-    return "The suggested prompt is safer, but the deterministic core still needs explicit factual fields before it can pass.";
+    return "수정 문구는 더 안전하지만, 결정형 코어가 통과하려면 여전히 명시적인 사실 필드가 더 필요합니다.";
   }
-  return "The suggested prompt improves the copy, but at least one rule still fails and needs manual correction.";
+  return "수정 문구는 개선되었지만 아직 실패 규칙이 남아 있어 수동 보정이 필요합니다.";
 }
 
 function applySuggestedPrompt() {
   const advisoryOutput = getActiveExampleArtifacts()?.geminiAdvisoryOutput;
   const suggestedPrompt = String(advisoryOutput?.conservative_rewrite_suggestion || "").trim();
   if (!suggestedPrompt) {
-    showStatus("No bundled suggested prompt is available for this case.", true);
+    showStatus("이 케이스에는 번들된 수정 문구가 없습니다.", true);
     return;
   }
   promptInput.value = suggestedPrompt;
-  profileHint.textContent = "Bundled Gemini suggestion inserted. Build the workflow again to test the safer prompt.";
-  showStatus("Suggested prompt inserted into the composer.", false);
+  profileHint.textContent = "번들된 Gemini 수정 문구를 입력창에 넣었습니다. 다시 실행해 결과를 확인하세요.";
+  showStatus("수정 문구를 입력창에 반영했습니다.", false);
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
@@ -895,6 +972,37 @@ function showStatus(message, isError) {
   statusBanner.textContent = message;
   statusBanner.classList.remove("hidden");
   statusBanner.style.background = isError ? "rgba(127, 46, 31, 0.92)" : "rgba(31, 46, 42, 0.92)";
+}
+
+function formatStatusLabel(value) {
+  return STATUS_LABELS[value] || value;
+}
+
+function formatDecisionLabel(value) {
+  return DECISION_LABELS[value] || STATUS_LABELS[value] || value;
+}
+
+function formatFieldLabel(value) {
+  return FIELD_LABELS[value] || value;
+}
+
+function formatRuleFamilyLabel(value) {
+  return RULE_FAMILY_LABELS[value] || value;
+}
+
+function formatLogicTypeLabel(value) {
+  return LOGIC_TYPE_LABELS[value] || value;
+}
+
+function normalizeNarrativeText(value) {
+  return String(value)
+    .replaceAll("non_compliant", "비준수")
+    .replaceAll("compliant", "준수")
+    .replaceAll("deposit_disclaimer", "예금자보호 안내 문구")
+    .replaceAll("investment_warning", "투자 위험 경고")
+    .replaceAll("insurance_warning", "보험 경고 문구")
+    .replaceAll("loan_rate_basis", "대출 금리 기준")
+    .replaceAll("loan_interest_timing", "대출 이자 시기");
 }
 
 function escapeHtml(value) {

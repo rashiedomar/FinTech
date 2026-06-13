@@ -6,12 +6,12 @@
   "case_summary": {
     "title": "ABC은행 예금 특별 금리",
     "content_text": "ABC은행 정기예금, 확정 수익 5%, 지금 가입하세요.",
-    "final_decision_from_engine": "non_compliant",
+    "final_decision_from_engine": "비준수",
     "should_escalate": true,
     "failed_rule_count": 2,
     "uncertain_rule_count": 0,
     "missing_sir_fields": [
-      "deposit_disclaimer"
+      "예금자보호 안내 문구"
     ]
   },
   "reviewer_actions": [
@@ -28,10 +28,10 @@
   "draft_review_form": {
     "reviewer_id": "omar_demo_human",
     "decision": "escalate",
-    "reviewer_note": "Deterministic review found high-severity compliance issues. Escalating for compliance review and revision.",
+    "reviewer_note": "결정형 검토에서 고위험 이슈가 확인되어 컴플라이언스 추가 검토로 에스컬레이션합니다.",
     "requested_edits": [
-      "Remove the prohibited claim '확정 수익'.",
-      "Add the required deposit disclaimer stating that illustrated payouts do not guarantee future returns and that this product is protected by the Depositor Protection Act up to 50 million won per person, including principal and interest."
+      "'확정 수익'과 같이 수익을 보장하는 것으로 오인하게 할 수 있는 표현을 삭제하십시오.",
+      "예금자보호법에 따라 예금자보호 여부 및 보호 한도에 대한 고지 문구를 추가하십시오."
     ],
     "linked_rule_ids": [
       "law_fincpa_main_2026-01-02:제22조:③:ob01:rule01",
@@ -79,9 +79,9 @@
   "completed_review": {
     "reviewer_id": "omar_demo_human",
     "decision": "escalate",
-    "reviewer_note": "Deterministic review found high-severity compliance issues. Escalating for compliance review and revision.",
+    "reviewer_note": "결정형 검토에서 고위험 이슈가 확인되어 컴플라이언스 추가 검토로 에스컬레이션합니다.",
     "llm_model": "gemini-2.5-flash",
-    "llm_reviewer_summary": "The advertisement is non-compliant due to the use of a prohibited '확정 수익' claim and the omission of a required deposit disclaimer. Both issues must be addressed.",
-    "llm_recommended_rewrite": "ABC은행 정기예금, 최고 연 5% 금리. 지금 가입하세요. 이 예금은 예금자보호법에 따라 예금보험공사가 보호하되, 보호 한도는 본 은행에 있는 귀하의 모든 예금보호 대상 금융상품의 원금과 소정의 이자를 합하여 1인당 '최고 5천만원'이며, 5천만원을 초과하는 나머지 금액은 보호하지 않습니다. 예시된 지급금은 미래의 수익을 보장하지 않습니다."
+    "llm_reviewer_summary": "제시된 광고 문구는 예금성 상품임에도 불구하고 '확정 수익'이라는 표현을 사용하여 금융소비자보호법 제22조 제4항에서 금지하는 오인 유발 행위에 해당합니다. 또한, 예금자보호 관련 필수 고지사항인 '예금자보호 안내 문구'가 누락되어 금융소비자보호법 제22조 제3항을 위반합니다. 이에 따라 해당 광고는 비준수로 판단됩니다.",
+    "llm_recommended_rewrite": "ABC은행 정기예금, 최고 연 5% (세전). 이 예금은 예금자보호법에 따라 예금보험공사가 보호하되, 보호 한도는 본 은행에 있는 귀하의 모든 예금보호 대상 금융상품의 원금과 소정의 이자를 합하여 1인당 '최고 5천만원'이며, 5천만원을 초과하는 나머지 금액은 보호하지 않습니다. 지금 가입하세요."
   }
 }

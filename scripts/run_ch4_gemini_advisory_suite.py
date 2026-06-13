@@ -30,12 +30,12 @@ def load_review_report(example_id: str) -> dict:
 def choose_human_decision(review_report: dict) -> tuple[str, str]:
     decision = review_report["final_decision"]
     if decision == "compliant":
-        return "approve", "Deterministic review passed. Human reviewer approves the content as currently written."
+        return "approve", "결정형 검토를 통과했으므로 현재 문구를 승인합니다."
     if review_report.get("should_escalate"):
-        return "escalate", "Deterministic review found high-severity compliance issues. Escalating for compliance review and revision."
+        return "escalate", "결정형 검토에서 고위험 이슈가 확인되어 컴플라이언스 추가 검토로 에스컬레이션합니다."
     if decision == "non_compliant":
-        return "reject", "Deterministic review found rule violations that must be corrected before release."
-    return "approve_with_edits", "Deterministic review requires manual confirmation and limited edits before approval."
+        return "reject", "결정형 검토에서 규칙 위반이 확인되어 배포 전 수정이 필요합니다."
+    return "approve_with_edits", "결정형 검토 결과 일부 수정 후 승인할 수 있습니다."
 
 
 def main() -> None:

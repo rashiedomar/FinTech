@@ -6,7 +6,7 @@
   "case_summary": {
     "title": "ABC증권 투자상품 특별 안내",
     "content_text": "ABC증권 투자상품, 원금 보장, 확정 수익 8%, 지금 바로 가입하세요.",
-    "final_decision_from_engine": "non_compliant",
+    "final_decision_from_engine": "비준수",
     "should_escalate": true,
     "failed_rule_count": 2,
     "uncertain_rule_count": 0,
@@ -28,11 +28,10 @@
   "draft_review_form": {
     "reviewer_id": "omar_demo_human",
     "decision": "escalate",
-    "reviewer_note": "Deterministic review found high-severity compliance issues. Escalating for compliance review and revision.",
+    "reviewer_note": "결정형 검토에서 고위험 이슈가 확인되어 컴플라이언스 추가 검토로 에스컬레이션합니다.",
     "requested_edits": [
-      "Remove all claims of principal guarantee and guaranteed returns.",
-      "Add a clear and prominent warning about investment risks, including the possibility of principal loss.",
-      "Review all advertising content for investment products to ensure compliance with prohibitions on misleading claims and inclusion of all required disclosures."
+      "광고 문구에서 '원금 보장', '확정 수익' 등 손실 보전 및 이익 보장을 오인하게 하는 표현을 즉시 삭제하십시오.",
+      "투자성 상품의 특성을 고려하여 '원금 손실 가능성' 등 투자 위험에 대한 경고 문구를 명확하게 추가하십시오."
     ],
     "linked_rule_ids": [
       "law_fincpa_main_2026-01-02:제22조:③:ob01:rule01",
@@ -80,9 +79,9 @@
   "completed_review": {
     "reviewer_id": "omar_demo_human",
     "decision": "escalate",
-    "reviewer_note": "Deterministic review found high-severity compliance issues. Escalating for compliance review and revision.",
+    "reviewer_note": "결정형 검토에서 고위험 이슈가 확인되어 컴플라이언스 추가 검토로 에스컬레이션합니다.",
     "llm_model": "gemini-2.5-flash",
-    "llm_reviewer_summary": "The advertisement is non-compliant due to prohibited claims of principal guarantee and guaranteed returns, and the omission of required investment risk warnings. Escalation is required.",
-    "llm_recommended_rewrite": "ABC증권 투자상품에 투자 원금 손실 가능성이 있으며, 이는 투자 결과에 따라 달라질 수 있습니다. 지금 바로 가입하세요."
+    "llm_reviewer_summary": "제공된 광고 문구는 투자성 상품임에도 불구하고 '원금 보장', '확정 수익'과 같은 금지된 표현을 사용하여 금융소비자 보호에 관한 법률을 위반했습니다. 또한, 투자 위험에 대한 경고 문구가 누락되어 비준수 사항으로 판단됩니다.",
+    "llm_recommended_rewrite": "ABC증권 투자상품에 투자 시 원금 손실 가능성이 있으며, 이는 투자 결과에 따라 달라질 수 있습니다. 투자 결정 전 투자설명서를 확인하시기 바랍니다."
   }
 }

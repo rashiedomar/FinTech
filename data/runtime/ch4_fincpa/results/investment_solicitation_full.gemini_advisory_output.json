@@ -1,7 +1,9 @@
 {
-  "reviewer_summary": "The content is compliant. It appropriately discloses the possibility of principal loss and advises checking the product description and terms and conditions for investment products.",
-  "plain_language_rationale": "The provided content for the investment product solicitation includes the necessary warning about the possibility of principal loss and directs the customer to review the product description and terms and conditions. This aligns with compliance requirements for investment product disclosures.",
-  "remediation_actions": [],
+  "reviewer_summary": "제공된 투자상품 안내 문구는 관련 규정을 준수합니다. 원금 손실 가능성 및 상품설명서 확인 안내가 명확하게 포함되어 있습니다.",
+  "plain_language_rationale": "제공된 문구는 투자 상품의 원금 손실 가능성을 명시하고 있으며, 상품설명서 및 약관 확인을 안내하여 금융소비자 보호에 관한 법률 등 관련 규정을 준수합니다. 필수 고지 사항이 모두 포함되어 있어 추가적인 수정이 필요하지 않습니다.",
+  "remediation_actions": [
+    "현재 문구는 규정을 준수하므로 별도의 조치 없이 사용 가능합니다."
+  ],
   "conservative_rewrite_suggestion": "미래에셋증권 투자상품 안내입니다. 투자에는 원금 손실 가능성이 있으며, 상품설명서와 약관을 확인해 주시기 바랍니다.",
   "citation_list": []
 }

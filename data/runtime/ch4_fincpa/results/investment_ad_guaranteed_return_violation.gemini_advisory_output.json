@@ -1,12 +1,11 @@
 {
-  "reviewer_summary": "The advertisement is non-compliant due to prohibited claims of principal guarantee and guaranteed returns, and the omission of required investment risk warnings. Escalation is required.",
-  "plain_language_rationale": "제공된 광고 문구는 '원금 보장' 및 '확정 수익 8%'와 같이 투자성 상품에서 금지되는 손실 보전 또는 이익 보장을 오인하게 하는 내용을 포함하고 있습니다. 또한, 투자성 상품 광고에 필수적으로 포함되어야 하는 투자 위험에 대한 경고 문구가 누락되었습니다. 이는 금융소비자 보호에 관한 법률 제22조 제3항 및 제4항을 위반합니다.",
+  "reviewer_summary": "제공된 광고 문구는 투자성 상품임에도 불구하고 '원금 보장', '확정 수익'과 같은 금지된 표현을 사용하여 금융소비자 보호에 관한 법률을 위반했습니다. 또한, 투자 위험에 대한 경고 문구가 누락되어 비준수 사항으로 판단됩니다.",
+  "plain_language_rationale": "해당 광고는 투자성 상품에 대해 '원금 보장' 및 '확정 수익 8%'와 같은 문구를 사용하여 투자 손실을 보전하거나 이익을 보장하는 것으로 오인하게 할 수 있는 행위를 하였습니다. 이는 금융소비자 보호에 관한 법률 제22조 제4항에서 금지하는 행위입니다. 또한, 투자성 상품 광고에는 투자에 따른 위험을 명확히 고지해야 하지만, 본 광고에는 이러한 투자 위험 경고 문구가 누락되어 금융소비자 보호에 관한 법률 제22조 제3항을 위반하였습니다.",
   "remediation_actions": [
-    "Remove all claims of principal guarantee and guaranteed returns.",
-    "Add a clear and prominent warning about investment risks, including the possibility of principal loss.",
-    "Review all advertising content for investment products to ensure compliance with prohibitions on misleading claims and inclusion of all required disclosures."
+    "광고 문구에서 '원금 보장', '확정 수익' 등 손실 보전 및 이익 보장을 오인하게 하는 표현을 즉시 삭제하십시오.",
+    "투자성 상품의 특성을 고려하여 '원금 손실 가능성' 등 투자 위험에 대한 경고 문구를 명확하게 추가하십시오."
   ],
-  "conservative_rewrite_suggestion": "ABC증권 투자상품에 투자 원금 손실 가능성이 있으며, 이는 투자 결과에 따라 달라질 수 있습니다. 지금 바로 가입하세요.",
+  "conservative_rewrite_suggestion": "ABC증권 투자상품에 투자 시 원금 손실 가능성이 있으며, 이는 투자 결과에 따라 달라질 수 있습니다. 투자 결정 전 투자설명서를 확인하시기 바랍니다.",
   "citation_list": [
     "금융소비자 보호에 관한 법률 제22조③",
     "금융소비자 보호에 관한 법률 제22조④"

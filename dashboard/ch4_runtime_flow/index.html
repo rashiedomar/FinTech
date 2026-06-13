@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chapter 4 Runtime Flow</title>
+    <title>제4장 런타임 플로우</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
@@ -12,35 +12,35 @@
       <div class="ambient ambient-b"></div>
 
       <header class="hero">
-        <p class="eyebrow">Chapter 4 Runtime Flow</p>
-        <h1>Prompt to Legal Trigger to Evidence</h1>
+        <p class="eyebrow">제4장 런타임 플로우</p>
+        <h1>입력에서 법적<br />근거와 증빙까지</h1>
         <p class="subhead">
-          Paste one content sample, then reveal the deterministic workflow, the offline LLM advisory handoff, and the human approval packet one stage at a time.
+          금융 콘텐츠 입력 하나를 넣고, 결정형 규칙 엔진부터 오프라인 LLM 자문과 인간 승인 패킷까지 단계를 하나씩 확인할 수 있습니다.
         </p>
 
         <div class="composer-card">
           <div class="composer-head">
             <div>
-              <p class="kicker">Live Input</p>
-              <h2>One prompt, one legal path</h2>
+              <p class="kicker">실시간 입력</p>
+              <h2>하나의 입력, 하나의 법적 경로</h2>
             </div>
-            <button id="clearBtn" class="ghost-btn" type="button">Clear</button>
+            <button id="clearBtn" class="ghost-btn" type="button">초기화</button>
           </div>
 
           <textarea
             id="promptInput"
             class="prompt-input"
-            placeholder="Type a new financial-content sample here, or click an example below."
+            placeholder="새 금융 콘텐츠 문구를 입력하거나 아래 예시를 눌러 시작하세요."
           ></textarea>
 
           <div class="example-strip">
-            <div class="example-label">Examples</div>
+            <div class="example-label">예시</div>
             <div id="exampleChips" class="example-chips"></div>
           </div>
 
           <div class="composer-actions">
-            <p id="profileHint" class="profile-hint">Custom input runs with automatic inference.</p>
-            <button id="runBtn" class="run-btn" type="button">Build Workflow</button>
+            <p id="profileHint" class="profile-hint">직접 입력은 자동 추론 모드로 실행됩니다.</p>
+            <button id="runBtn" class="run-btn" type="button">워크플로 실행</button>
           </div>
         </div>
       </header>

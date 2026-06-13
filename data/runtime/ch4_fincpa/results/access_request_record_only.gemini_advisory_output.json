@@ -1,7 +1,9 @@
 {
-  "reviewer_summary": "The content is compliant as it is an internal record of an access request and does not contain any customer-facing claims or disclosures that would trigger compliance rules.",
-  "plain_language_rationale": "The deterministic engine determined that the content, identified as an internal record for an access request, is compliant. This is because the content is not customer-facing and therefore does not contain any statements, claims, or disclosures that would be subject to financial advertising or disclosure regulations. No specific rules were triggered as applicable to this type of internal record.",
-  "remediation_actions": [],
-  "conservative_rewrite_suggestion": "열람 요청 처리",
+  "reviewer_summary": "제공된 콘텐츠는 모든 관련 규정 준수 규칙을 통과했습니다. 추가적인 수정 조치는 필요하지 않습니다.",
+  "plain_language_rationale": "제공된 콘텐츠는 '열람 요청 처리'에 대한 것으로, 현재 적용되는 모든 규정 준수 규칙을 충족합니다. 특정 위반 사항이나 누락된 정보가 발견되지 않았습니다.",
+  "remediation_actions": [
+    "추가 조치 불필요"
+  ],
+  "conservative_rewrite_suggestion": "열람 요청이 성공적으로 처리되었습니다.",
   "citation_list": []
 }

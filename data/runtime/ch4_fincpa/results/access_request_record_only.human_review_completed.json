@@ -6,7 +6,7 @@
   "case_summary": {
     "title": "열람 요청 처리",
     "content_text": "",
-    "final_decision_from_engine": "compliant",
+    "final_decision_from_engine": "준수",
     "should_escalate": false,
     "failed_rule_count": 0,
     "uncertain_rule_count": 0,
@@ -26,8 +26,10 @@
   "draft_review_form": {
     "reviewer_id": "omar_demo_human",
     "decision": "approve",
-    "reviewer_note": "Deterministic review passed. Human reviewer approves the content as currently written.",
-    "requested_edits": [],
+    "reviewer_note": "결정형 검토를 통과했으므로 현재 문구를 승인합니다.",
+    "requested_edits": [
+      "추가 조치 불필요"
+    ],
     "linked_rule_ids": [
       "law_fincpa_main_2026-01-02:제28조:③:ob01:rule01",
       "law_fincpa_main_2026-01-02:제28조:④:ob01:rule01",
@@ -47,9 +49,9 @@
   "completed_review": {
     "reviewer_id": "omar_demo_human",
     "decision": "approve",
-    "reviewer_note": "Deterministic review passed. Human reviewer approves the content as currently written.",
+    "reviewer_note": "결정형 검토를 통과했으므로 현재 문구를 승인합니다.",
     "llm_model": "gemini-2.5-flash",
-    "llm_reviewer_summary": "The content is compliant as it is an internal record of an access request and does not contain any customer-facing claims or disclosures that would trigger compliance rules.",
-    "llm_recommended_rewrite": "열람 요청 처리"
+    "llm_reviewer_summary": "제공된 콘텐츠는 모든 관련 규정 준수 규칙을 통과했습니다. 추가적인 수정 조치는 필요하지 않습니다.",
+    "llm_recommended_rewrite": "열람 요청이 성공적으로 처리되었습니다."
   }
 }

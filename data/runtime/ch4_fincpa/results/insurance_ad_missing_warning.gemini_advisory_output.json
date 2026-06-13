@@ -1,12 +1,11 @@
 {
-  "reviewer_summary": "The advertisement for 'ABC보험' is non-compliant because it fails to include mandatory warnings for insurance products, specifically regarding potential disadvantages when switching from an existing contract. Additionally, the ad's phrasing '든든한 보장' could be misleading by implying unrestricted coverage without necessary disclosures.",
-  "plain_language_rationale": "금융소비자 보호에 관한 법률에 따르면, 보장성 보험 상품을 광고할 때는 기존 보험 계약을 해지하고 새로운 계약을 체결할 경우 발생할 수 있는 불이익(예: 계약 거부, 보험료 인상, 보장 내용 변경)에 대한 경고 문구를 반드시 포함해야 합니다. 또한, 소비자가 보장 한도, 제한 조건, 면책 사항 등을 오해하지 않도록 명확하게 고지해야 합니다. 현재 광고 문구인 '든든한 보장'은 이러한 필수 경고 문구가 누락되어 소비자가 보장 내용을 오인할 수 있는 소지가 있습니다.",
+  "reviewer_summary": "제공된 광고 문구는 보장성 보험 상품임에도 불구하고, 기존 계약 해지 후 신규 계약 체결 시 발생할 수 있는 불이익에 대한 경고 문구와 소비자가 오인할 수 있는 핵심 정보 누락에 대한 경고 문구가 누락되어 관련 법규를 준수하지 못했습니다. 이는 금융소비자 보호에 관한 법률 제22조 3항 및 4항 위반입니다.",
+  "plain_language_rationale": "해당 광고는 보장성 보험 상품에 대한 내용이지만, 금융소비자 보호에 관한 법률에 따라 필수적으로 포함되어야 하는 '기존 보험 계약 해지 후 신규 계약 시 발생할 수 있는 불이익(계약 체결 거부, 보험료 인상, 보장 내용 변경 등)에 대한 경고' 문구가 없습니다. 또한, 보장성 상품 광고 시 소비자가 오인할 수 있는 보장 제한 조건, 고액 보장 강조, 보험료 오인 유도, 자동갱신 시 보험료 인상 가능성 미고지 등 핵심 정보의 누락이나 왜곡을 금지하고 필수 경고 문구를 포함해야 하는데, 이러한 내용도 누락되어 있습니다.",
   "remediation_actions": [
-    "Add a clear and prominent warning about the potential disadvantages of switching from an existing insurance contract.",
-    "Ensure that the advertisement does not imply unrestricted coverage without explicitly stating all limitations, conditions, and exclusions.",
-    "Review all insurance product advertisements to ensure compliance with mandatory disclosure requirements under the Financial Consumer Protection Act."
+    "광고 문구에 기존 계약 해지 후 신규 계약 체결 시 발생할 수 있는 불이익(계약 체결 거부, 보험료 인상, 보장 내용 변경 등) 가능성에 대한 경고 문구를 추가해야 합니다.",
+    "광고 문구에 보장성 상품의 보장 제한 조건, 고액 보장 강조 금지, 보험료 오인 유도 금지, 자동갱신 시 보험료 인상 가능성 고지 등 소비자가 오인할 수 있는 행위를 금지하는 필수 경고 문구를 추가해야 합니다."
   ],
-  "conservative_rewrite_suggestion": "ABC보험, 든든한 보장. (광고) 이 보험은 예금자보호법에 따라 예금보험공사가 보호하지 않습니다. 기존 보험계약을 해지하고 다른 보험계약을 체결하는 경우 보험인수가 거절되거나 보험료가 인상되거나 보장내용이 달라질 수 있습니다. 계약 체결 전 상품설명서 및 약관을 읽어보시기 바랍니다.",
+  "conservative_rewrite_suggestion": "ABC보험, 든든한 보장. 지금 바로 가입하세요. (기존 보험 계약을 해지하고 다른 계약을 체결하는 경우 계약 체결이 거부되거나 보험료가 인상되거나 보장 내용이 변경될 수 있습니다. 자세한 내용은 상품설명서 및 약관을 확인하시기 바랍니다.)",
   "citation_list": [
     "금융소비자 보호에 관한 법률 제22조③",
     "금융소비자 보호에 관한 법률 제22조④"

@@ -6,7 +6,7 @@
   "case_summary": {
     "title": "투자상품 권유 스크립트",
     "content_text": "이 상품은 무조건 안전하고 다른 상품보다 훨씬 유리합니다. 지금 바로 가입하세요.",
-    "final_decision_from_engine": "non_compliant",
+    "final_decision_from_engine": "비준수",
     "should_escalate": true,
     "failed_rule_count": 1,
     "uncertain_rule_count": 0,
@@ -26,11 +26,11 @@
   "draft_review_form": {
     "reviewer_id": "omar_demo_human",
     "decision": "escalate",
-    "reviewer_note": "Deterministic review found high-severity compliance issues. Escalating for compliance review and revision.",
+    "reviewer_note": "결정형 검토에서 고위험 이슈가 확인되어 컴플라이언스 추가 검토로 에스컬레이션합니다.",
     "requested_edits": [
-      "Remove all absolute claims and unsubstantiated comparative statements from the solicitation content.",
-      "Ensure all claims are factually accurate and can be objectively substantiated.",
-      "Add a clear investment warning regarding the possibility of principal loss for investment products."
+      "부당한 단정적 표현을 제거합니다.",
+      "객관적 근거 없는 비교 표현을 제거합니다.",
+      "투자 상품의 원금 손실 가능성에 대한 경고 문구를 추가합니다."
     ],
     "linked_rule_ids": [
       "law_fincpa_main_2026-01-02:제16조의2:③:ob02:rule01",
@@ -66,9 +66,9 @@
   "completed_review": {
     "reviewer_id": "omar_demo_human",
     "decision": "escalate",
-    "reviewer_note": "Deterministic review found high-severity compliance issues. Escalating for compliance review and revision.",
+    "reviewer_note": "결정형 검토에서 고위험 이슈가 확인되어 컴플라이언스 추가 검토로 에스컬레이션합니다.",
     "llm_model": "gemini-2.5-flash",
-    "llm_reviewer_summary": "The content is non-compliant due to the use of an absolute claim ('무조건 안전하고') and an unsubstantiated comparative claim ('다른 상품보다 훨씬 유리합니다'), which are prohibited in financial product solicitations. The deterministic engine flagged a high-severity violation under the Financial Consumer Protection Act.",
-    "llm_recommended_rewrite": "이 상품은 투자 원금 손실 가능성이 있으며, 투자 결정 전 상품설명서를 확인하시기 바랍니다. 지금 바로 문의하세요."
+    "llm_reviewer_summary": "제공된 스크립트에는 '무조건 안전하고'와 같은 단정적인 표현이 포함되어 있어 금융소비자 보호에 관한 법률 제21조(부당권유행위 금지)를 위반합니다. 투자 상품은 원금 손실 가능성이 있으므로 이러한 표현은 금지됩니다.",
+    "llm_recommended_rewrite": "이 상품은 투자 결과에 따라 원금 손실이 발생할 수 있습니다. 상품의 주요 내용과 투자 위험을 충분히 숙지하신 후 신중하게 결정하시기 바랍니다."
   }
 }

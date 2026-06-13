@@ -6,7 +6,7 @@
   "case_summary": {
     "title": "투자상품 계약 안내",
     "content_text": "미래에셋증권 투자상품 안내입니다. 투자에는 원금 손실 가능성이 있으며 상품설명서와 약관을 확인해 주세요.",
-    "final_decision_from_engine": "compliant",
+    "final_decision_from_engine": "준수",
     "should_escalate": false,
     "failed_rule_count": 0,
     "uncertain_rule_count": 0,
@@ -26,8 +26,10 @@
   "draft_review_form": {
     "reviewer_id": "omar_demo_human",
     "decision": "approve",
-    "reviewer_note": "Deterministic review passed. Human reviewer approves the content as currently written.",
-    "requested_edits": [],
+    "reviewer_note": "결정형 검토를 통과했으므로 현재 문구를 승인합니다.",
+    "requested_edits": [
+      "현재 문구는 규정을 준수하므로 별도의 조치 없이 사용 가능합니다."
+    ],
     "linked_rule_ids": [
       "law_fincpa_main_2026-01-02:제17조:①:ob01:rule01",
       "law_fincpa_main_2026-01-02:제17조:⑤:ob01:rule01",
@@ -60,9 +62,9 @@
   "completed_review": {
     "reviewer_id": "omar_demo_human",
     "decision": "approve",
-    "reviewer_note": "Deterministic review passed. Human reviewer approves the content as currently written.",
+    "reviewer_note": "결정형 검토를 통과했으므로 현재 문구를 승인합니다.",
     "llm_model": "gemini-2.5-flash",
-    "llm_reviewer_summary": "The content is compliant. It appropriately discloses the possibility of principal loss and advises checking the product description and terms and conditions for investment products.",
+    "llm_reviewer_summary": "제공된 투자상품 안내 문구는 관련 규정을 준수합니다. 원금 손실 가능성 및 상품설명서 확인 안내가 명확하게 포함되어 있습니다.",
     "llm_recommended_rewrite": "미래에셋증권 투자상품 안내입니다. 투자에는 원금 손실 가능성이 있으며, 상품설명서와 약관을 확인해 주시기 바랍니다."
   }
 }

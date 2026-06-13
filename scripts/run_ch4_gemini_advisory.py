@@ -73,6 +73,8 @@ Hard rules:
 - If deposit_disclaimer is missing, prefer explicit wording that includes "예금자보호", "보호한도", or "예금보험공사" when appropriate.
 - If investment_warning is missing, prefer explicit wording that includes "원금 손실 가능성".
 - If insurance_warning is missing, mention the concrete switching-risk warnings already present in the evidence package.
+- Write every output field in Korean.
+- Write remediation_actions as short Korean action sentences.
 
 Return exactly one JSON object with these keys:
 - reviewer_summary
@@ -121,7 +123,8 @@ def build_user_prompt(payload: dict) -> str:
     return (
         "Produce the advisory output for this compliance case.\n"
         "The deterministic engine result is authoritative.\n"
-        "Use only the supplied evidence and citations.\n\n"
+        "Use only the supplied evidence and citations.\n"
+        "All output fields must be written in Korean.\n\n"
         "Rewrite guidance:\n"
         f"- final_decision: {deterministic_core.get('final_decision')}\n"
         f"- missing_sir_fields: {json.dumps(deterministic_core.get('missing_sir_fields', []), ensure_ascii=False)}\n"

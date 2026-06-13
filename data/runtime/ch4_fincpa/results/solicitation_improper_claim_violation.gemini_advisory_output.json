@@ -1,12 +1,12 @@
 {
-  "reviewer_summary": "The content is non-compliant due to the use of an absolute claim ('무조건 안전하고') and an unsubstantiated comparative claim ('다른 상품보다 훨씬 유리합니다'), which are prohibited in financial product solicitations. The deterministic engine flagged a high-severity violation under the Financial Consumer Protection Act.",
-  "plain_language_rationale": "제공된 스크립트에는 '무조건 안전하고'와 같이 불확실한 사항에 대해 단정적인 판단을 제공하는 표현과 '다른 상품보다 훨씬 유리합니다'와 같이 객관적인 근거 없이 다른 금융상품과 비교하여 우수하다고 알리는 표현이 포함되어 있습니다. 이는 금융소비자 보호에 관한 법률 제21조에서 금지하는 부당권유행위에 해당합니다. 투자성 상품은 원금 손실 가능성이 있으므로, 안전성을 단정하는 표현은 소비자에게 오해를 줄 수 있습니다.",
+  "reviewer_summary": "제공된 스크립트에는 '무조건 안전하고'와 같은 단정적인 표현이 포함되어 있어 금융소비자 보호에 관한 법률 제21조(부당권유행위 금지)를 위반합니다. 투자 상품은 원금 손실 가능성이 있으므로 이러한 표현은 금지됩니다.",
+  "plain_language_rationale": "제공된 스크립트의 '무조건 안전하고'라는 문구는 불확실한 금융상품에 대해 단정적인 판단을 제공하여 소비자가 오인할 소지가 있습니다. 이는 금융소비자 보호에 관한 법률 제21조에서 금지하는 부당권유행위에 해당합니다. 또한, '다른 상품보다 훨씬 유리합니다'라는 문구는 객관적인 근거 없이 다른 금융상품과 비교하여 해당 상품이 우수하거나 유리하다고 알리는 행위로 해석될 수 있으며, 이는 같은 법률에서 금지하는 행위입니다. 투자 상품의 경우 원금 손실 가능성에 대한 경고 문구가 반드시 포함되어야 합니다.",
   "remediation_actions": [
-    "Remove all absolute claims and unsubstantiated comparative statements from the solicitation content.",
-    "Ensure all claims are factually accurate and can be objectively substantiated.",
-    "Add a clear investment warning regarding the possibility of principal loss for investment products."
+    "부당한 단정적 표현을 제거합니다.",
+    "객관적 근거 없는 비교 표현을 제거합니다.",
+    "투자 상품의 원금 손실 가능성에 대한 경고 문구를 추가합니다."
   ],
-  "conservative_rewrite_suggestion": "이 상품은 투자 원금 손실 가능성이 있으며, 투자 결정 전 상품설명서를 확인하시기 바랍니다. 지금 바로 문의하세요.",
+  "conservative_rewrite_suggestion": "이 상품은 투자 결과에 따라 원금 손실이 발생할 수 있습니다. 상품의 주요 내용과 투자 위험을 충분히 숙지하신 후 신중하게 결정하시기 바랍니다.",
   "citation_list": [
     "금융소비자 보호에 관한 법률 제21조"
   ]
