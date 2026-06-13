@@ -1,0 +1,328 @@
+{
+  "artifact_type": "ch4_llm_advisory_input",
+  "version": "0.1.0",
+  "tasking": {
+    "objective": "Explain the deterministic compliance result in plain language and provide conservative advisory support without changing the legal decision.",
+    "llm_role": "explanation_and_advisory_only",
+    "must_not_do": [
+      "Do not override the deterministic final decision.",
+      "Do not invent new legal citations beyond the supplied evidence package.",
+      "Do not claim certainty when the deterministic engine returned uncertainty."
+    ],
+    "expected_outputs": [
+      "reviewer_summary",
+      "plain_language_rationale",
+      "remediation_actions",
+      "conservative_rewrite_suggestion",
+      "citation_list"
+    ]
+  },
+  "case_context": {
+    "input_id": "solicitation_improper_claim_violation",
+    "title": "투자상품 권유 스크립트",
+    "content_text": "이 상품은 무조건 안전하고 다른 상품보다 훨씬 유리합니다. 지금 바로 가입하세요.",
+    "review_scope": "content_only",
+    "product_scope_hint": [
+      "investment"
+    ],
+    "channel_scope_hint": [
+      "solicitation"
+    ],
+    "business_role_hint": "direct_seller"
+  },
+  "deterministic_core": {
+    "final_decision": "non_compliant",
+    "should_escalate": true,
+    "summary": {
+      "total_rules_in_pack": 76,
+      "applicable_rule_count": 4,
+      "passed_rule_count": 3,
+      "failed_rule_count": 1,
+      "uncertain_rule_count": 0,
+      "status_counts": {
+        "not_applicable": 72,
+        "passed": 3,
+        "failed": 1
+      },
+      "failed_logic_type_counts": {
+        "prohibited_presence": 1
+      },
+      "active_sir_field_count": 3,
+      "missing_sir_field_count": 0
+    },
+    "missing_sir_fields": [],
+    "failed_rules": [
+      {
+        "rule_id": "law_fincpa_main_2026-01-02:제21조:ob01:rule01",
+        "reason": "prohibited_condition_detected_or_required_disclosure_missing",
+        "severity": "high",
+        "summary": "금융상품 계약 체결 권유 시 단정적 판단 제공, 허위 사실 고지, 중요 사항 누락, 객관적 근거 없는 비교 행위를 금지한다.",
+        "finding_fields": [
+          "prohibited_claim_signal"
+        ],
+        "citation_label": "금융소비자 보호에 관한 법률 제21조"
+      }
+    ],
+    "uncertain_rules": []
+  },
+  "sir_focus_fields": {
+    "fairness_guardrail": {
+      "field_name": "fairness_guardrail",
+      "field_group": "workflow_metadata",
+      "value_type": "enum",
+      "status": "not_applicable",
+      "value": null,
+      "evidence": [],
+      "source": "context_scope"
+    },
+    "prohibited_claim_signal": {
+      "field_name": "prohibited_claim_signal",
+      "field_group": "content_text",
+      "value_type": "signal_list",
+      "status": "present",
+      "value": [
+        {
+          "category": "absolute_claim",
+          "match": "무조건"
+        }
+      ],
+      "evidence": [
+        "무조건"
+      ],
+      "source": "heuristic"
+    }
+  },
+  "evidence_package": {
+    "artifact_type": "ch4_evidence_package",
+    "version": "0.1.0",
+    "input_id": "solicitation_improper_claim_violation",
+    "final_decision": "non_compliant",
+    "should_escalate": true,
+    "coverage_summary": {
+      "triggered_rule_count": 1,
+      "citation_count": 1,
+      "citations": [
+        "금융소비자 보호에 관한 법률 제21조"
+      ],
+      "delegated_detail_item_count": 0,
+      "vector_index_available": true,
+      "retrieved_support_item_count": 5
+    },
+    "evidence_items": [
+      {
+        "rule_id": "law_fincpa_main_2026-01-02:제21조:ob01:rule01",
+        "rule_status": "failed",
+        "severity": "high",
+        "logic_type": "prohibited_presence",
+        "rule_family": "solicitation",
+        "reason": "prohibited_condition_detected_or_required_disclosure_missing",
+        "finding_fields": [
+          "prohibited_claim_signal"
+        ],
+        "field_evidence": [
+          {
+            "field_name": "prohibited_claim_signal",
+            "status": "present",
+            "value": [
+              {
+                "category": "absolute_claim",
+                "match": "무조건"
+              }
+            ],
+            "evidence": [
+              "무조건"
+            ],
+            "source": "heuristic"
+          }
+        ],
+        "legal_basis": {
+          "source_title": "금융소비자 보호에 관한 법률",
+          "article_id": "제21조",
+          "paragraph_id": "",
+          "article_title": "부당권유행위 금지",
+          "citation_label": "금융소비자 보호에 관한 법률 제21조",
+          "section_id": "제2절",
+          "section_title": "금융상품 유형별 영업행위 준수사항",
+          "source_obligation_id": "law_fincpa_main_2026-01-02:제21조:ob01",
+          "source_span_text": "1. 불확실한 사항에 대하여 단정적 판단을 제공하거나 확실하다고 오인하게 할 소지가 있는 내용을 알리는 행위 2. 금융상품의 내용을 사실과 다르게 알리는 행위 3. 금융상품의 가치에 중대한 영향을 미치는 사항을 미리 알고 있으면서 금융소비자에게 알리지 아니하는 행위 4. 금융상품 내용의 일부에 대하여 비교대상 및 기준을 밝히지 아니하거나 객관적인 근거 없이 다른 금융상품과 비교하여 해당 금융상품이 우수하거나 유리하다고 알리는 행위",
+          "summary": "금융상품 계약 체결 권유 시 단정적 판단 제공, 허위 사실 고지, 중요 사항 묵비, 객관적 근거 없는 비교 행위를 금지한다."
+        },
+        "parent_clause": {
+          "record_id": "law_fincpa_main_2026-01-02:제21조",
+          "page_start": 11,
+          "raw_text": "금융상품판매업자등은 계약 체결을 권유(금융상품자문업자가 자문\n에 응하는 것을 포함한다. 이하 이 조에서 같다)하는 경우에 다음 각 호의 어느 하나에 해당하\n는 행위를 해서는 아니 된다. 다만, 금융소비자 보호 및 건전한 거래질서를 해칠 우려가 없는\n행위로서 대통령령으로 정하는 행위는 제외한다.\n1. 불확실한 사항에 대하여 단정적 판단을 제공하거나 확실하다고 오인하게 할 소지가 있는\n내용을 알리는 행위\n2. 금융상품의 내용을 사실과 다르게 알리는 행위\n3. 금융상품의 가치에 중대한 영향을 미치는 사항을 미리 알고 있으면서 금융소비자에게 알\n리지 아니하는 행위\n4. 금융상품 내용의 일부에 대하여 비교대상 및 기준을 밝히지 아니하거나 객관적인 근거 없\n이 다른 금융상품과 비교하여 해당 금융상품이 우수하거나 유리하다고 알리는 행위\n5. 보장성 상품의 경우 다음 각 목의 어느 하나에 해당하는 행위\n가. 금융소비자(이해관계인으로서 대통령령으로 정하는 자를 포함한다. 이하 이 호에서 같\n다)가 보장성 상품 계약의 중요한 사항을 금융상품직접판매업자에게 알리는 것을 방해\n하거나 알리지 아니할 것을 권유하는 행위\n나. 금융소비자가 보장성 상품 계약의 중요한 사항에 대하여 부실하게 금융상품직접판매업\n자에게 알릴 것을 권유하는 행위\n6. 투자성 상품의 경우 다음 각 목의 어느 하나에 해당하는 행위\n가. 금융소비자로부터 계약의 체결권유를 해줄 것을 요청받지 아니하고 방문ㆍ전화 등 실\n시간 대화의 방법을 이용하는 행위\n나. 계약의 체결권유를 받은 금융소비자가 이를 거부하는 취지의 의사를 표시하였는데도\n계약의 체결권유를 계속하는 행위\n7. 그 밖에 금융소비자 보호 또는 건전한 거래질서를 해칠 우려가 있는 행위로서 대통령령으\n로 정하는 행위",
+          "normalized_text": "금융상품판매업자등은 계약 체결을 권유(금융상품자문업자가 자문 에 응하는 것을 포함한다. 이하 이 조에서 같다)하는 경우에 다음 각 호의 어느 하나에 해당하 는 행위를 해서는 아니 된다. 다만, 금융소비자 보호 및 건전한 거래질서를 해칠 우려가 없는 행위로서 대통령령으로 정하는 행위는 제외한다. 1. 불확실한 사항에 대하여 단정적 판단을 제공하거나 확실하다고 오인하게 할 소지가 있는 내용을 알리는 행위 2. 금융상품의 내용을 사실과 다르게 알리는 행위 3. 금융상품의 가치에 중대한 영향을 미치는 사항을 미리 알고 있으면서 금융소비자에게 알 리지 아니하는 행위 4. 금융상품 내용의 일부에 대하여 비교대상 및 기준을 밝히지 아니하거나 객관적인 근거 없 이 다른 금융상품과 비교하여 해당 금융상품이 우수하거나 유리하다고 알리는 행위 5. 보장성 상품의 경우 다음 각 목의 어느 하나에 해당하는 행위 가. 금융소비자(이해관계인으로서 대통령령으로 정하는 자를 포함한다. 이하 이 호에서 같 다)가 보장성 상품 계약의 중요한 사항을 금융상품직접판매업자에게 알리는 것을 방해 하거나 알리지 아니할 것을 권유하는 행위 나. 금융소비자가 보장성 상품 계약의 중요한 사항에 대하여 부실하게 금융상품직접판매업 자에게 알릴 것을 권유하는 행위 6. 투자성 상품의 경우 다음 각 목의 어느 하나에 해당하는 행위 가. 금융소비자로부터 계약의 체결권유를 해줄 것을 요청받지 아니하고 방문ㆍ전화 등 실 시간 대화의 방법을 이용하는 행위 나. 계약의 체결권유를 받은 금융소비자가 이를 거부하는 취지의 의사를 표시하였는데도 계약의 체결권유를 계속하는 행위 7. 그 밖에 금융소비자 보호 또는 건전한 거래질서를 해칠 우려가 있는 행위로서 대통령령으 로 정하는 행위",
+          "manual_verified": false
+        },
+        "same_article_context": [
+          {
+            "record_id": "law_fincpa_main_2026-01-02:제21조",
+            "paragraph_id": null,
+            "page_start": 11,
+            "normalized_text": "금융상품판매업자등은 계약 체결을 권유(금융상품자문업자가 자문 에 응하는 것을 포함한다. 이하 이 조에서 같다)하는 경우에 다음 각 호의 어느 하나에 해당하 는 행위를 해서는 아니 된다. 다만, 금융소비자 보호 및 건전한 거래질서를 해칠 우려가 없는 행위로서 대통령령으로 정하는 행위는 제외한다. 1. 불확실한 사항에 대하여 단정적 판단을 제공하거나 확실하다고 오인하게 할 소지가 있는 내용을 알리는 행위 2. 금융상품의 내용을 사실과 다르게 알리는 행위 3. 금융상품의 가치에 중대한 영향을 미치는 사항을 미리 알고 있으면서 금융소비자에게 알 리지 아니하는 행위 4. 금융상품 내용의 일부에 대하여 비교대상 및 기준을 밝히지 아니하거나 객관적인 근거 없 이 다른 금융상품과 비교하여 해당 금융상품이 우수하거나 유리하다고 알리는 행위 5. 보장성 상품의 경우 다음 각 목의 어느 하나에 해당하는 행위 가. 금융소비자(이해관계인으로서 대통령령으로 정하는 자를 포함한다. 이하 이 호에서 같 다)가 보장성 상품 계약의 중요한 사항을 금융상품직접판매업자에게 알리는 것을 방해 하거나 알리지 아니할 것을 권유하는 행위 나. 금융소비자가 보장성 상품 계약의 중요한 사항에 대하여 부실하게 금융상품직접판매업 자에게 알릴 것을 권유하는 행위 6. 투자성 상품의 경우 다음 각 목의 어느 하나에 해당하는 행위 가. 금융소비자로부터 계약의 체결권유를 해줄 것을 요청받지 아니하고 방문ㆍ전화 등 실 시간 대화의 방법을 이용하는 행위 나. 계약의 체결권유를 받은 금융소비자가 이를 거부하는 취지의 의사를 표시하였는데도 계약의 체결권유를 계속하는 행위 7. 그 밖에 금융소비자 보호 또는 건전한 거래질서를 해칠 우려가 있는 행위로서 대통령령으 로 정하는 행위",
+            "is_parent_clause": true
+          }
+        ],
+        "delegated_detail_hint": false,
+        "retrieval_mode": "static_layer4_plus_vector_support",
+        "retrieval_backend": {
+          "type": "local_sentence_transformers_cosine_search",
+          "model_id": "nlpai-lab/KURE-v1",
+          "encoder_backend": "sentence_transformers",
+          "device_used": "cuda",
+          "candidate_stage": "article_and_preferred_type",
+          "top_k": 5
+        },
+        "retrieved_support": [
+          {
+            "chunk_id": "law_fincpa_main_2026-01-02:제21조:ob01:rule01:chunk:rule_grounded_clause",
+            "chunk_type": "rule_grounded_clause",
+            "citation_label": "금융소비자 보호에 관한 법률 제21조",
+            "article_id": "제21조",
+            "paragraph_id": "",
+            "rule_id": "law_fincpa_main_2026-01-02:제21조:ob01:rule01",
+            "rule_family": "solicitation",
+            "logic_type": "prohibited_presence",
+            "detection_target": "content_text",
+            "product_scope": "general",
+            "channel_scope": "solicitation",
+            "delegated_detail_hint": false,
+            "metadata_filters": {
+              "article_id": "제21조",
+              "paragraph_id": "",
+              "rule_family": "solicitation",
+              "logic_type": "prohibited_presence",
+              "detection_target": "content_text",
+              "product_scope": "general",
+              "channel_scope": "solicitation"
+            },
+            "retrieval_text": "[source] 금융소비자 보호에 관한 법률\n[section] 제2절 금융상품 유형별 영업행위 준수사항\n[article] 제21조 부당권유행위 금지\n[citation] 금융소비자 보호에 관한 법률 제21조\n[rule_id] law_fincpa_main_2026-01-02:제21조:ob01:rule01\n[rule_family] solicitation\n[logic_type] prohibited_presence\n[detection_target] content_text\n[product_scope] general\n[channel_scope] solicitation\n[sir_fields] prohibited_claim_signal, fairness_guardrail\n[rule_summary] 금융상품 계약 체결 권유 시 단정적 판단 제공, 허위 사실 고지, 중요 사항 누락, 객관적 근거 없는 비교 행위를 금지한다.\n[obligation_summary] 금융상품 계약 체결 권유 시 단정적 판단 제공, 허위 사실 고지, 중요 사항 묵비, 객관적 근거 없는 비교 행위를 금지한다.\n[source_span] 1. 불확실한 사항에 대하여 단정적 판단을 제공하거나 확실하다고 오인하게 할 소지가 있는 내용을 알리는 행위 2. 금융상품의 내용을 사실과 다르게 알리는 행위 3. 금융상품의 가치에 중대한 영향을 미치는 사항을 미리 알고 있으면서 금융소비자에게 알리지 아니하는 행위 4. 금융상품 내용의 일부에 대하여 비교대상 및 기준을 밝히지 아니하거나 객관적인 근거 없이 다른 금융상품과 비교하여 해당 금융상품이 우수하거나 유리하다고 알리는 행위\n[parent_clause] 금융상품판매업자등은 계약 체결을 권유(금융상품자문업자가 자문 에 응하는 것을 포함한다. 이하 이 조에서 같다)하는 경우에 다음 각 호의 어느 하나에 해당하 는 행위를 해서는 아니 된다. 다만, 금융소비자 보호 및 건전한 거래질서를 해칠 우려가 없는 행위로서 대통령령으로 정하는 행위는 제외한다. 1. 불확실한 사항에 대하여 단정적 판단을 제공하거나 확실하다고 오인하게 할 소지가 있는 내용을 알리는 행위 2. 금융상품의 내용을 사실과 다르게 알리는 행위 3. 금융상품의 가치에 중대한 영향을 미치는 사항을 미리 알고 있으면서 금융소비자에게 알 리지 아니하는 행위 4. 금융상품 내용의 일부에 대하여 비교대상 및 기준을 밝히지 아니하거나 객관적인 근거 없 이 다른 금융상품과 비교하여 해당 금융상품이 우수하거나 유리하다고 알리는 행위 5. 보장성 상품의 경우 다음 각 목의 어느 하나에 해당하는 행위 가. 금융소비자(이해관계인으로서 대통령령으로 정하는 자를 포함한다. 이하 이 호에서 같 다)가 보장성 상품 계약의 중요한 사항을 금융상품직접판매업자에게 알리는 것을 방해 하거나 알리지 아니할 것을 권유하는 행위 나. 금융소비자가 보장성 상품 계약의 중요한 사항에 대하여 부실하게 금융상품직접판매업 자에게 알릴 것을 권유하는 행위 6. 투자성 상품의 경우 다음 각 목의 어느 하나에 해당하는 행위 가. 금융소비자로부터 계약의 체결권유를 해줄 것을 요청받지 아니하고 방문ㆍ전화 등 실 시간 대화의 방법을 이용하는 행위 나. 계약의 체결권유를 받은 금융소비자가 이를 거부하는 취지의 의사를 표시하였는데도 계약의 체결권유를 계속하는 행위 7. 그 밖에 금융소비자 보호 또는 건전한 거래질서를 해칠 우려가 있는 행위로서 대통령령으 로 정하는 행위",
+            "similarity": 0.879166,
+            "bonus": 0.44,
+            "score": 1.319166,
+            "rank": 1
+          },
+          {
+            "chunk_id": "law_fincpa_main_2026-01-02:제21조:ob04:rule01:chunk:rule_grounded_clause",
+            "chunk_type": "rule_grounded_clause",
+            "citation_label": "금융소비자 보호에 관한 법률 제21조",
+            "article_id": "제21조",
+            "paragraph_id": "",
+            "rule_id": "law_fincpa_main_2026-01-02:제21조:ob04:rule01",
+            "rule_family": "solicitation",
+            "logic_type": "prohibited_presence",
+            "detection_target": "workflow_metadata",
+            "product_scope": "investment",
+            "channel_scope": "solicitation",
+            "delegated_detail_hint": false,
+            "metadata_filters": {
+              "article_id": "제21조",
+              "paragraph_id": "",
+              "rule_family": "solicitation",
+              "logic_type": "prohibited_presence",
+              "detection_target": "workflow_metadata",
+              "product_scope": "investment",
+              "channel_scope": "solicitation"
+            },
+            "retrieval_text": "[source] 금융소비자 보호에 관한 법률\n[section] 제2절 금융상품 유형별 영업행위 준수사항\n[article] 제21조 부당권유행위 금지\n[citation] 금융소비자 보호에 관한 법률 제21조\n[rule_id] law_fincpa_main_2026-01-02:제21조:ob04:rule01\n[rule_family] solicitation\n[logic_type] prohibited_presence\n[detection_target] workflow_metadata\n[product_scope] investment\n[channel_scope] solicitation\n[sir_fields] solicitation_purpose, prohibited_claim_signal\n[rule_summary] 투자성 상품에 대해 소비자가 계약 체결 권유 거부 의사를 표시한 경우, 해당 소비자에게 지속적인 계약 체결 권유 행위를 즉시 중단하고 추가 권유를 금지해야 한다.\n[obligation_summary] 투자성 상품 권유를 거부한 소비자에게 계속하여 계약 체결 권유를 하는 행위를 금지한다.\n[source_span] 6. 투자성 상품의 경우 다음 각 목의 어느 하나에 해당하는 행위 나. 계약의 체결권유를 받은 금융소비자가 이를 거부하는 취지의 의사를 표시하였는데도 계약의 체결권유를 계속하는 행위\n[parent_clause] 금융상품판매업자등은 계약 체결을 권유(금융상품자문업자가 자문 에 응하는 것을 포함한다. 이하 이 조에서 같다)하는 경우에 다음 각 호의 어느 하나에 해당하 는 행위를 해서는 아니 된다. 다만, 금융소비자 보호 및 건전한 거래질서를 해칠 우려가 없는 행위로서 대통령령으로 정하는 행위는 제외한다. 1. 불확실한 사항에 대하여 단정적 판단을 제공하거나 확실하다고 오인하게 할 소지가 있는 내용을 알리는 행위 2. 금융상품의 내용을 사실과 다르게 알리는 행위 3. 금융상품의 가치에 중대한 영향을 미치는 사항을 미리 알고 있으면서 금융소비자에게 알 리지 아니하는 행위 4. 금융상품 내용의 일부에 대하여 비교대상 및 기준을 밝히지 아니하거나 객관적인 근거 없 이 다른 금융상품과 비교하여 해당 금융상품이 우수하거나 유리하다고 알리는 행위 5. 보장성 상품의 경우 다음 각 목의 어느 하나에 해당하는 행위 가. 금융소비자(이해관계인으로서 대통령령으로 정하는 자를 포함한다. 이하 이 호에서 같 다)가 보장성 상품 계약의 중요한 사항을 금융상품직접판매업자에게 알리는 것을 방해 하거나 알리지 아니할 것을 권유하는 행위 나. 금융소비자가 보장성 상품 계약의 중요한 사항에 대하여 부실하게 금융상품직접판매업 자에게 알릴 것을 권유하는 행위 6. 투자성 상품의 경우 다음 각 목의 어느 하나에 해당하는 행위 가. 금융소비자로부터 계약의 체결권유를 해줄 것을 요청받지 아니하고 방문ㆍ전화 등 실 시간 대화의 방법을 이용하는 행위 나. 계약의 체결권유를 받은 금융소비자가 이를 거부하는 취지의 의사를 표시하였는데도 계약의 체결권유를 계속하는 행위 7. 그 밖에 금융소비자 보호 또는 건전한 거래질서를 해칠 우려가 있는 행위로서 대통령령으 로 정하는 행위",
+            "similarity": 0.822108,
+            "bonus": 0.21,
+            "score": 1.032108,
+            "rank": 2
+          },
+          {
+            "chunk_id": "law_fincpa_main_2026-01-02:제21조:ob02:rule01:chunk:rule_grounded_clause",
+            "chunk_type": "rule_grounded_clause",
+            "citation_label": "금융소비자 보호에 관한 법률 제21조",
+            "article_id": "제21조",
+            "paragraph_id": "",
+            "rule_id": "law_fincpa_main_2026-01-02:제21조:ob02:rule01",
+            "rule_family": "solicitation",
+            "logic_type": "prohibited_presence",
+            "detection_target": "content_text",
+            "product_scope": "insurance",
+            "channel_scope": "solicitation",
+            "delegated_detail_hint": false,
+            "metadata_filters": {
+              "article_id": "제21조",
+              "paragraph_id": "",
+              "rule_family": "solicitation",
+              "logic_type": "prohibited_presence",
+              "detection_target": "content_text",
+              "product_scope": "insurance",
+              "channel_scope": "solicitation"
+            },
+            "retrieval_text": "[source] 금융소비자 보호에 관한 법률\n[section] 제2절 금융상품 유형별 영업행위 준수사항\n[article] 제21조 부당권유행위 금지\n[citation] 금융소비자 보호에 관한 법률 제21조\n[rule_id] law_fincpa_main_2026-01-02:제21조:ob02:rule01\n[rule_family] solicitation\n[logic_type] prohibited_presence\n[detection_target] content_text\n[product_scope] insurance\n[channel_scope] solicitation\n[sir_fields] prohibited_claim_signal, insurance_warning\n[rule_summary] 보장성 상품 권유 시 소비자의 중요 사항 고지를 방해하거나 부실 고지를 권유하는 행위를 금지한다.\n[obligation_summary] 보장성 상품 권유 시 소비자의 중요 사항 고지를 방해하거나 부실 고지를 권유하는 행위를 금지한다.\n[source_span] 5. 보장성 상품의 경우 다음 각 목의 어느 하나에 해당하는 행위 가. 금융소비자가 보장성 상품 계약의 중요한 사항을 금융상품직접판매업자에게 알리는 것을 방해하거나 알리지 아니할 것을 권유하는 행위 나. 금융소비자가 보장성 상품 계약의 중요한 사항에 대하여 부실하게 금융상품직접판매업자에게 알릴 것을 권유하는 행위\n[parent_clause] 금융상품판매업자등은 계약 체결을 권유(금융상품자문업자가 자문 에 응하는 것을 포함한다. 이하 이 조에서 같다)하는 경우에 다음 각 호의 어느 하나에 해당하 는 행위를 해서는 아니 된다. 다만, 금융소비자 보호 및 건전한 거래질서를 해칠 우려가 없는 행위로서 대통령령으로 정하는 행위는 제외한다. 1. 불확실한 사항에 대하여 단정적 판단을 제공하거나 확실하다고 오인하게 할 소지가 있는 내용을 알리는 행위 2. 금융상품의 내용을 사실과 다르게 알리는 행위 3. 금융상품의 가치에 중대한 영향을 미치는 사항을 미리 알고 있으면서 금융소비자에게 알 리지 아니하는 행위 4. 금융상품 내용의 일부에 대하여 비교대상 및 기준을 밝히지 아니하거나 객관적인 근거 없 이 다른 금융상품과 비교하여 해당 금융상품이 우수하거나 유리하다고 알리는 행위 5. 보장성 상품의 경우 다음 각 목의 어느 하나에 해당하는 행위 가. 금융소비자(이해관계인으로서 대통령령으로 정하는 자를 포함한다. 이하 이 호에서 같 다)가 보장성 상품 계약의 중요한 사항을 금융상품직접판매업자에게 알리는 것을 방해 하거나 알리지 아니할 것을 권유하는 행위 나. 금융소비자가 보장성 상품 계약의 중요한 사항에 대하여 부실하게 금융상품직접판매업 자에게 알릴 것을 권유하는 행위 6. 투자성 상품의 경우 다음 각 목의 어느 하나에 해당하는 행위 가. 금융소비자로부터 계약의 체결권유를 해줄 것을 요청받지 아니하고 방문ㆍ전화 등 실 시간 대화의 방법을 이용하는 행위 나. 계약의 체결권유를 받은 금융소비자가 이를 거부하는 취지의 의사를 표시하였는데도 계약의 체결권유를 계속하는 행위 7. 그 밖에 금융소비자 보호 또는 건전한 거래질서를 해칠 우려가 있는 행위로서 대통령령으 로 정하는 행위",
+            "similarity": 0.825168,
+            "bonus": 0.19,
+            "score": 1.015168,
+            "rank": 3
+          },
+          {
+            "chunk_id": "law_fincpa_main_2026-01-02:제21조:ob03:rule01:chunk:rule_grounded_clause",
+            "chunk_type": "rule_grounded_clause",
+            "citation_label": "금융소비자 보호에 관한 법률 제21조",
+            "article_id": "제21조",
+            "paragraph_id": "",
+            "rule_id": "law_fincpa_main_2026-01-02:제21조:ob03:rule01",
+            "rule_family": "solicitation",
+            "logic_type": "prohibited_presence",
+            "detection_target": "workflow_metadata",
+            "product_scope": "investment",
+            "channel_scope": "visit_sales|phone_sales",
+            "delegated_detail_hint": false,
+            "metadata_filters": {
+              "article_id": "제21조",
+              "paragraph_id": "",
+              "rule_family": "solicitation",
+              "logic_type": "prohibited_presence",
+              "detection_target": "workflow_metadata",
+              "product_scope": "investment",
+              "channel_scope": "visit_sales|phone_sales"
+            },
+            "retrieval_text": "[source] 금융소비자 보호에 관한 법률\n[section] 제2절 금융상품 유형별 영업행위 준수사항\n[article] 제21조 부당권유행위 금지\n[citation] 금융소비자 보호에 관한 법률 제21조\n[rule_id] law_fincpa_main_2026-01-02:제21조:ob03:rule01\n[rule_family] solicitation\n[logic_type] prohibited_presence\n[detection_target] workflow_metadata\n[product_scope] investment\n[channel_scope] visit_sales|phone_sales\n[sir_fields] solicitation_purpose, prohibited_claim_signal\n[rule_summary] 투자성 상품 권유 시 소비자의 사전 요청 없이 방문, 전화 등 실시간 대화 방식을 이용한 권유 행위를 금지한다.\n[obligation_summary] 투자성 상품 권유 시 소비자의 요청 없는 실시간 대화(방문, 전화 등)를 통한 권유 행위를 금지한다.\n[source_span] 6. 투자성 상품의 경우 다음 각 목의 어느 하나에 해당하는 행위 가. 금융소비자로부터 계약의 체결권유를 해줄 것을 요청받지 아니하고 방문ㆍ전화 등 실시간 대화의 방법을 이용하는 행위\n[parent_clause] 금융상품판매업자등은 계약 체결을 권유(금융상품자문업자가 자문 에 응하는 것을 포함한다. 이하 이 조에서 같다)하는 경우에 다음 각 호의 어느 하나에 해당하 는 행위를 해서는 아니 된다. 다만, 금융소비자 보호 및 건전한 거래질서를 해칠 우려가 없는 행위로서 대통령령으로 정하는 행위는 제외한다. 1. 불확실한 사항에 대하여 단정적 판단을 제공하거나 확실하다고 오인하게 할 소지가 있는 내용을 알리는 행위 2. 금융상품의 내용을 사실과 다르게 알리는 행위 3. 금융상품의 가치에 중대한 영향을 미치는 사항을 미리 알고 있으면서 금융소비자에게 알 리지 아니하는 행위 4. 금융상품 내용의 일부에 대하여 비교대상 및 기준을 밝히지 아니하거나 객관적인 근거 없 이 다른 금융상품과 비교하여 해당 금융상품이 우수하거나 유리하다고 알리는 행위 5. 보장성 상품의 경우 다음 각 목의 어느 하나에 해당하는 행위 가. 금융소비자(이해관계인으로서 대통령령으로 정하는 자를 포함한다. 이하 이 호에서 같 다)가 보장성 상품 계약의 중요한 사항을 금융상품직접판매업자에게 알리는 것을 방해 하거나 알리지 아니할 것을 권유하는 행위 나. 금융소비자가 보장성 상품 계약의 중요한 사항에 대하여 부실하게 금융상품직접판매업 자에게 알릴 것을 권유하는 행위 6. 투자성 상품의 경우 다음 각 목의 어느 하나에 해당하는 행위 가. 금융소비자로부터 계약의 체결권유를 해줄 것을 요청받지 아니하고 방문ㆍ전화 등 실 시간 대화의 방법을 이용하는 행위 나. 계약의 체결권유를 받은 금융소비자가 이를 거부하는 취지의 의사를 표시하였는데도 계약의 체결권유를 계속하는 행위 7. 그 밖에 금융소비자 보호 또는 건전한 거래질서를 해칠 우려가 있는 행위로서 대통령령으 로 정하는 행위",
+            "similarity": 0.818419,
+            "bonus": 0.19,
+            "score": 1.008419,
+            "rank": 4
+          },
+          {
+            "chunk_id": "law_fincpa_main_2026-01-02:제21조:chunk:parsed_clause",
+            "chunk_type": "parsed_clause",
+            "citation_label": "금융소비자 보호에 관한 법률 제21조",
+            "article_id": "제21조",
+            "paragraph_id": null,
+            "rule_id": null,
+            "rule_family": null,
+            "logic_type": null,
+            "detection_target": null,
+            "product_scope": null,
+            "channel_scope": null,
+            "delegated_detail_hint": true,
+            "metadata_filters": {
+              "article_id": "제21조",
+              "paragraph_id": null,
+              "section_id": "제2절"
+            },
+            "retrieval_text": "[source] 금융소비자 보호에 관한 법률\n[section] 제2절 금융상품 유형별 영업행위 준수사항\n[article] 제21조 부당권유행위 금지\n[paragraph] 본문\n[citation] 금융소비자 보호에 관한 법률 제21조\n[text] 금융상품판매업자등은 계약 체결을 권유(금융상품자문업자가 자문 에 응하는 것을 포함한다. 이하 이 조에서 같다)하는 경우에 다음 각 호의 어느 하나에 해당하 는 행위를 해서는 아니 된다. 다만, 금융소비자 보호 및 건전한 거래질서를 해칠 우려가 없는 행위로서 대통령령으로 정하는 행위는 제외한다. 1. 불확실한 사항에 대하여 단정적 판단을 제공하거나 확실하다고 오인하게 할 소지가 있는 내용을 알리는 행위 2. 금융상품의 내용을 사실과 다르게 알리는 행위 3. 금융상품의 가치에 중대한 영향을 미치는 사항을 미리 알고 있으면서 금융소비자에게 알 리지 아니하는 행위 4. 금융상품 내용의 일부에 대하여 비교대상 및 기준을 밝히지 아니하거나 객관적인 근거 없 이 다른 금융상품과 비교하여 해당 금융상품이 우수하거나 유리하다고 알리는 행위 5. 보장성 상품의 경우 다음 각 목의 어느 하나에 해당하는 행위 가. 금융소비자(이해관계인으로서 대통령령으로 정하는 자를 포함한다. 이하 이 호에서 같 다)가 보장성 상품 계약의 중요한 사항을 금융상품직접판매업자에게 알리는 것을 방해 하거나 알리지 아니할 것을 권유하는 행위 나. 금융소비자가 보장성 상품 계약의 중요한 사항에 대하여 부실하게 금융상품직접판매업 자에게 알릴 것을 권유하는 행위 6. 투자성 상품의 경우 다음 각 목의 어느 하나에 해당하는 행위 가. 금융소비자로부터 계약의 체결권유를 해줄 것을 요청받지 아니하고 방문ㆍ전화 등 실 시간 대화의 방법을 이용하는 행위 나. 계약의 체결권유를 받은 금융소비자가 이를 거부하는 취지의 의사를 표시하였는데도 계약의 체결권유를 계속하는 행위 7. 그 밖에 금융소비자 보호 또는 건전한 거래질서를 해칠 우려가 있는 행위로서 대통령령으 로 정하는 행위",
+            "similarity": 0.786381,
+            "bonus": 0.11,
+            "score": 0.896381,
+            "rank": 5
+          }
+        ]
+      }
+    ]
+  },
+  "suggested_output_schema": {
+    "reviewer_summary": "string",
+    "plain_language_rationale": "string",
+    "remediation_actions": [
+      "string"
+    ],
+    "conservative_rewrite_suggestion": "string",
+    "citation_list": [
+      "string"
+    ]
+  }
+}

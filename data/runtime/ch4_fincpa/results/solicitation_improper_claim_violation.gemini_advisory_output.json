@@ -1,0 +1,13 @@
+{
+  "reviewer_summary": "The content is non-compliant due to the use of an absolute claim ('무조건 안전하고') and an unsubstantiated comparative claim ('다른 상품보다 훨씬 유리합니다'), which are prohibited in financial product solicitations. The deterministic engine flagged a high-severity violation under the Financial Consumer Protection Act.",
+  "plain_language_rationale": "제공된 스크립트에는 '무조건 안전하고'와 같이 불확실한 사항에 대해 단정적인 판단을 제공하는 표현과 '다른 상품보다 훨씬 유리합니다'와 같이 객관적인 근거 없이 다른 금융상품과 비교하여 우수하다고 알리는 표현이 포함되어 있습니다. 이는 금융소비자 보호에 관한 법률 제21조에서 금지하는 부당권유행위에 해당합니다. 투자성 상품은 원금 손실 가능성이 있으므로, 안전성을 단정하는 표현은 소비자에게 오해를 줄 수 있습니다.",
+  "remediation_actions": [
+    "Remove all absolute claims and unsubstantiated comparative statements from the solicitation content.",
+    "Ensure all claims are factually accurate and can be objectively substantiated.",
+    "Add a clear investment warning regarding the possibility of principal loss for investment products."
+  ],
+  "conservative_rewrite_suggestion": "이 상품은 투자 원금 손실 가능성이 있으며, 투자 결정 전 상품설명서를 확인하시기 바랍니다. 지금 바로 문의하세요.",
+  "citation_list": [
+    "금융소비자 보호에 관한 법률 제21조"
+  ]
+}

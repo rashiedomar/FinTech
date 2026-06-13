@@ -1,0 +1,649 @@
+{
+  "artifact_type": "ch4_llm_advisory_input",
+  "version": "0.1.0",
+  "tasking": {
+    "objective": "Explain the deterministic compliance result in plain language and provide conservative advisory support without changing the legal decision.",
+    "llm_role": "explanation_and_advisory_only",
+    "must_not_do": [
+      "Do not override the deterministic final decision.",
+      "Do not invent new legal citations beyond the supplied evidence package.",
+      "Do not claim certainty when the deterministic engine returned uncertainty."
+    ],
+    "expected_outputs": [
+      "reviewer_summary",
+      "plain_language_rationale",
+      "remediation_actions",
+      "conservative_rewrite_suggestion",
+      "citation_list"
+    ]
+  },
+  "case_context": {
+    "input_id": "investment_ad_guaranteed_return_violation",
+    "title": "ABC증권 투자상품 특별 안내",
+    "content_text": "ABC증권 투자상품, 원금 보장, 확정 수익 8%, 지금 바로 가입하세요.",
+    "review_scope": "content_only",
+    "product_scope_hint": [
+      "investment"
+    ],
+    "channel_scope_hint": [
+      "advertising"
+    ],
+    "business_role_hint": "direct_seller"
+  },
+  "deterministic_core": {
+    "final_decision": "non_compliant",
+    "should_escalate": true,
+    "summary": {
+      "total_rules_in_pack": 76,
+      "applicable_rule_count": 3,
+      "passed_rule_count": 1,
+      "failed_rule_count": 2,
+      "uncertain_rule_count": 0,
+      "status_counts": {
+        "not_applicable": 73,
+        "passed": 1,
+        "failed": 2
+      },
+      "failed_logic_type_counts": {
+        "required_presence": 1,
+        "prohibited_presence": 1
+      },
+      "active_sir_field_count": 5,
+      "missing_sir_field_count": 1
+    },
+    "missing_sir_fields": [
+      "investment_warning"
+    ],
+    "failed_rules": [
+      {
+        "rule_id": "law_fincpa_main_2026-01-02:제22조:③:ob03:rule01",
+        "reason": "missing_required_evidence",
+        "severity": "medium",
+        "summary": "Verify that investment product advertisements include warnings on investment risks and explicitly state that past performance does not guarantee future returns if past performance is presented.",
+        "finding_fields": [
+          "investment_warning"
+        ],
+        "citation_label": "금융소비자 보호에 관한 법률 제22조③"
+      },
+      {
+        "rule_id": "law_fincpa_main_2026-01-02:제22조:④:ob02:rule01",
+        "reason": "prohibited_condition_detected_or_required_disclosure_missing",
+        "severity": "high",
+        "summary": "투자성 상품 광고 시 손실보전·이익보장 오인 유도 문구 사용을 금지하고, 특정 유리한 기간의 수익률만 선택적으로 표시하는 행위를 차단한다.",
+        "finding_fields": [
+          "prohibited_claim_signal",
+          "investment_warning"
+        ],
+        "citation_label": "금융소비자 보호에 관한 법률 제22조④"
+      }
+    ],
+    "uncertain_rules": []
+  },
+  "sir_focus_fields": {
+    "investment_warning": {
+      "field_name": "investment_warning",
+      "field_group": "content_text",
+      "value_type": "text_or_flag",
+      "status": "not_evidenced",
+      "value": null,
+      "evidence": [],
+      "source": "default"
+    },
+    "prohibited_claim_signal": {
+      "field_name": "prohibited_claim_signal",
+      "field_group": "content_text",
+      "value_type": "signal_list",
+      "status": "present",
+      "value": [
+        {
+          "category": "principal_guarantee",
+          "match": "원금 보장"
+        },
+        {
+          "category": "guaranteed_return",
+          "match": "확정 수익"
+        }
+      ],
+      "evidence": [
+        "원금 보장",
+        "확정 수익"
+      ],
+      "source": "heuristic"
+    }
+  },
+  "evidence_package": {
+    "artifact_type": "ch4_evidence_package",
+    "version": "0.1.0",
+    "input_id": "investment_ad_guaranteed_return_violation",
+    "final_decision": "non_compliant",
+    "should_escalate": true,
+    "coverage_summary": {
+      "triggered_rule_count": 2,
+      "citation_count": 2,
+      "citations": [
+        "금융소비자 보호에 관한 법률 제22조③",
+        "금융소비자 보호에 관한 법률 제22조④"
+      ],
+      "delegated_detail_item_count": 1,
+      "vector_index_available": true,
+      "retrieved_support_item_count": 10
+    },
+    "evidence_items": [
+      {
+        "rule_id": "law_fincpa_main_2026-01-02:제22조:③:ob03:rule01",
+        "rule_status": "failed",
+        "severity": "medium",
+        "logic_type": "required_presence",
+        "rule_family": "advertising",
+        "reason": "missing_required_evidence",
+        "finding_fields": [
+          "investment_warning"
+        ],
+        "field_evidence": [
+          {
+            "field_name": "investment_warning",
+            "status": "not_evidenced",
+            "value": null,
+            "evidence": [],
+            "source": "default"
+          }
+        ],
+        "legal_basis": {
+          "source_title": "금융소비자 보호에 관한 법률",
+          "article_id": "제22조",
+          "paragraph_id": "③",
+          "article_title": "금융상품등에 관한 광고 관련 준수사항",
+          "citation_label": "금융소비자 보호에 관한 법률 제22조③",
+          "section_id": "제2절",
+          "section_title": "금융상품 유형별 영업행위 준수사항",
+          "source_obligation_id": "law_fincpa_main_2026-01-02:제22조:③:ob03",
+          "source_span_text": "나. 투자성 상품의 경우 1) 투자에 따른 위험 2) 과거 운용실적을 포함하여 광고를 하는 경우에는 그 운용실적이 미래의 수익률을 보장 하는 것이 아니라는 사항",
+          "summary": "투자성 상품 광고 시 투자에 따른 위험 및 과거 실적이 미래 수익을 보장하지 않는다는 사실을 포함해야 함"
+        },
+        "parent_clause": {
+          "record_id": "law_fincpa_main_2026-01-02:제22조:③",
+          "page_start": 12,
+          "raw_text": "금융상품판매업자등이 하는 금융상품등에 관한 광고에는 다음 각 호의 내용이 포함되어\n야 한다. 다만, 제17조제5항 본문에 따른 투자성 상품에 관한 광고에 대해서는 그러하지 아\n니하다.\n1. 금융상품에 관한 계약을 체결하기 전에 금융상품 설명서 및 약관을 읽어 볼 것을 권유하\n는 내용\n2. 금융상품판매업자등의 명칭, 금융상품의 내용\n3. 다음 각 목의 구분에 따른 내용\n가. 보장성 상품의 경우: 기존에 체결했던 계약을 해지하고 다른 계약을 체결하는 경우에는\n계약체결의 거부 또는 보험료 등 금융소비자의 지급비용(이하 이 조에서 “보험료등”이라\n한다)이 인상되거나 보장내용이 변경될 수 있다는 사항\n나. 투자성 상품의 경우\n1) 투자에 따른 위험\n2) 과거 운용실적을 포함하여 광고를 하는 경우에는 그 운용실적이 미래의 수익률을 보장\n하는 것이 아니라는 사항\n다. 예금성 상품의 경우: 만기지급금 등을 예시하여 광고하는 경우에는 해당 예시된 지급금\n등이 미래의 수익을 보장하는 것이 아니라는 사항(만기 시 지급금이 변동하는 예금성 상\n품으로서 대통령령으로 정하는 금융상품의 경우에 한정한다)\n라. 대출성 상품의 경우: 대출조건\n4. 그 밖에 금융소비자 보호를 위하여 대통령령으로 정하는 내용",
+          "normalized_text": "금융상품판매업자등이 하는 금융상품등에 관한 광고에는 다음 각 호의 내용이 포함되어 야 한다. 다만, 제17조제5항 본문에 따른 투자성 상품에 관한 광고에 대해서는 그러하지 아 니하다. 1. 금융상품에 관한 계약을 체결하기 전에 금융상품 설명서 및 약관을 읽어 볼 것을 권유하 는 내용 2. 금융상품판매업자등의 명칭, 금융상품의 내용 3. 다음 각 목의 구분에 따른 내용 가. 보장성 상품의 경우: 기존에 체결했던 계약을 해지하고 다른 계약을 체결하는 경우에는 계약체결의 거부 또는 보험료 등 금융소비자의 지급비용(이하 이 조에서 “보험료등”이라 한다)이 인상되거나 보장내용이 변경될 수 있다는 사항 나. 투자성 상품의 경우 1) 투자에 따른 위험 2) 과거 운용실적을 포함하여 광고를 하는 경우에는 그 운용실적이 미래의 수익률을 보장 하는 것이 아니라는 사항 다. 예금성 상품의 경우: 만기지급금 등을 예시하여 광고하는 경우에는 해당 예시된 지급금 등이 미래의 수익을 보장하는 것이 아니라는 사항(만기 시 지급금이 변동하는 예금성 상 품으로서 대통령령으로 정하는 금융상품의 경우에 한정한다) 라. 대출성 상품의 경우: 대출조건 4. 그 밖에 금융소비자 보호를 위하여 대통령령으로 정하는 내용",
+          "manual_verified": false
+        },
+        "same_article_context": [
+          {
+            "record_id": "law_fincpa_main_2026-01-02:제22조:①",
+            "paragraph_id": "①",
+            "page_start": 12,
+            "normalized_text": "금융상품판매업자등이 아닌 자 및 투자성 상 품에 관한 금융상품판매대리ㆍ중개업자 등 대통령령으로 정하는 금융상품판매업자등은 금융 상품판매업자등의 업무에 관한 광고 또는 금융상품에 관한 광고(이하 “금융상품등에 관한 광 고”라 한다)를 해서는 아니 된다. 다만, 다음 각 호의 어느 하나에 해당하는 기관(이하 “협회등 ”이라 한다), 그 밖에 금융상품판매업자등이 아닌 자로서 금융상품판매업자등을 자회사 또는 손자회사로 하는 금융지주회사 등 대통령령으로 정하는 자는 금융상품등에 관한 광고를 할 수 있다. 1. 「자본시장과 금융투자업에 관한 법률」 제283조에 따라 설립된 한국금융투자협회 2. 「보험업법」 제175조에 따라 설립된 보험협회 중 생명보험회사로 구성된 협회 3. 「보험업법」 제175조에 따라 설립된 보험협회 중 손해보험회사로 구성된 협회 4. 「상호저축은행법」 제25조에 따라 설립된 상호저축은행중앙회 5. 「여신전문금융업법」 제62조에 따라 설립된 여신전문금융업협회 6. 그 밖에 제1호부터 제5호까지의 기관에 준하는 기관으로서 대통령령으로 정하는 기관",
+            "is_parent_clause": false
+          },
+          {
+            "record_id": "law_fincpa_main_2026-01-02:제22조:②",
+            "paragraph_id": "②",
+            "page_start": 12,
+            "normalized_text": "금융상품판매업자등(제1항 단서에 해당하는 자를 포함한다. 이하 이 조에서 같다)이 금융 상품등에 관한 광고를 하는 경우에는 금융소비자가 금융상품의 내용을 오해하지 아니하도록 명확하고 공정하게 전달하여야 한다.",
+            "is_parent_clause": false
+          },
+          {
+            "record_id": "law_fincpa_main_2026-01-02:제22조:③",
+            "paragraph_id": "③",
+            "page_start": 12,
+            "normalized_text": "금융상품판매업자등이 하는 금융상품등에 관한 광고에는 다음 각 호의 내용이 포함되어 야 한다. 다만, 제17조제5항 본문에 따른 투자성 상품에 관한 광고에 대해서는 그러하지 아 니하다. 1. 금융상품에 관한 계약을 체결하기 전에 금융상품 설명서 및 약관을 읽어 볼 것을 권유하 는 내용 2. 금융상품판매업자등의 명칭, 금융상품의 내용 3. 다음 각 목의 구분에 따른 내용 가. 보장성 상품의 경우: 기존에 체결했던 계약을 해지하고 다른 계약을 체결하는 경우에는 계약체결의 거부 또는 보험료 등 금융소비자의 지급비용(이하 이 조에서 “보험료등”이라 한다)이 인상되거나 보장내용이 변경될 수 있다는 사항 나. 투자성 상품의 경우 1) 투자에 따른 위험 2) 과거 운용실적을 포함하여 광고를 하는 경우에는 그 운용실적이 미래의 수익률을 보장 하는 것이 아니라는 사항 다. 예금성 상품의 경우: 만기지급금 등을 예시하여 광고하는 경우에는 해당 예시된 지급금 등이 미래의 수익을 보장하는 것이 아니라는 사항(만기 시 지급금이 변동하는 예금성 상 품으로서 대통령령으로 정하는 금융상품의 경우에 한정한다) 라. 대출성 상품의 경우: 대출조건 4. 그 밖에 금융소비자 보호를 위하여 대통령령으로 정하는 내용",
+            "is_parent_clause": true
+          },
+          {
+            "record_id": "law_fincpa_main_2026-01-02:제22조:④",
+            "paragraph_id": "④",
+            "page_start": 12,
+            "normalized_text": "금융상품판매업자등이 금융상품등에 관한 광고를 하는 경우 다음 각 호의 구분에 따른 행 위를 해서는 아니 된다. 1. 보장성 상품 가. 보장한도, 보장 제한 조건, 면책사항 또는 감액지급 사항 등을 빠뜨리거나 충분히 고지 하지 아니하여 제한 없이 보장을 받을 수 있는 것으로 오인하게 하는 행위 나. 보험금이 큰 특정 내용만을 강조하거나 고액 보장 사례 등을 소개하여 보장내용이 큰 것으로 오인하게 하는 행위 다. 보험료를 일(日) 단위로 표시하거나 보험료의 산출기준을 불충분하게 설명하는 등 보험 료등이 저렴한 것으로 오인하게 하는 행위 라. 만기 시 자동갱신되는 보장성 상품의 경우 갱신 시 보험료등이 인상될 수 있음을 금융 소비자가 인지할 수 있도록 충분히 고지하지 아니하는 행위 마. 금리 및 투자실적에 따라 만기환급금이 변동될 수 있는 보장성 상품의 경우 만기환급 금이 보장성 상품의 만기일에 확정적으로 지급되는 것으로 오인하게 하는 행위 등 금융 소비자 보호를 위하여 대통령령으로 정하는 행위 2. 투자성 상품 가. 손실보전(損失補塡) 또는 이익보장이 되는 것으로 오인하게 하는 행위. 다만, 금융소비 자를 오인하게 할 우려가 없는 경우로서 대통령령으로 정하는 경우는 제외한다. 나. 대통령령으로 정하는 투자성 상품에 대하여 해당 투자성 상품의 특성을 고려하여 대통 령령으로 정하는 사항 외의 사항을 광고에 사용하는 행위 다. 수익률이나 운용실적을 표시하는 경우 수익률이나 운용실적이 좋은 기간의 수익률이나 운용실적만을 표시하는 행위 등 금융소비자 보호를 위하여 대통령령으로 정하는 행위 3. 예금성 상품 가. 이자율의 범위ㆍ산정방법, 이자의 지급ㆍ부과 시기 및 부수적 혜택ㆍ비용을 명확히 표 시하지 아니하여 금융소비자가 오인하게 하는 행위 나. 수익률이나 운용실적을 표시하는 경우 수익률이나 운용실적이 좋은 기간의 것만을 표 시하는 행위 등 금융소비자 보호를 위하여 대통령령으로 정하는 행위 4. 대출성 상품 가. 대출이자율의 범위ㆍ산정방법, 대출이자의 지급ㆍ부과 시기 및 부수적 혜택ㆍ비용을 명확히 표시하지 아니하여 금융소비자가 오인하게 하는 행위 나. 대출이자를 일 단위로 표시하여 대출이자가 저렴한 것으로 오인하게 하는 행위 등 금 융소비자 보호를 위하여 대통령령으로 정하는 행위",
+            "is_parent_clause": false
+          },
+          {
+            "record_id": "law_fincpa_main_2026-01-02:제22조:⑤",
+            "paragraph_id": "⑤",
+            "page_start": 12,
+            "normalized_text": "금융상품등에 관한 광고를 할 때 「표시ㆍ광고의 공정화에 관한 법률」 제4조제1항에 따른 표시ㆍ광고사항이 있는 경우에는 같은 법에서 정하는 바에 따른다.",
+            "is_parent_clause": false
+          },
+          {
+            "record_id": "law_fincpa_main_2026-01-02:제22조:⑥",
+            "paragraph_id": "⑥",
+            "page_start": 12,
+            "normalized_text": "협회등은 금융상품판매업자등의 금융상품등에 관한 광고와 관련하여 대통령령으로 정하 는 바에 따라 제1항부터 제4항까지의 광고 관련 기준을 준수하는지를 확인하고 그 결과에 대한 의견을 해당 금융상품판매업자등에게 통보할 수 있다.",
+            "is_parent_clause": false
+          },
+          {
+            "record_id": "law_fincpa_main_2026-01-02:제22조:⑦",
+            "paragraph_id": "⑦",
+            "page_start": 12,
+            "normalized_text": "제2항부터 제4항까지의 규정과 관련된 구체적인 내용 및 광고의 방법과 절차는 대통령령 으로 정한다.",
+            "is_parent_clause": false
+          }
+        ],
+        "delegated_detail_hint": false,
+        "retrieval_mode": "static_layer4_plus_vector_support",
+        "retrieval_backend": {
+          "type": "local_sentence_transformers_cosine_search",
+          "model_id": "nlpai-lab/KURE-v1",
+          "encoder_backend": "sentence_transformers",
+          "device_used": "cuda",
+          "candidate_stage": "article_and_preferred_type",
+          "top_k": 5
+        },
+        "retrieved_support": [
+          {
+            "chunk_id": "law_fincpa_main_2026-01-02:제22조:③:ob03:rule01:chunk:rule_grounded_clause",
+            "chunk_type": "rule_grounded_clause",
+            "citation_label": "금융소비자 보호에 관한 법률 제22조③",
+            "article_id": "제22조",
+            "paragraph_id": "③",
+            "rule_id": "law_fincpa_main_2026-01-02:제22조:③:ob03:rule01",
+            "rule_family": "advertising",
+            "logic_type": "required_presence",
+            "detection_target": "content_text",
+            "product_scope": "investment",
+            "channel_scope": "advertising",
+            "delegated_detail_hint": false,
+            "metadata_filters": {
+              "article_id": "제22조",
+              "paragraph_id": "③",
+              "rule_family": "advertising",
+              "logic_type": "required_presence",
+              "detection_target": "content_text",
+              "product_scope": "investment",
+              "channel_scope": "advertising"
+            },
+            "retrieval_text": "[source] 금융소비자 보호에 관한 법률\n[section] 제2절 금융상품 유형별 영업행위 준수사항\n[article] 제22조 금융상품등에 관한 광고 관련 준수사항\n[citation] 금융소비자 보호에 관한 법률 제22조③\n[rule_id] law_fincpa_main_2026-01-02:제22조:③:ob03:rule01\n[rule_family] advertising\n[logic_type] required_presence\n[detection_target] content_text\n[product_scope] investment\n[channel_scope] advertising\n[sir_fields] investment_warning, prohibited_claim_signal\n[rule_summary] Verify that investment product advertisements include warnings on investment risks and explicitly state that past performance does not guarantee future returns if past performance is presented.\n[obligation_summary] 투자성 상품 광고 시 투자에 따른 위험 및 과거 실적이 미래 수익을 보장하지 않는다는 사실을 포함해야 함\n[source_span] 나. 투자성 상품의 경우 1) 투자에 따른 위험 2) 과거 운용실적을 포함하여 광고를 하는 경우에는 그 운용실적이 미래의 수익률을 보장 하는 것이 아니라는 사항\n[parent_clause] 금융상품판매업자등이 하는 금융상품등에 관한 광고에는 다음 각 호의 내용이 포함되어 야 한다. 다만, 제17조제5항 본문에 따른 투자성 상품에 관한 광고에 대해서는 그러하지 아 니하다. 1. 금융상품에 관한 계약을 체결하기 전에 금융상품 설명서 및 약관을 읽어 볼 것을 권유하 는 내용 2. 금융상품판매업자등의 명칭, 금융상품의 내용 3. 다음 각 목의 구분에 따른 내용 가. 보장성 상품의 경우: 기존에 체결했던 계약을 해지하고 다른 계약을 체결하는 경우에는 계약체결의 거부 또는 보험료 등 금융소비자의 지급비용(이하 이 조에서 “보험료등”이라 한다)이 인상되거나 보장내용이 변경될 수 있다는 사항 나. 투자성 상품의 경우 1) 투자에 따른 위험 2) 과거 운용실적을 포함하여 광고를 하는 경우에는 그 운용실적이 미래의 수익률을 보장 하는 것이 아니라는 사항 다. 예금성 상품의 경우: 만기지급금 등을 예시하여 광고하는 경우에는 해당 예시된 지급금 등이 미래의 수익을 보장하는 것이 아니라는 사항(만기 시 지급금이 변동하는 예금성 상 품으로서 대통령령으로 정하는 금융상품의 경우에 한정한다) 라. 대출성 상품의 경우: 대출조건 4. 그 밖에 금융소비자 보호를 위하여 대통령령으로 정하는 내용",
+            "similarity": 0.797229,
+            "bonus": 0.46,
+            "score": 1.257229,
+            "rank": 1
+          },
+          {
+            "chunk_id": "law_fincpa_main_2026-01-02:제22조:③:ob04:rule01:chunk:rule_grounded_clause",
+            "chunk_type": "rule_grounded_clause",
+            "citation_label": "금융소비자 보호에 관한 법률 제22조③",
+            "article_id": "제22조",
+            "paragraph_id": "③",
+            "rule_id": "law_fincpa_main_2026-01-02:제22조:③:ob04:rule01",
+            "rule_family": "advertising",
+            "logic_type": "required_presence",
+            "detection_target": "content_text",
+            "product_scope": "deposit",
+            "channel_scope": "advertising",
+            "delegated_detail_hint": true,
+            "metadata_filters": {
+              "article_id": "제22조",
+              "paragraph_id": "③",
+              "rule_family": "advertising",
+              "logic_type": "required_presence",
+              "detection_target": "content_text",
+              "product_scope": "deposit",
+              "channel_scope": "advertising"
+            },
+            "retrieval_text": "[source] 금융소비자 보호에 관한 법률\n[section] 제2절 금융상품 유형별 영업행위 준수사항\n[article] 제22조 금융상품등에 관한 광고 관련 준수사항\n[citation] 금융소비자 보호에 관한 법률 제22조③\n[rule_id] law_fincpa_main_2026-01-02:제22조:③:ob04:rule01\n[rule_family] advertising\n[logic_type] required_presence\n[detection_target] content_text\n[product_scope] deposit\n[channel_scope] advertising\n[sir_fields] deposit_disclaimer, product_core_terms\n[rule_summary] When advertising variable-rate deposit-type products with illustrated maturity payouts, the advertisement must explicitly state that the illustrated payout does not guarantee future returns.\n[obligation_summary] 예금성 상품 광고 시 만기지급금 등을 예시하는 경우 해당 예시가 미래 수익을 보장하지 않는다는 사실을 포함해야 함 (대통령령으로 정하는 변동금리 상품에 한함)\n[source_span] 다. 예금성 상품의 경우: 만기지급금 등을 예시하여 광고하는 경우에는 해당 예시된 지급금 등이 미래의 수익을 보장하는 것이 아니라는 사항(만기 시 지급금이 변동하는 예금성 상 품으로서 대통령령으로 정하는 금융상품의 경우에 한정한다)\n[parent_clause] 금융상품판매업자등이 하는 금융상품등에 관한 광고에는 다음 각 호의 내용이 포함되어 야 한다. 다만, 제17조제5항 본문에 따른 투자성 상품에 관한 광고에 대해서는 그러하지 아 니하다. 1. 금융상품에 관한 계약을 체결하기 전에 금융상품 설명서 및 약관을 읽어 볼 것을 권유하 는 내용 2. 금융상품판매업자등의 명칭, 금융상품의 내용 3. 다음 각 목의 구분에 따른 내용 가. 보장성 상품의 경우: 기존에 체결했던 계약을 해지하고 다른 계약을 체결하는 경우에는 계약체결의 거부 또는 보험료 등 금융소비자의 지급비용(이하 이 조에서 “보험료등”이라 한다)이 인상되거나 보장내용이 변경될 수 있다는 사항 나. 투자성 상품의 경우 1) 투자에 따른 위험 2) 과거 운용실적을 포함하여 광고를 하는 경우에는 그 운용실적이 미래의 수익률을 보장 하는 것이 아니라는 사항 다. 예금성 상품의 경우: 만기지급금 등을 예시하여 광고하는 경우에는 해당 예시된 지급금 등이 미래의 수익을 보장하는 것이 아니라는 사항(만기 시 지급금이 변동하는 예금성 상 품으로서 대통령령으로 정하는 금융상품의 경우에 한정한다) 라. 대출성 상품의 경우: 대출조건 4. 그 밖에 금융소비자 보호를 위하여 대통령령으로 정하는 내용",
+            "similarity": 0.747904,
+            "bonus": 0.19,
+            "score": 0.937904,
+            "rank": 2
+          },
+          {
+            "chunk_id": "law_fincpa_main_2026-01-02:제22조:③:ob01:rule01:chunk:rule_grounded_clause",
+            "chunk_type": "rule_grounded_clause",
+            "citation_label": "금융소비자 보호에 관한 법률 제22조③",
+            "article_id": "제22조",
+            "paragraph_id": "③",
+            "rule_id": "law_fincpa_main_2026-01-02:제22조:③:ob01:rule01",
+            "rule_family": "advertising",
+            "logic_type": "required_presence",
+            "detection_target": "content_text",
+            "product_scope": "multiple",
+            "channel_scope": "advertising",
+            "delegated_detail_hint": false,
+            "metadata_filters": {
+              "article_id": "제22조",
+              "paragraph_id": "③",
+              "rule_family": "advertising",
+              "logic_type": "required_presence",
+              "detection_target": "content_text",
+              "product_scope": "multiple",
+              "channel_scope": "advertising"
+            },
+            "retrieval_text": "[source] 금융소비자 보호에 관한 법률\n[section] 제2절 금융상품 유형별 영업행위 준수사항\n[article] 제22조 금융상품등에 관한 광고 관련 준수사항\n[citation] 금융소비자 보호에 관한 법률 제22조③\n[rule_id] law_fincpa_main_2026-01-02:제22조:③:ob01:rule01\n[rule_family] advertising\n[logic_type] required_presence\n[detection_target] content_text\n[product_scope] multiple\n[channel_scope] advertising\n[sir_fields] seller_identity, product_identity, product_core_terms\n[rule_summary] Verify that general financial product advertisements (excluding investment products) contain the mandatory warning to read the product manual and terms before signing, the seller's name, and the product description.\n[obligation_summary] 금융상품 광고 시 계약 체결 전 설명서 및 약관 권유 문구와 판매업자 명칭, 상품 내용을 반드시 포함해야 함 (투자성 상품 광고 제외)\n[source_span] 금융상품판매업자등이 하는 금융상품등에 관한 광고에는 다음 각 호의 내용이 포함되어 야 한다. 다만, 제17조제5항 본문에 따른 투자성 상품에 관한 광고에 대해서는 그러하지 아 니하다. 1. 금융상품에 관한 계약을 체결하기 전에 금융상품 설명서 및 약관을 읽어 볼 것을 권유하 는 내용 2. 금융상품판매업자등의 명칭, 금융상품의 내용\n[parent_clause] 금융상품판매업자등이 하는 금융상품등에 관한 광고에는 다음 각 호의 내용이 포함되어 야 한다. 다만, 제17조제5항 본문에 따른 투자성 상품에 관한 광고에 대해서는 그러하지 아 니하다. 1. 금융상품에 관한 계약을 체결하기 전에 금융상품 설명서 및 약관을 읽어 볼 것을 권유하 는 내용 2. 금융상품판매업자등의 명칭, 금융상품의 내용 3. 다음 각 목의 구분에 따른 내용 가. 보장성 상품의 경우: 기존에 체결했던 계약을 해지하고 다른 계약을 체결하는 경우에는 계약체결의 거부 또는 보험료 등 금융소비자의 지급비용(이하 이 조에서 “보험료등”이라 한다)이 인상되거나 보장내용이 변경될 수 있다는 사항 나. 투자성 상품의 경우 1) 투자에 따른 위험 2) 과거 운용실적을 포함하여 광고를 하는 경우에는 그 운용실적이 미래의 수익률을 보장 하는 것이 아니라는 사항 다. 예금성 상품의 경우: 만기지급금 등을 예시하여 광고하는 경우에는 해당 예시된 지급금 등이 미래의 수익을 보장하는 것이 아니라는 사항(만기 시 지급금이 변동하는 예금성 상 품으로서 대통령령으로 정하는 금융상품의 경우에 한정한다) 라. 대출성 상품의 경우: 대출조건 4. 그 밖에 금융소비자 보호를 위하여 대통령령으로 정하는 내용",
+            "similarity": 0.713381,
+            "bonus": 0.19,
+            "score": 0.903381,
+            "rank": 3
+          },
+          {
+            "chunk_id": "law_fincpa_main_2026-01-02:제22조:③:ob05:rule01:chunk:rule_grounded_clause",
+            "chunk_type": "rule_grounded_clause",
+            "citation_label": "금융소비자 보호에 관한 법률 제22조③",
+            "article_id": "제22조",
+            "paragraph_id": "③",
+            "rule_id": "law_fincpa_main_2026-01-02:제22조:③:ob05:rule01",
+            "rule_family": "advertising",
+            "logic_type": "required_presence",
+            "detection_target": "content_text",
+            "product_scope": "loan",
+            "channel_scope": "advertising",
+            "delegated_detail_hint": false,
+            "metadata_filters": {
+              "article_id": "제22조",
+              "paragraph_id": "③",
+              "rule_family": "advertising",
+              "logic_type": "required_presence",
+              "detection_target": "content_text",
+              "product_scope": "loan",
+              "channel_scope": "advertising"
+            },
+            "retrieval_text": "[source] 금융소비자 보호에 관한 법률\n[section] 제2절 금융상품 유형별 영업행위 준수사항\n[article] 제22조 금융상품등에 관한 광고 관련 준수사항\n[citation] 금융소비자 보호에 관한 법률 제22조③\n[rule_id] law_fincpa_main_2026-01-02:제22조:③:ob05:rule01\n[rule_family] advertising\n[logic_type] required_presence\n[detection_target] content_text\n[product_scope] loan\n[channel_scope] advertising\n[sir_fields] loan_conditions\n[rule_summary] Verify that advertisements for loan products explicitly include the required loan conditions.\n[obligation_summary] 대출성 상품 광고 시 대출조건을 반드시 포함해야 함\n[source_span] 라. 대출성 상품의 경우: 대출조건\n[parent_clause] 금융상품판매업자등이 하는 금융상품등에 관한 광고에는 다음 각 호의 내용이 포함되어 야 한다. 다만, 제17조제5항 본문에 따른 투자성 상품에 관한 광고에 대해서는 그러하지 아 니하다. 1. 금융상품에 관한 계약을 체결하기 전에 금융상품 설명서 및 약관을 읽어 볼 것을 권유하 는 내용 2. 금융상품판매업자등의 명칭, 금융상품의 내용 3. 다음 각 목의 구분에 따른 내용 가. 보장성 상품의 경우: 기존에 체결했던 계약을 해지하고 다른 계약을 체결하는 경우에는 계약체결의 거부 또는 보험료 등 금융소비자의 지급비용(이하 이 조에서 “보험료등”이라 한다)이 인상되거나 보장내용이 변경될 수 있다는 사항 나. 투자성 상품의 경우 1) 투자에 따른 위험 2) 과거 운용실적을 포함하여 광고를 하는 경우에는 그 운용실적이 미래의 수익률을 보장 하는 것이 아니라는 사항 다. 예금성 상품의 경우: 만기지급금 등을 예시하여 광고하는 경우에는 해당 예시된 지급금 등이 미래의 수익을 보장하는 것이 아니라는 사항(만기 시 지급금이 변동하는 예금성 상 품으로서 대통령령으로 정하는 금융상품의 경우에 한정한다) 라. 대출성 상품의 경우: 대출조건 4. 그 밖에 금융소비자 보호를 위하여 대통령령으로 정하는 내용",
+            "similarity": 0.704641,
+            "bonus": 0.19,
+            "score": 0.894641,
+            "rank": 4
+          },
+          {
+            "chunk_id": "law_fincpa_main_2026-01-02:제22조:③:ob02:rule01:chunk:rule_grounded_clause",
+            "chunk_type": "rule_grounded_clause",
+            "citation_label": "금융소비자 보호에 관한 법률 제22조③",
+            "article_id": "제22조",
+            "paragraph_id": "③",
+            "rule_id": "law_fincpa_main_2026-01-02:제22조:③:ob02:rule01",
+            "rule_family": "advertising",
+            "logic_type": "required_presence",
+            "detection_target": "content_text",
+            "product_scope": "insurance",
+            "channel_scope": "advertising",
+            "delegated_detail_hint": false,
+            "metadata_filters": {
+              "article_id": "제22조",
+              "paragraph_id": "③",
+              "rule_family": "advertising",
+              "logic_type": "required_presence",
+              "detection_target": "content_text",
+              "product_scope": "insurance",
+              "channel_scope": "advertising"
+            },
+            "retrieval_text": "[source] 금융소비자 보호에 관한 법률\n[section] 제2절 금융상품 유형별 영업행위 준수사항\n[article] 제22조 금융상품등에 관한 광고 관련 준수사항\n[citation] 금융소비자 보호에 관한 법률 제22조③\n[rule_id] law_fincpa_main_2026-01-02:제22조:③:ob02:rule01\n[rule_family] advertising\n[logic_type] required_presence\n[detection_target] content_text\n[product_scope] insurance\n[channel_scope] advertising\n[sir_fields] insurance_warning\n[rule_summary] 보장성 상품 광고 시 기존 계약 해지 후 신규 계약 체결에 따른 불이익(계약체결 거부, 보험료 인상, 보장내용 변경 등) 가능성 경고 문구를 필수 포함해야 한다.\n[obligation_summary] 보장성 상품 광고 시 기존 계약 해지 후 신규 계약 체결에 따른 불이익(거부, 보험료 인상, 보장내용 변경 등) 가능성을 포함해야 함\n[source_span] 가. 보장성 상품의 경우: 기존에 체결했던 계약을 해지하고 다른 계약을 체결하는 경우에는 계약체결의 거부 또는 보험료 등 금융소비자의 지급비용(이하 이 조에서 “보험료등”이라 한다)이 인상되거나 보장내용이 변경될 수 있다는 사항\n[parent_clause] 금융상품판매업자등이 하는 금융상품등에 관한 광고에는 다음 각 호의 내용이 포함되어 야 한다. 다만, 제17조제5항 본문에 따른 투자성 상품에 관한 광고에 대해서는 그러하지 아 니하다. 1. 금융상품에 관한 계약을 체결하기 전에 금융상품 설명서 및 약관을 읽어 볼 것을 권유하 는 내용 2. 금융상품판매업자등의 명칭, 금융상품의 내용 3. 다음 각 목의 구분에 따른 내용 가. 보장성 상품의 경우: 기존에 체결했던 계약을 해지하고 다른 계약을 체결하는 경우에는 계약체결의 거부 또는 보험료 등 금융소비자의 지급비용(이하 이 조에서 “보험료등”이라 한다)이 인상되거나 보장내용이 변경될 수 있다는 사항 나. 투자성 상품의 경우 1) 투자에 따른 위험 2) 과거 운용실적을 포함하여 광고를 하는 경우에는 그 운용실적이 미래의 수익률을 보장 하는 것이 아니라는 사항 다. 예금성 상품의 경우: 만기지급금 등을 예시하여 광고하는 경우에는 해당 예시된 지급금 등이 미래의 수익을 보장하는 것이 아니라는 사항(만기 시 지급금이 변동하는 예금성 상 품으로서 대통령령으로 정하는 금융상품의 경우에 한정한다) 라. 대출성 상품의 경우: 대출조건 4. 그 밖에 금융소비자 보호를 위하여 대통령령으로 정하는 내용",
+            "similarity": 0.695027,
+            "bonus": 0.19,
+            "score": 0.885027,
+            "rank": 5
+          }
+        ]
+      },
+      {
+        "rule_id": "law_fincpa_main_2026-01-02:제22조:④:ob02:rule01",
+        "rule_status": "failed",
+        "severity": "high",
+        "logic_type": "prohibited_presence",
+        "rule_family": "advertising",
+        "reason": "prohibited_condition_detected_or_required_disclosure_missing",
+        "finding_fields": [
+          "prohibited_claim_signal",
+          "investment_warning"
+        ],
+        "field_evidence": [
+          {
+            "field_name": "prohibited_claim_signal",
+            "status": "present",
+            "value": [
+              {
+                "category": "principal_guarantee",
+                "match": "원금 보장"
+              },
+              {
+                "category": "guaranteed_return",
+                "match": "확정 수익"
+              }
+            ],
+            "evidence": [
+              "원금 보장",
+              "확정 수익"
+            ],
+            "source": "heuristic"
+          },
+          {
+            "field_name": "investment_warning",
+            "status": "not_evidenced",
+            "value": null,
+            "evidence": [],
+            "source": "default"
+          }
+        ],
+        "legal_basis": {
+          "source_title": "금융소비자 보호에 관한 법률",
+          "article_id": "제22조",
+          "paragraph_id": "④",
+          "article_title": "금융상품등에 관한 광고 관련 준수사항",
+          "citation_label": "금융소비자 보호에 관한 법률 제22조④",
+          "section_id": "제2절",
+          "section_title": "금융상품 유형별 영업행위 준수사항",
+          "source_obligation_id": "law_fincpa_main_2026-01-02:제22조:④:ob02",
+          "source_span_text": "2. 투자성 상품 가. 손실보전(損失補塡) 또는 이익보장이 되는 것으로 오인하게 하는 행위... 나. 대통령령으로 정하는 투자성 상품에 대하여 해당 투자성 상품의 특성을 고려하여 대통령령으로 정하는 사항 외의 사항을 광고에 사용하는 행위 다. 수익률이나 운용실적을 표시하는 경우 수익률이나 운용실적이 좋은 기간의 수익률이나 운용실적만을 표시하는 행위 등 금융소비자 보호를 위하여 대통령령으로 정하는 행위",
+          "summary": "투자성 상품 광고 시 손실보전·이익보장 오인 유도, 허용되지 않은 사항 사용, 특정 유리한 기간의 수익률만 표시하는 행위를 금지한다."
+        },
+        "parent_clause": {
+          "record_id": "law_fincpa_main_2026-01-02:제22조:④",
+          "page_start": 12,
+          "raw_text": "금융상품판매업자등이 금융상품등에 관한 광고를 하는 경우 다음 각 호의 구분에 따른 행\n위를 해서는 아니 된다.\n1. 보장성 상품\n가. 보장한도, 보장 제한 조건, 면책사항 또는 감액지급 사항 등을 빠뜨리거나 충분히 고지\n하지 아니하여 제한 없이 보장을 받을 수 있는 것으로 오인하게 하는 행위\n나. 보험금이 큰 특정 내용만을 강조하거나 고액 보장 사례 등을 소개하여 보장내용이 큰\n것으로 오인하게 하는 행위\n다. 보험료를 일(日) 단위로 표시하거나 보험료의 산출기준을 불충분하게 설명하는 등 보험\n료등이 저렴한 것으로 오인하게 하는 행위\n라. 만기 시 자동갱신되는 보장성 상품의 경우 갱신 시 보험료등이 인상될 수 있음을 금융\n소비자가 인지할 수 있도록 충분히 고지하지 아니하는 행위\n마. 금리 및 투자실적에 따라 만기환급금이 변동될 수 있는 보장성 상품의 경우 만기환급\n금이 보장성 상품의 만기일에 확정적으로 지급되는 것으로 오인하게 하는 행위 등 금융\n소비자 보호를 위하여 대통령령으로 정하는 행위\n2. 투자성 상품\n가. 손실보전(損失補塡) 또는 이익보장이 되는 것으로 오인하게 하는 행위. 다만, 금융소비\n자를 오인하게 할 우려가 없는 경우로서 대통령령으로 정하는 경우는 제외한다.\n나. 대통령령으로 정하는 투자성 상품에 대하여 해당 투자성 상품의 특성을 고려하여 대통\n령령으로 정하는 사항 외의 사항을 광고에 사용하는 행위\n다. 수익률이나 운용실적을 표시하는 경우 수익률이나 운용실적이 좋은 기간의 수익률이나\n운용실적만을 표시하는 행위 등 금융소비자 보호를 위하여 대통령령으로 정하는 행위\n3. 예금성 상품\n가. 이자율의 범위ㆍ산정방법, 이자의 지급ㆍ부과 시기 및 부수적 혜택ㆍ비용을 명확히 표\n시하지 아니하여 금융소비자가 오인하게 하는 행위\n나. 수익률이나 운용실적을 표시하는 경우 수익률이나 운용실적이 좋은 기간의 것만을 표\n시하는 행위 등 금융소비자 보호를 위하여 대통령령으로 정하는 행위\n4. 대출성 상품\n가. 대출이자율의 범위ㆍ산정방법, 대출이자의 지급ㆍ부과 시기 및 부수적 혜택ㆍ비용을\n명확히 표시하지 아니하여 금융소비자가 오인하게 하는 행위\n나. 대출이자를 일 단위로 표시하여 대출이자가 저렴한 것으로 오인하게 하는 행위 등 금\n융소비자 보호를 위하여 대통령령으로 정하는 행위",
+          "normalized_text": "금융상품판매업자등이 금융상품등에 관한 광고를 하는 경우 다음 각 호의 구분에 따른 행 위를 해서는 아니 된다. 1. 보장성 상품 가. 보장한도, 보장 제한 조건, 면책사항 또는 감액지급 사항 등을 빠뜨리거나 충분히 고지 하지 아니하여 제한 없이 보장을 받을 수 있는 것으로 오인하게 하는 행위 나. 보험금이 큰 특정 내용만을 강조하거나 고액 보장 사례 등을 소개하여 보장내용이 큰 것으로 오인하게 하는 행위 다. 보험료를 일(日) 단위로 표시하거나 보험료의 산출기준을 불충분하게 설명하는 등 보험 료등이 저렴한 것으로 오인하게 하는 행위 라. 만기 시 자동갱신되는 보장성 상품의 경우 갱신 시 보험료등이 인상될 수 있음을 금융 소비자가 인지할 수 있도록 충분히 고지하지 아니하는 행위 마. 금리 및 투자실적에 따라 만기환급금이 변동될 수 있는 보장성 상품의 경우 만기환급 금이 보장성 상품의 만기일에 확정적으로 지급되는 것으로 오인하게 하는 행위 등 금융 소비자 보호를 위하여 대통령령으로 정하는 행위 2. 투자성 상품 가. 손실보전(損失補塡) 또는 이익보장이 되는 것으로 오인하게 하는 행위. 다만, 금융소비 자를 오인하게 할 우려가 없는 경우로서 대통령령으로 정하는 경우는 제외한다. 나. 대통령령으로 정하는 투자성 상품에 대하여 해당 투자성 상품의 특성을 고려하여 대통 령령으로 정하는 사항 외의 사항을 광고에 사용하는 행위 다. 수익률이나 운용실적을 표시하는 경우 수익률이나 운용실적이 좋은 기간의 수익률이나 운용실적만을 표시하는 행위 등 금융소비자 보호를 위하여 대통령령으로 정하는 행위 3. 예금성 상품 가. 이자율의 범위ㆍ산정방법, 이자의 지급ㆍ부과 시기 및 부수적 혜택ㆍ비용을 명확히 표 시하지 아니하여 금융소비자가 오인하게 하는 행위 나. 수익률이나 운용실적을 표시하는 경우 수익률이나 운용실적이 좋은 기간의 것만을 표 시하는 행위 등 금융소비자 보호를 위하여 대통령령으로 정하는 행위 4. 대출성 상품 가. 대출이자율의 범위ㆍ산정방법, 대출이자의 지급ㆍ부과 시기 및 부수적 혜택ㆍ비용을 명확히 표시하지 아니하여 금융소비자가 오인하게 하는 행위 나. 대출이자를 일 단위로 표시하여 대출이자가 저렴한 것으로 오인하게 하는 행위 등 금 융소비자 보호를 위하여 대통령령으로 정하는 행위",
+          "manual_verified": false
+        },
+        "same_article_context": [
+          {
+            "record_id": "law_fincpa_main_2026-01-02:제22조:①",
+            "paragraph_id": "①",
+            "page_start": 12,
+            "normalized_text": "금융상품판매업자등이 아닌 자 및 투자성 상 품에 관한 금융상품판매대리ㆍ중개업자 등 대통령령으로 정하는 금융상품판매업자등은 금융 상품판매업자등의 업무에 관한 광고 또는 금융상품에 관한 광고(이하 “금융상품등에 관한 광 고”라 한다)를 해서는 아니 된다. 다만, 다음 각 호의 어느 하나에 해당하는 기관(이하 “협회등 ”이라 한다), 그 밖에 금융상품판매업자등이 아닌 자로서 금융상품판매업자등을 자회사 또는 손자회사로 하는 금융지주회사 등 대통령령으로 정하는 자는 금융상품등에 관한 광고를 할 수 있다. 1. 「자본시장과 금융투자업에 관한 법률」 제283조에 따라 설립된 한국금융투자협회 2. 「보험업법」 제175조에 따라 설립된 보험협회 중 생명보험회사로 구성된 협회 3. 「보험업법」 제175조에 따라 설립된 보험협회 중 손해보험회사로 구성된 협회 4. 「상호저축은행법」 제25조에 따라 설립된 상호저축은행중앙회 5. 「여신전문금융업법」 제62조에 따라 설립된 여신전문금융업협회 6. 그 밖에 제1호부터 제5호까지의 기관에 준하는 기관으로서 대통령령으로 정하는 기관",
+            "is_parent_clause": false
+          },
+          {
+            "record_id": "law_fincpa_main_2026-01-02:제22조:②",
+            "paragraph_id": "②",
+            "page_start": 12,
+            "normalized_text": "금융상품판매업자등(제1항 단서에 해당하는 자를 포함한다. 이하 이 조에서 같다)이 금융 상품등에 관한 광고를 하는 경우에는 금융소비자가 금융상품의 내용을 오해하지 아니하도록 명확하고 공정하게 전달하여야 한다.",
+            "is_parent_clause": false
+          },
+          {
+            "record_id": "law_fincpa_main_2026-01-02:제22조:③",
+            "paragraph_id": "③",
+            "page_start": 12,
+            "normalized_text": "금융상품판매업자등이 하는 금융상품등에 관한 광고에는 다음 각 호의 내용이 포함되어 야 한다. 다만, 제17조제5항 본문에 따른 투자성 상품에 관한 광고에 대해서는 그러하지 아 니하다. 1. 금융상품에 관한 계약을 체결하기 전에 금융상품 설명서 및 약관을 읽어 볼 것을 권유하 는 내용 2. 금융상품판매업자등의 명칭, 금융상품의 내용 3. 다음 각 목의 구분에 따른 내용 가. 보장성 상품의 경우: 기존에 체결했던 계약을 해지하고 다른 계약을 체결하는 경우에는 계약체결의 거부 또는 보험료 등 금융소비자의 지급비용(이하 이 조에서 “보험료등”이라 한다)이 인상되거나 보장내용이 변경될 수 있다는 사항 나. 투자성 상품의 경우 1) 투자에 따른 위험 2) 과거 운용실적을 포함하여 광고를 하는 경우에는 그 운용실적이 미래의 수익률을 보장 하는 것이 아니라는 사항 다. 예금성 상품의 경우: 만기지급금 등을 예시하여 광고하는 경우에는 해당 예시된 지급금 등이 미래의 수익을 보장하는 것이 아니라는 사항(만기 시 지급금이 변동하는 예금성 상 품으로서 대통령령으로 정하는 금융상품의 경우에 한정한다) 라. 대출성 상품의 경우: 대출조건 4. 그 밖에 금융소비자 보호를 위하여 대통령령으로 정하는 내용",
+            "is_parent_clause": false
+          },
+          {
+            "record_id": "law_fincpa_main_2026-01-02:제22조:④",
+            "paragraph_id": "④",
+            "page_start": 12,
+            "normalized_text": "금융상품판매업자등이 금융상품등에 관한 광고를 하는 경우 다음 각 호의 구분에 따른 행 위를 해서는 아니 된다. 1. 보장성 상품 가. 보장한도, 보장 제한 조건, 면책사항 또는 감액지급 사항 등을 빠뜨리거나 충분히 고지 하지 아니하여 제한 없이 보장을 받을 수 있는 것으로 오인하게 하는 행위 나. 보험금이 큰 특정 내용만을 강조하거나 고액 보장 사례 등을 소개하여 보장내용이 큰 것으로 오인하게 하는 행위 다. 보험료를 일(日) 단위로 표시하거나 보험료의 산출기준을 불충분하게 설명하는 등 보험 료등이 저렴한 것으로 오인하게 하는 행위 라. 만기 시 자동갱신되는 보장성 상품의 경우 갱신 시 보험료등이 인상될 수 있음을 금융 소비자가 인지할 수 있도록 충분히 고지하지 아니하는 행위 마. 금리 및 투자실적에 따라 만기환급금이 변동될 수 있는 보장성 상품의 경우 만기환급 금이 보장성 상품의 만기일에 확정적으로 지급되는 것으로 오인하게 하는 행위 등 금융 소비자 보호를 위하여 대통령령으로 정하는 행위 2. 투자성 상품 가. 손실보전(損失補塡) 또는 이익보장이 되는 것으로 오인하게 하는 행위. 다만, 금융소비 자를 오인하게 할 우려가 없는 경우로서 대통령령으로 정하는 경우는 제외한다. 나. 대통령령으로 정하는 투자성 상품에 대하여 해당 투자성 상품의 특성을 고려하여 대통 령령으로 정하는 사항 외의 사항을 광고에 사용하는 행위 다. 수익률이나 운용실적을 표시하는 경우 수익률이나 운용실적이 좋은 기간의 수익률이나 운용실적만을 표시하는 행위 등 금융소비자 보호를 위하여 대통령령으로 정하는 행위 3. 예금성 상품 가. 이자율의 범위ㆍ산정방법, 이자의 지급ㆍ부과 시기 및 부수적 혜택ㆍ비용을 명확히 표 시하지 아니하여 금융소비자가 오인하게 하는 행위 나. 수익률이나 운용실적을 표시하는 경우 수익률이나 운용실적이 좋은 기간의 것만을 표 시하는 행위 등 금융소비자 보호를 위하여 대통령령으로 정하는 행위 4. 대출성 상품 가. 대출이자율의 범위ㆍ산정방법, 대출이자의 지급ㆍ부과 시기 및 부수적 혜택ㆍ비용을 명확히 표시하지 아니하여 금융소비자가 오인하게 하는 행위 나. 대출이자를 일 단위로 표시하여 대출이자가 저렴한 것으로 오인하게 하는 행위 등 금 융소비자 보호를 위하여 대통령령으로 정하는 행위",
+            "is_parent_clause": true
+          },
+          {
+            "record_id": "law_fincpa_main_2026-01-02:제22조:⑤",
+            "paragraph_id": "⑤",
+            "page_start": 12,
+            "normalized_text": "금융상품등에 관한 광고를 할 때 「표시ㆍ광고의 공정화에 관한 법률」 제4조제1항에 따른 표시ㆍ광고사항이 있는 경우에는 같은 법에서 정하는 바에 따른다.",
+            "is_parent_clause": false
+          },
+          {
+            "record_id": "law_fincpa_main_2026-01-02:제22조:⑥",
+            "paragraph_id": "⑥",
+            "page_start": 12,
+            "normalized_text": "협회등은 금융상품판매업자등의 금융상품등에 관한 광고와 관련하여 대통령령으로 정하 는 바에 따라 제1항부터 제4항까지의 광고 관련 기준을 준수하는지를 확인하고 그 결과에 대한 의견을 해당 금융상품판매업자등에게 통보할 수 있다.",
+            "is_parent_clause": false
+          },
+          {
+            "record_id": "law_fincpa_main_2026-01-02:제22조:⑦",
+            "paragraph_id": "⑦",
+            "page_start": 12,
+            "normalized_text": "제2항부터 제4항까지의 규정과 관련된 구체적인 내용 및 광고의 방법과 절차는 대통령령 으로 정한다.",
+            "is_parent_clause": false
+          }
+        ],
+        "delegated_detail_hint": true,
+        "retrieval_mode": "static_layer4_plus_vector_support",
+        "retrieval_backend": {
+          "type": "local_sentence_transformers_cosine_search",
+          "model_id": "nlpai-lab/KURE-v1",
+          "encoder_backend": "sentence_transformers",
+          "device_used": "cuda",
+          "candidate_stage": "article_and_preferred_type",
+          "top_k": 5
+        },
+        "retrieved_support": [
+          {
+            "chunk_id": "law_fincpa_main_2026-01-02:제22조:④:ob02:rule01:chunk:rule_grounded_clause",
+            "chunk_type": "rule_grounded_clause",
+            "citation_label": "금융소비자 보호에 관한 법률 제22조④",
+            "article_id": "제22조",
+            "paragraph_id": "④",
+            "rule_id": "law_fincpa_main_2026-01-02:제22조:④:ob02:rule01",
+            "rule_family": "advertising",
+            "logic_type": "prohibited_presence",
+            "detection_target": "content_text",
+            "product_scope": "investment",
+            "channel_scope": "advertising",
+            "delegated_detail_hint": true,
+            "metadata_filters": {
+              "article_id": "제22조",
+              "paragraph_id": "④",
+              "rule_family": "advertising",
+              "logic_type": "prohibited_presence",
+              "detection_target": "content_text",
+              "product_scope": "investment",
+              "channel_scope": "advertising"
+            },
+            "retrieval_text": "[source] 금융소비자 보호에 관한 법률\n[section] 제2절 금융상품 유형별 영업행위 준수사항\n[article] 제22조 금융상품등에 관한 광고 관련 준수사항\n[citation] 금융소비자 보호에 관한 법률 제22조④\n[rule_id] law_fincpa_main_2026-01-02:제22조:④:ob02:rule01\n[rule_family] advertising\n[logic_type] prohibited_presence\n[detection_target] content_text\n[product_scope] investment\n[channel_scope] advertising\n[sir_fields] investment_warning, prohibited_claim_signal\n[rule_summary] 투자성 상품 광고 시 손실보전·이익보장 오인 유도 문구 사용을 금지하고, 특정 유리한 기간의 수익률만 선택적으로 표시하는 행위를 차단한다.\n[obligation_summary] 투자성 상품 광고 시 손실보전·이익보장 오인 유도, 허용되지 않은 사항 사용, 특정 유리한 기간의 수익률만 표시하는 행위를 금지한다.\n[source_span] 2. 투자성 상품 가. 손실보전(損失補塡) 또는 이익보장이 되는 것으로 오인하게 하는 행위... 나. 대통령령으로 정하는 투자성 상품에 대하여 해당 투자성 상품의 특성을 고려하여 대통령령으로 정하는 사항 외의 사항을 광고에 사용하는 행위 다. 수익률이나 운용실적을 표시하는 경우 수익률이나 운용실적이 좋은 기간의 수익률이나 운용실적만을 표시하는 행위 등 금융소비자 보호를 위하여 대통령령으로 정하는 행위\n[parent_clause] 금융상품판매업자등이 금융상품등에 관한 광고를 하는 경우 다음 각 호의 구분에 따른 행 위를 해서는 아니 된다. 1. 보장성 상품 가. 보장한도, 보장 제한 조건, 면책사항 또는 감액지급 사항 등을 빠뜨리거나 충분히 고지 하지 아니하여 제한 없이 보장을 받을 수 있는 것으로 오인하게 하는 행위 나. 보험금이 큰 특정 내용만을 강조하거나 고액 보장 사례 등을 소개하여 보장내용이 큰 것으로 오인하게 하는 행위 다. 보험료를 일(日) 단위로 표시하거나 보험료의 산출기준을 불충분하게 설명하는 등 보험 료등이 저렴한 것으로 오인하게 하는 행위 라. 만기 시 자동갱신되는 보장성 상품의 경우 갱신 시 보험료등이 인상될 수 있음을 금융 소비자가 인지할 수 있도록 충분히 고지하지 아니하는 행위 마. 금리 및 투자실적에 따라 만기환급금이 변동될 수 있는 보장성 상품의 경우 만기환급 금이 보장성 상품의 만기일에 확정적으로 지급되는 것으로 오인하게 하는 행위 등 금융 소비자 보호를 위하여 대통령령으로 정하는 행위 2. 투자성 상품 가. 손실보전(損失補塡) 또는 이익보장이 되는 것으로 오인하게 하는 행위. 다만, 금융소비 자를 오인하게 할 우려가 없는 경우로서 대통령령으로 정하는 경우는 제외한다. 나. 대통령령으로 정하는 투자성 상품에 대하여 해당 투자성 상품의 특성을 고려하여 대통 령령으로 정하는 사항 외의 사항을 광고에 사용하는 행위 다. 수익률이나 운용실적을 표시하는 경우 수익률이나 운용실적이 좋은 기간의 수익률이나 운용실적만을 표시하는 행위 등 금융소비자 보호를 위하여 대통령령으로 정하는 행위 3. 예금성 상품 가. 이자율의 범위ㆍ산정방법, 이자의 지급ㆍ부과 시기 및 부수적 혜택ㆍ비용을 명확히 표 시하지 아니하여 금융소비자가 오인하게 하는 행위 나. 수익률이나 운용실적을 표시하는 경우 수익률이나 운용실적이 좋은 기간의 것만을 표 시하는 행위 등 금융소비자 보호를 위하여 대통령령으로 정하는 행위 4. 대출성 상품 가. 대출이자율의 범위ㆍ산정방법, 대출이자의 지급ㆍ부과 시기 및 부수적 혜택ㆍ비용을 명확히 표시하지 아니하여 금융소비자가 오인하게 하는 행위 나. 대출이자를 일 단위로 표시하여 대출이자가 저렴한 것으로 오인하게 하는 행위 등 금 융소비자 보호를 위하여 대통령령으로 정하는 행위",
+            "similarity": 0.862064,
+            "bonus": 0.46,
+            "score": 1.322064,
+            "rank": 1
+          },
+          {
+            "chunk_id": "law_fincpa_main_2026-01-02:제22조:④:ob03:rule01:chunk:rule_grounded_clause",
+            "chunk_type": "rule_grounded_clause",
+            "citation_label": "금융소비자 보호에 관한 법률 제22조④",
+            "article_id": "제22조",
+            "paragraph_id": "④",
+            "rule_id": "law_fincpa_main_2026-01-02:제22조:④:ob03:rule01",
+            "rule_family": "advertising",
+            "logic_type": "prohibited_presence",
+            "detection_target": "content_text",
+            "product_scope": "deposit",
+            "channel_scope": "advertising",
+            "delegated_detail_hint": true,
+            "metadata_filters": {
+              "article_id": "제22조",
+              "paragraph_id": "④",
+              "rule_family": "advertising",
+              "logic_type": "prohibited_presence",
+              "detection_target": "content_text",
+              "product_scope": "deposit",
+              "channel_scope": "advertising"
+            },
+            "retrieval_text": "[source] 금융소비자 보호에 관한 법률\n[section] 제2절 금융상품 유형별 영업행위 준수사항\n[article] 제22조 금융상품등에 관한 광고 관련 준수사항\n[citation] 금융소비자 보호에 관한 법률 제22조④\n[rule_id] law_fincpa_main_2026-01-02:제22조:④:ob03:rule01\n[rule_family] advertising\n[logic_type] prohibited_presence\n[detection_target] content_text\n[product_scope] deposit\n[channel_scope] advertising\n[sir_fields] deposit_disclaimer, product_core_terms, prohibited_claim_signal\n[rule_summary] 예금성 상품 광고 시 이자율 범위·산정방법 등을 명확히 표시하고, 특정 유리한 기간의 수익률만 선택적으로 표시하여 소비자를 오인하게 하는 행위를 금지한다.\n[obligation_summary] 예금성 상품 광고 시 이자율 범위·산정방법 등을 불명확하게 표시하여 오인을 유도하거나 유리한 기간의 수익률만 표시하는 행위를 금지한다.\n[source_span] 3. 예금성 상품 가. 이자율의 범위ㆍ산정방법, 이자의 지급ㆍ부과 시기 및 부수적 혜택ㆍ비용을 명확히 표시하지 아니하여 금융소비자가 오인하게 하는 행위 나. 수익률이나 운용실적을 표시하는 경우 수익률이나 운용실적이 좋은 기간의 것만을 표시하는 행위 등 금융소비자 보호를 위하여 대통령령으로 정하는 행위\n[parent_clause] 금융상품판매업자등이 금융상품등에 관한 광고를 하는 경우 다음 각 호의 구분에 따른 행 위를 해서는 아니 된다. 1. 보장성 상품 가. 보장한도, 보장 제한 조건, 면책사항 또는 감액지급 사항 등을 빠뜨리거나 충분히 고지 하지 아니하여 제한 없이 보장을 받을 수 있는 것으로 오인하게 하는 행위 나. 보험금이 큰 특정 내용만을 강조하거나 고액 보장 사례 등을 소개하여 보장내용이 큰 것으로 오인하게 하는 행위 다. 보험료를 일(日) 단위로 표시하거나 보험료의 산출기준을 불충분하게 설명하는 등 보험 료등이 저렴한 것으로 오인하게 하는 행위 라. 만기 시 자동갱신되는 보장성 상품의 경우 갱신 시 보험료등이 인상될 수 있음을 금융 소비자가 인지할 수 있도록 충분히 고지하지 아니하는 행위 마. 금리 및 투자실적에 따라 만기환급금이 변동될 수 있는 보장성 상품의 경우 만기환급 금이 보장성 상품의 만기일에 확정적으로 지급되는 것으로 오인하게 하는 행위 등 금융 소비자 보호를 위하여 대통령령으로 정하는 행위 2. 투자성 상품 가. 손실보전(損失補塡) 또는 이익보장이 되는 것으로 오인하게 하는 행위. 다만, 금융소비 자를 오인하게 할 우려가 없는 경우로서 대통령령으로 정하는 경우는 제외한다. 나. 대통령령으로 정하는 투자성 상품에 대하여 해당 투자성 상품의 특성을 고려하여 대통 령령으로 정하는 사항 외의 사항을 광고에 사용하는 행위 다. 수익률이나 운용실적을 표시하는 경우 수익률이나 운용실적이 좋은 기간의 수익률이나 운용실적만을 표시하는 행위 등 금융소비자 보호를 위하여 대통령령으로 정하는 행위 3. 예금성 상품 가. 이자율의 범위ㆍ산정방법, 이자의 지급ㆍ부과 시기 및 부수적 혜택ㆍ비용을 명확히 표 시하지 아니하여 금융소비자가 오인하게 하는 행위 나. 수익률이나 운용실적을 표시하는 경우 수익률이나 운용실적이 좋은 기간의 것만을 표 시하는 행위 등 금융소비자 보호를 위하여 대통령령으로 정하는 행위 4. 대출성 상품 가. 대출이자율의 범위ㆍ산정방법, 대출이자의 지급ㆍ부과 시기 및 부수적 혜택ㆍ비용을 명확히 표시하지 아니하여 금융소비자가 오인하게 하는 행위 나. 대출이자를 일 단위로 표시하여 대출이자가 저렴한 것으로 오인하게 하는 행위 등 금 융소비자 보호를 위하여 대통령령으로 정하는 행위",
+            "similarity": 0.80897,
+            "bonus": 0.19,
+            "score": 0.99897,
+            "rank": 2
+          },
+          {
+            "chunk_id": "law_fincpa_main_2026-01-02:제22조:④:ob01:rule01:chunk:rule_grounded_clause",
+            "chunk_type": "rule_grounded_clause",
+            "citation_label": "금융소비자 보호에 관한 법률 제22조④",
+            "article_id": "제22조",
+            "paragraph_id": "④",
+            "rule_id": "law_fincpa_main_2026-01-02:제22조:④:ob01:rule01",
+            "rule_family": "advertising",
+            "logic_type": "prohibited_presence",
+            "detection_target": "content_text",
+            "product_scope": "insurance",
+            "channel_scope": "advertising",
+            "delegated_detail_hint": true,
+            "metadata_filters": {
+              "article_id": "제22조",
+              "paragraph_id": "④",
+              "rule_family": "advertising",
+              "logic_type": "prohibited_presence",
+              "detection_target": "content_text",
+              "product_scope": "insurance",
+              "channel_scope": "advertising"
+            },
+            "retrieval_text": "[source] 금융소비자 보호에 관한 법률\n[section] 제2절 금융상품 유형별 영업행위 준수사항\n[article] 제22조 금융상품등에 관한 광고 관련 준수사항\n[citation] 금융소비자 보호에 관한 법률 제22조④\n[rule_id] law_fincpa_main_2026-01-02:제22조:④:ob01:rule01\n[rule_family] advertising\n[logic_type] prohibited_presence\n[detection_target] content_text\n[product_scope] insurance\n[channel_scope] advertising\n[sir_fields] insurance_warning, product_core_terms, prohibited_claim_signal\n[rule_summary] 보장성 상품 광고 시 보장 제한 조건, 고액 보장 강조, 일 단위 보험료 표시, 자동갱신 시 인상 가능성, 만기환급금 변동성 등 소비자가 오인할 수 있는 핵심 정보의 누락이나 왜곡을 금지하고 필수 경고 문구를 포함해야 한다.\n[obligation_summary] 보장성 상품 광고 시 보장 제한, 고액 보장 강조, 보험료 오인 유도, 자동갱신 인상 미고지 등 소비자가 오인할 수 있는 행위를 금지한다.\n[source_span] 1. 보장성 상품 가. 보장한도, 보장 제한 조건, 면책사항 또는 감액지급 사항 등을 빠뜨리거나 충분히 고지하지 아니하여 제한 없이 보장을 받을 수 있는 것으로 오인하게 하는 행위 나. 보험금이 큰 특정 내용만을 강조하거나 고액 보장 사례 등을 소개하여 보장내용이 큰 것으로 오인하게 하는 행위 다. 보험료를 일(日) 단위로 표시하거나 보험료의 산출기준을 불충분하게 설명하는 등 보험료등이 저렴한 것으로 오인하게 하는 행위 라. 만기 시 자동갱신되는 보장성 상품의 경우 갱신 시 보험료등이 인상될 수 있음을 금융소비자가 인지할 수 있도록 충분히 고지하지 아니하는 행위 마. 금리 및 투자실적에 따라 만기환급금이 변동될 수 있는 보장성 상품의 경우 만기환급금이 보장성 상품의 만기일에 확정적으로 지급되는 것으로 오인하게 하는 행위 등 금융소비자 보호를 위하여 대통령령으로 정하는 행위\n[parent_clause] 금융상품판매업자등이 금융상품등에 관한 광고를 하는 경우 다음 각 호의 구분에 따른 행 위를 해서는 아니 된다. 1. 보장성 상품 가. 보장한도, 보장 제한 조건, 면책사항 또는 감액지급 사항 등을 빠뜨리거나 충분히 고지 하지 아니하여 제한 없이 보장을 받을 수 있는 것으로 오인하게 하는 행위 나. 보험금이 큰 특정 내용만을 강조하거나 고액 보장 사례 등을 소개하여 보장내용이 큰 것으로 오인하게 하는 행위 다. 보험료를 일(日) 단위로 표시하거나 보험료의 산출기준을 불충분하게 설명하는 등 보험 료등이 저렴한 것으로 오인하게 하는 행위 라. 만기 시 자동갱신되는 보장성 상품의 경우 갱신 시 보험료등이 인상될 수 있음을 금융 소비자가 인지할 수 있도록 충분히 고지하지 아니하는 행위 마. 금리 및 투자실적에 따라 만기환급금이 변동될 수 있는 보장성 상품의 경우 만기환급 금이 보장성 상품의 만기일에 확정적으로 지급되는 것으로 오인하게 하는 행위 등 금융 소비자 보호를 위하여 대통령령으로 정하는 행위 2. 투자성 상품 가. 손실보전(損失補塡) 또는 이익보장이 되는 것으로 오인하게 하는 행위. 다만, 금융소비 자를 오인하게 할 우려가 없는 경우로서 대통령령으로 정하는 경우는 제외한다. 나. 대통령령으로 정하는 투자성 상품에 대하여 해당 투자성 상품의 특성을 고려하여 대통 령령으로 정하는 사항 외의 사항을 광고에 사용하는 행위 다. 수익률이나 운용실적을 표시하는 경우 수익률이나 운용실적이 좋은 기간의 수익률이나 운용실적만을 표시하는 행위 등 금융소비자 보호를 위하여 대통령령으로 정하는 행위 3. 예금성 상품 가. 이자율의 범위ㆍ산정방법, 이자의 지급ㆍ부과 시기 및 부수적 혜택ㆍ비용을 명확히 표 시하지 아니하여 금융소비자가 오인하게 하는 행위 나. 수익률이나 운용실적을 표시하는 경우 수익률이나 운용실적이 좋은 기간의 것만을 표 시하는 행위 등 금융소비자 보호를 위하여 대통령령으로 정하는 행위 4. 대출성 상품 가. 대출이자율의 범위ㆍ산정방법, 대출이자의 지급ㆍ부과 시기 및 부수적 혜택ㆍ비용을 명확히 표시하지 아니하여 금융소비자가 오인하게 하는 행위 나. 대출이자를 일 단위로 표시하여 대출이자가 저렴한 것으로 오인하게 하는 행위 등 금 융소비자 보호를 위하여 대통령령으로 정하는 행위",
+            "similarity": 0.773117,
+            "bonus": 0.19,
+            "score": 0.963117,
+            "rank": 3
+          },
+          {
+            "chunk_id": "law_fincpa_main_2026-01-02:제22조:④:ob04:rule01:chunk:rule_grounded_clause",
+            "chunk_type": "rule_grounded_clause",
+            "citation_label": "금융소비자 보호에 관한 법률 제22조④",
+            "article_id": "제22조",
+            "paragraph_id": "④",
+            "rule_id": "law_fincpa_main_2026-01-02:제22조:④:ob04:rule01",
+            "rule_family": "advertising",
+            "logic_type": "prohibited_presence",
+            "detection_target": "content_text",
+            "product_scope": "loan",
+            "channel_scope": "advertising",
+            "delegated_detail_hint": true,
+            "metadata_filters": {
+              "article_id": "제22조",
+              "paragraph_id": "④",
+              "rule_family": "advertising",
+              "logic_type": "prohibited_presence",
+              "detection_target": "content_text",
+              "product_scope": "loan",
+              "channel_scope": "advertising"
+            },
+            "retrieval_text": "[source] 금융소비자 보호에 관한 법률\n[section] 제2절 금융상품 유형별 영업행위 준수사항\n[article] 제22조 금융상품등에 관한 광고 관련 준수사항\n[citation] 금융소비자 보호에 관한 법률 제22조④\n[rule_id] law_fincpa_main_2026-01-02:제22조:④:ob04:rule01\n[rule_family] advertising\n[logic_type] prohibited_presence\n[detection_target] content_text\n[product_scope] loan\n[channel_scope] advertising\n[sir_fields] loan_conditions, loan_rate_basis, loan_interest_timing, loan_costs\n[rule_summary] 대출성 상품 광고 시 대출이자율의 범위·산정방법 등을 명확히 표시하고, 일 단위 이자율 표시를 통해 저렴한 것으로 오인하게 하는 행위를 금지한다.\n[obligation_summary] 대출성 상품 광고 시 대출이자율 범위·산정방법 등을 불명확하게 표시하거나 일 단위 표시로 저렴한 것으로 오인하게 하는 행위를 금지한다.\n[source_span] 4. 대출성 상품 가. 대출이자율의 범위ㆍ산정방법, 대출이자의 지급ㆍ부과 시기 및 부수적 혜택ㆍ비용을 명확히 표시하지 아니하여 금융소비자가 오인하게 하는 행위 나. 대출이자를 일 단위로 표시하여 대출이자가 저렴한 것으로 오인하게 하는 행위 등 금융소비자 보호를 위하여 대통령령으로 정하는 행위\n[parent_clause] 금융상품판매업자등이 금융상품등에 관한 광고를 하는 경우 다음 각 호의 구분에 따른 행 위를 해서는 아니 된다. 1. 보장성 상품 가. 보장한도, 보장 제한 조건, 면책사항 또는 감액지급 사항 등을 빠뜨리거나 충분히 고지 하지 아니하여 제한 없이 보장을 받을 수 있는 것으로 오인하게 하는 행위 나. 보험금이 큰 특정 내용만을 강조하거나 고액 보장 사례 등을 소개하여 보장내용이 큰 것으로 오인하게 하는 행위 다. 보험료를 일(日) 단위로 표시하거나 보험료의 산출기준을 불충분하게 설명하는 등 보험 료등이 저렴한 것으로 오인하게 하는 행위 라. 만기 시 자동갱신되는 보장성 상품의 경우 갱신 시 보험료등이 인상될 수 있음을 금융 소비자가 인지할 수 있도록 충분히 고지하지 아니하는 행위 마. 금리 및 투자실적에 따라 만기환급금이 변동될 수 있는 보장성 상품의 경우 만기환급 금이 보장성 상품의 만기일에 확정적으로 지급되는 것으로 오인하게 하는 행위 등 금융 소비자 보호를 위하여 대통령령으로 정하는 행위 2. 투자성 상품 가. 손실보전(損失補塡) 또는 이익보장이 되는 것으로 오인하게 하는 행위. 다만, 금융소비 자를 오인하게 할 우려가 없는 경우로서 대통령령으로 정하는 경우는 제외한다. 나. 대통령령으로 정하는 투자성 상품에 대하여 해당 투자성 상품의 특성을 고려하여 대통 령령으로 정하는 사항 외의 사항을 광고에 사용하는 행위 다. 수익률이나 운용실적을 표시하는 경우 수익률이나 운용실적이 좋은 기간의 수익률이나 운용실적만을 표시하는 행위 등 금융소비자 보호를 위하여 대통령령으로 정하는 행위 3. 예금성 상품 가. 이자율의 범위ㆍ산정방법, 이자의 지급ㆍ부과 시기 및 부수적 혜택ㆍ비용을 명확히 표 시하지 아니하여 금융소비자가 오인하게 하는 행위 나. 수익률이나 운용실적을 표시하는 경우 수익률이나 운용실적이 좋은 기간의 것만을 표 시하는 행위 등 금융소비자 보호를 위하여 대통령령으로 정하는 행위 4. 대출성 상품 가. 대출이자율의 범위ㆍ산정방법, 대출이자의 지급ㆍ부과 시기 및 부수적 혜택ㆍ비용을 명확히 표시하지 아니하여 금융소비자가 오인하게 하는 행위 나. 대출이자를 일 단위로 표시하여 대출이자가 저렴한 것으로 오인하게 하는 행위 등 금 융소비자 보호를 위하여 대통령령으로 정하는 행위",
+            "similarity": 0.758563,
+            "bonus": 0.19,
+            "score": 0.948563,
+            "rank": 4
+          },
+          {
+            "chunk_id": "law_fincpa_main_2026-01-02:제22조:③:ob03:rule01:chunk:rule_grounded_clause",
+            "chunk_type": "rule_grounded_clause",
+            "citation_label": "금융소비자 보호에 관한 법률 제22조③",
+            "article_id": "제22조",
+            "paragraph_id": "③",
+            "rule_id": "law_fincpa_main_2026-01-02:제22조:③:ob03:rule01",
+            "rule_family": "advertising",
+            "logic_type": "required_presence",
+            "detection_target": "content_text",
+            "product_scope": "investment",
+            "channel_scope": "advertising",
+            "delegated_detail_hint": false,
+            "metadata_filters": {
+              "article_id": "제22조",
+              "paragraph_id": "③",
+              "rule_family": "advertising",
+              "logic_type": "required_presence",
+              "detection_target": "content_text",
+              "product_scope": "investment",
+              "channel_scope": "advertising"
+            },
+            "retrieval_text": "[source] 금융소비자 보호에 관한 법률\n[section] 제2절 금융상품 유형별 영업행위 준수사항\n[article] 제22조 금융상품등에 관한 광고 관련 준수사항\n[citation] 금융소비자 보호에 관한 법률 제22조③\n[rule_id] law_fincpa_main_2026-01-02:제22조:③:ob03:rule01\n[rule_family] advertising\n[logic_type] required_presence\n[detection_target] content_text\n[product_scope] investment\n[channel_scope] advertising\n[sir_fields] investment_warning, prohibited_claim_signal\n[rule_summary] Verify that investment product advertisements include warnings on investment risks and explicitly state that past performance does not guarantee future returns if past performance is presented.\n[obligation_summary] 투자성 상품 광고 시 투자에 따른 위험 및 과거 실적이 미래 수익을 보장하지 않는다는 사실을 포함해야 함\n[source_span] 나. 투자성 상품의 경우 1) 투자에 따른 위험 2) 과거 운용실적을 포함하여 광고를 하는 경우에는 그 운용실적이 미래의 수익률을 보장 하는 것이 아니라는 사항\n[parent_clause] 금융상품판매업자등이 하는 금융상품등에 관한 광고에는 다음 각 호의 내용이 포함되어 야 한다. 다만, 제17조제5항 본문에 따른 투자성 상품에 관한 광고에 대해서는 그러하지 아 니하다. 1. 금융상품에 관한 계약을 체결하기 전에 금융상품 설명서 및 약관을 읽어 볼 것을 권유하 는 내용 2. 금융상품판매업자등의 명칭, 금융상품의 내용 3. 다음 각 목의 구분에 따른 내용 가. 보장성 상품의 경우: 기존에 체결했던 계약을 해지하고 다른 계약을 체결하는 경우에는 계약체결의 거부 또는 보험료 등 금융소비자의 지급비용(이하 이 조에서 “보험료등”이라 한다)이 인상되거나 보장내용이 변경될 수 있다는 사항 나. 투자성 상품의 경우 1) 투자에 따른 위험 2) 과거 운용실적을 포함하여 광고를 하는 경우에는 그 운용실적이 미래의 수익률을 보장 하는 것이 아니라는 사항 다. 예금성 상품의 경우: 만기지급금 등을 예시하여 광고하는 경우에는 해당 예시된 지급금 등이 미래의 수익을 보장하는 것이 아니라는 사항(만기 시 지급금이 변동하는 예금성 상 품으로서 대통령령으로 정하는 금융상품의 경우에 한정한다) 라. 대출성 상품의 경우: 대출조건 4. 그 밖에 금융소비자 보호를 위하여 대통령령으로 정하는 내용",
+            "similarity": 0.751999,
+            "bonus": 0.11,
+            "score": 0.861999,
+            "rank": 5
+          }
+        ]
+      }
+    ]
+  },
+  "suggested_output_schema": {
+    "reviewer_summary": "string",
+    "plain_language_rationale": "string",
+    "remediation_actions": [
+      "string"
+    ],
+    "conservative_rewrite_suggestion": "string",
+    "citation_list": [
+      "string"
+    ]
+  }
+}

@@ -14,10 +14,6 @@ LAYER3_PATH = ROOT_DIR / "data" / "annotations" / "ch4_fincpa" / "law_fincpa_mai
 LAYER4_RULES_PATH = ROOT_DIR / "data" / "finalized" / "ch4_fincpa" / "law_fincpa_main_ch4_layer4_mvp_rule_pack.jsonl"
 LAYER4_SCHEMA_PATH = ROOT_DIR / "data" / "finalized" / "ch4_fincpa" / "law_fincpa_main_ch4_layer4_mvp_sir_schema.json"
 LAYER4_REPORT_PATH = ROOT_DIR / "data" / "finalized" / "ch4_fincpa" / "law_fincpa_main_ch4_layer4_compile_report.json"
-RETRIEVAL_CORPUS_PATH = ROOT_DIR / "data" / "retrieval" / "ch4_fincpa" / "ch4_embedding_corpus.jsonl"
-RETRIEVAL_MANIFEST_PATH = ROOT_DIR / "data" / "retrieval" / "ch4_fincpa" / "ch4_embedding_manifest.json"
-RETRIEVAL_QUERY_MANIFEST_PATH = ROOT_DIR / "data" / "retrieval" / "ch4_fincpa" / "ch4_example_retrieval_query_manifest.json"
-RETRIEVAL_INDEX_MANIFEST_PATH = ROOT_DIR / "data" / "retrieval" / "ch4_fincpa" / "ch4_embedding_index_manifest.json"
 OUTPUT_PATH = ROOT_DIR / "data" / "finalized" / "ch4_fincpa" / "law_fincpa_main_ch4_dashboard_bundle.json"
 DASHBOARD_BUNDLE_JS_PATH = ROOT_DIR / "dashboard" / "ch4_fincpa" / "dashboard-bundle.js"
 
@@ -227,13 +223,6 @@ def build_layer_explanations() -> list[dict]:
             "meaning_ko": "Layer 3 후보 중 ready_for_v1=yes만 골라 MVP 규칙팩과 SIR 스키마로 고정한 단계",
             "meaning_en": "Only ready_for_v1=yes candidates included in the frozen MVP rule pack and SIR schema.",
         },
-        {
-            "layer_id": "retrieval",
-            "title_ko": "Layer 5. 임베딩 검색 코퍼스",
-            "title_en": "Layer 5. Embedding Retrieval Corpus",
-            "meaning_ko": "제4장 조항과 MVP 규칙을 임베딩 가능한 검색 청크로 구성하고, 실패 규칙별 검색 쿼리를 준비한 단계",
-            "meaning_en": "Chapter 4 clauses and MVP rules transformed into embedding-ready retrieval chunks, with one retrieval query prepared per failed rule.",
-        },
     ]
 
 
@@ -245,10 +234,6 @@ def main() -> None:
     layer4_rows = load_jsonl(LAYER4_RULES_PATH)
     layer4_schema = json.loads(LAYER4_SCHEMA_PATH.read_text(encoding="utf-8"))
     layer4_report = json.loads(LAYER4_REPORT_PATH.read_text(encoding="utf-8"))
-    retrieval_rows = load_jsonl(RETRIEVAL_CORPUS_PATH) if RETRIEVAL_CORPUS_PATH.exists() else []
-    retrieval_manifest = load_json(RETRIEVAL_MANIFEST_PATH) if RETRIEVAL_MANIFEST_PATH.exists() else {}
-    retrieval_query_manifest = load_json(RETRIEVAL_QUERY_MANIFEST_PATH) if RETRIEVAL_QUERY_MANIFEST_PATH.exists() else {}
-    retrieval_index_manifest = load_json(RETRIEVAL_INDEX_MANIFEST_PATH) if RETRIEVAL_INDEX_MANIFEST_PATH.exists() else {}
 
     layer1_by_record = {row["record_id"]: row for row in layer1_rows}
     layer2_by_parent: dict[str, list[dict]] = defaultdict(list)
@@ -260,13 +245,6 @@ def main() -> None:
     layer4_by_parent: dict[str, list[dict]] = defaultdict(list)
     for row in layer4_rows:
         layer4_by_parent[row["parent_record_id"]].append(row)
-    retrieval_by_parent: dict[str, list[dict]] = defaultdict(list)
-    retrieval_by_article: dict[str, list[dict]] = defaultdict(list)
-    for row in retrieval_rows:
-        if row.get("parent_record_id"):
-            retrieval_by_parent[row["parent_record_id"]].append(row)
-        if row.get("article_id"):
-            retrieval_by_article[row["article_id"]].append(row)
 
     clauses = []
     article_options = []
@@ -298,17 +276,6 @@ def main() -> None:
             "layer2": [],
             "layer3": [],
             "layer4": [],
-            "retrieval": {
-                "direct_chunks": [],
-                "article_chunks": [],
-                "summary": {
-                    "total_related_chunk_count": 0,
-                    "direct_chunk_count": 0,
-                    "article_chunk_count": 0,
-                    "chunk_type_counts": {},
-                    "vector_index_ready": bool(retrieval_index_manifest.get("index_status") == "ready"),
-                },
-            },
             "summary": {
                 "layer2_count": len(l2_list),
                 "layer3_count": len(l3_list),
@@ -363,54 +330,6 @@ def main() -> None:
                 }
             )
 
-        direct_retrieval_rows = sorted(
-            retrieval_by_parent.get(record_id, []),
-            key=lambda item: (item["chunk_type"], item["chunk_id"]),
-        )
-        article_retrieval_rows = sorted(
-            [
-                item for item in retrieval_by_article.get(row["article_id"], [])
-                if item["chunk_type"] == "article_rollup"
-            ],
-            key=lambda item: item["chunk_id"],
-        )
-        direct_chunks = [
-            {
-                "chunk_id": item["chunk_id"],
-                "chunk_type": item["chunk_type"],
-                "citation_label": item["citation_label"],
-                "rule_id": item["rule_id"],
-                "rule_family_label": label_map_value(RULE_FAMILY_LABELS, item["rule_family"]) if item["rule_family"] else None,
-                "logic_type_label": label_map_value(LOGIC_TYPE_LABELS, item["logic_type"]) if item["logic_type"] else None,
-                "delegated_detail_hint": item["delegated_detail_hint"],
-                "retrieval_text_preview": item["retrieval_text"][:480],
-            }
-            for item in direct_retrieval_rows
-        ]
-        article_chunks = [
-            {
-                "chunk_id": item["chunk_id"],
-                "chunk_type": item["chunk_type"],
-                "citation_label": item["citation_label"],
-                "delegated_detail_hint": item["delegated_detail_hint"],
-                "retrieval_text_preview": item["retrieval_text"][:480],
-            }
-            for item in article_retrieval_rows
-        ]
-        chunk_type_counts = Counter(
-            [item["chunk_type"] for item in direct_retrieval_rows] + [item["chunk_type"] for item in article_retrieval_rows]
-        )
-        clause["retrieval"] = {
-            "direct_chunks": direct_chunks,
-            "article_chunks": article_chunks,
-            "summary": {
-                "total_related_chunk_count": len(direct_chunks) + len(article_chunks),
-                "direct_chunk_count": len(direct_chunks),
-                "article_chunk_count": len(article_chunks),
-                "chunk_type_counts": dict(chunk_type_counts),
-                "vector_index_ready": bool(retrieval_index_manifest.get("index_status") == "ready"),
-            },
-        }
         article_options.append(
             {
                 "record_id": record_id,
@@ -449,20 +368,10 @@ def main() -> None:
             "layer3_candidate_count": len(layer3_rows),
             "layer4_rule_count": len(layer4_rows),
             "layer4_field_count": len(field_catalog),
-            "retrieval_chunk_count": len(retrieval_rows),
-            "retrieval_query_count": retrieval_query_manifest.get("query_count", 0),
-            "retrieval_index_status": retrieval_index_manifest.get("index_status", "not_built"),
-            "retrieval_model_id": retrieval_index_manifest.get("model_id", ""),
-            "retrieval_chunk_type_counts": retrieval_manifest.get("chunk_type_counts", {}),
             "topic_family_counts": compact_counter(layer1_rows, "topic_family"),
             "layer4_rule_family_counts": layer4_report["rule_family_counts"],
             "layer4_logic_type_counts": layer4_report["logic_type_counts"],
             "layer4_field_group_counts": layer4_report["field_group_counts"],
-        },
-        "retrieval": {
-            "manifest": retrieval_manifest,
-            "query_manifest": retrieval_query_manifest,
-            "index_manifest": retrieval_index_manifest,
         },
         "catalogs": {
             "articles": article_options,

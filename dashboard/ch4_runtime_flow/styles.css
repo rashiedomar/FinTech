@@ -381,9 +381,14 @@ body {
   gap: 16px;
 }
 
-.embedding-stage-grid {
+.embedding-stage-grid,
+.advisory-grid {
   display: grid;
   gap: 18px;
+}
+
+.advisory-grid {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
 .field-group {
@@ -482,6 +487,18 @@ body {
   line-height: 1.65;
 }
 
+.advisory-card {
+  background:
+    linear-gradient(180deg, rgba(252, 247, 240, 0.96), rgba(255, 255, 255, 0.74));
+}
+
+.llm-hero {
+  background:
+    radial-gradient(circle at top right, rgba(165, 63, 43, 0.14), transparent 34%),
+    linear-gradient(180deg, rgba(255, 251, 245, 0.96), rgba(252, 246, 238, 0.88));
+  border-color: rgba(165, 63, 43, 0.16);
+}
+
 .embedding-hero {
   background:
     radial-gradient(circle at top right, rgba(40, 91, 89, 0.18), transparent 34%),
@@ -517,6 +534,71 @@ body {
   border-left: 3px solid rgba(184, 133, 48, 0.55);
   background: rgba(184, 133, 48, 0.08);
   color: var(--ink) !important;
+}
+
+.suggested-prompt {
+  white-space: pre-wrap;
+  color: var(--ink) !important;
+}
+
+.action-list {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+  display: grid;
+  gap: 8px;
+}
+
+.action-row,
+.decision-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.suggest-btn {
+  min-width: 220px;
+}
+
+.decision-btn {
+  border: 1px solid rgba(31, 46, 42, 0.1);
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 10px 16px;
+  font: inherit;
+  cursor: pointer;
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.decision-btn:hover,
+.decision-btn.active {
+  transform: translateY(-1px);
+  border-color: rgba(40, 91, 89, 0.28);
+  background: rgba(40, 91, 89, 0.1);
+}
+
+.input-shell,
+.textarea-shell {
+  display: grid;
+  gap: 8px;
+}
+
+.input-shell input,
+.textarea-shell textarea {
+  width: 100%;
+  border: 1px solid rgba(31, 46, 42, 0.1);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 14px 16px;
+  font: inherit;
+  color: var(--ink);
+}
+
+.textarea-shell textarea {
+  resize: vertical;
+  min-height: 136px;
 }
 
 .stage-footer {

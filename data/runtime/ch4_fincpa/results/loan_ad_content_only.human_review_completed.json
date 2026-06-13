@@ -1,0 +1,76 @@
+{
+  "artifact_type": "ch4_human_review_packet",
+  "version": "0.1.0",
+  "review_status": "completed",
+  "input_id": "loan_ad_content_only",
+  "case_summary": {
+    "title": "토스뱅크 대출",
+    "content_text": "토스뱅크 대출 중도상환수수료 없이 쉽고 간편하게 빌려요",
+    "final_decision_from_engine": "non_compliant",
+    "should_escalate": true,
+    "failed_rule_count": 1,
+    "uncertain_rule_count": 0,
+    "missing_sir_fields": [
+      "loan_interest_timing",
+      "loan_rate_basis"
+    ]
+  },
+  "reviewer_actions": [
+    "approve",
+    "approve_with_edits",
+    "reject",
+    "escalate"
+  ],
+  "required_reviewer_fields": [
+    "reviewer_id",
+    "decision",
+    "reviewer_note"
+  ],
+  "draft_review_form": {
+    "reviewer_id": "omar_demo_human",
+    "decision": "escalate",
+    "reviewer_note": "Deterministic review found high-severity compliance issues. Escalating for compliance review and revision.",
+    "requested_edits": [
+      "Add the loan interest rate range and its calculation method to the advertisement.",
+      "Include information about when the loan interest is paid or imposed.",
+      "Ensure all required loan conditions are clearly stated in the advertisement."
+    ],
+    "linked_rule_ids": [
+      "law_fincpa_main_2026-01-02:제22조:③:ob01:rule01",
+      "law_fincpa_main_2026-01-02:제22조:③:ob05:rule01",
+      "law_fincpa_main_2026-01-02:제22조:④:ob04:rule01"
+    ]
+  },
+  "evidence_summary": {
+    "triggered_rule_count": 1,
+    "citation_count": 1,
+    "citations": [
+      "금융소비자 보호에 관한 법률 제22조④"
+    ],
+    "delegated_detail_item_count": 1,
+    "vector_index_available": true,
+    "retrieved_support_item_count": 5
+  },
+  "triggered_citations": [
+    {
+      "source_title": "금융소비자 보호에 관한 법률",
+      "article_id": "제22조",
+      "paragraph_id": "④",
+      "article_title": "금융상품등에 관한 광고 관련 준수사항",
+      "citation_label": "금융소비자 보호에 관한 법률 제22조④",
+      "section_id": "제2절",
+      "section_title": "금융상품 유형별 영업행위 준수사항",
+      "source_obligation_id": "law_fincpa_main_2026-01-02:제22조:④:ob04",
+      "source_span_text": "4. 대출성 상품 가. 대출이자율의 범위ㆍ산정방법, 대출이자의 지급ㆍ부과 시기 및 부수적 혜택ㆍ비용을 명확히 표시하지 아니하여 금융소비자가 오인하게 하는 행위 나. 대출이자를 일 단위로 표시하여 대출이자가 저렴한 것으로 오인하게 하는 행위 등 금융소비자 보호를 위하여 대통령령으로 정하는 행위",
+      "summary": "대출성 상품 광고 시 대출이자율 범위·산정방법 등을 불명확하게 표시하거나 일 단위 표시로 저렴한 것으로 오인하게 하는 행위를 금지한다."
+    }
+  ],
+  "completed_review": {
+    "reviewer_id": "omar_demo_human",
+    "decision": "escalate",
+    "reviewer_note": "Deterministic review found high-severity compliance issues. Escalating for compliance review and revision.",
+    "llm_model": "gemini-2.5-flash",
+    "llm_reviewer_summary": "The advertisement for '토스뱅크 대출' is non-compliant because it fails to clearly state the loan interest rate range, calculation method, and interest payment/imposition timing, which is a violation of the Financial Consumer Protection Act. The current content only mentions '중도상환수수료 없이' without providing the required interest rate details.",
+    "llm_recommended_rewrite": "토스뱅크 대출: 중도상환수수료 없이 간편하게 빌려요. 대출이자율은 연 0.0% ~ 0.0%이며, 산정방법은 [산정방법]에 따릅니다. 이자는 매월 [지급/부과 시기]에 부과됩니다. 자세한 대출조건은 상품설명서를 참조하세요."
+  }
+}

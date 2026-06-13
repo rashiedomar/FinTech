@@ -1,0 +1,47 @@
+{
+  "artifact_type": "ch4_human_review_packet",
+  "version": "0.1.0",
+  "review_status": "pending_human_review",
+  "input_id": "access_request_record_only",
+  "case_summary": {
+    "title": "열람 요청 처리",
+    "content_text": "",
+    "final_decision_from_engine": "compliant",
+    "should_escalate": false,
+    "failed_rule_count": 0,
+    "uncertain_rule_count": 0,
+    "missing_sir_fields": []
+  },
+  "reviewer_actions": [
+    "approve",
+    "approve_with_edits",
+    "reject",
+    "escalate"
+  ],
+  "required_reviewer_fields": [
+    "reviewer_id",
+    "decision",
+    "reviewer_note"
+  ],
+  "draft_review_form": {
+    "reviewer_id": "",
+    "decision": "",
+    "reviewer_note": "",
+    "requested_edits": [],
+    "linked_rule_ids": [
+      "law_fincpa_main_2026-01-02:제28조:③:ob01:rule01",
+      "law_fincpa_main_2026-01-02:제28조:④:ob01:rule01",
+      "law_fincpa_main_2026-01-02:제28조:④:ob02:rule01",
+      "law_fincpa_main_2026-01-02:제28조:⑤:ob01:rule01"
+    ]
+  },
+  "evidence_summary": {
+    "triggered_rule_count": 0,
+    "citation_count": 0,
+    "citations": [],
+    "delegated_detail_item_count": 0,
+    "vector_index_available": true,
+    "retrieved_support_item_count": 0
+  },
+  "triggered_citations": []
+}

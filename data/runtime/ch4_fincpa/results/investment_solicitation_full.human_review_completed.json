@@ -1,0 +1,68 @@
+{
+  "artifact_type": "ch4_human_review_packet",
+  "version": "0.1.0",
+  "review_status": "completed",
+  "input_id": "investment_solicitation_full",
+  "case_summary": {
+    "title": "투자상품 계약 안내",
+    "content_text": "미래에셋증권 투자상품 안내입니다. 투자에는 원금 손실 가능성이 있으며 상품설명서와 약관을 확인해 주세요.",
+    "final_decision_from_engine": "compliant",
+    "should_escalate": false,
+    "failed_rule_count": 0,
+    "uncertain_rule_count": 0,
+    "missing_sir_fields": []
+  },
+  "reviewer_actions": [
+    "approve",
+    "approve_with_edits",
+    "reject",
+    "escalate"
+  ],
+  "required_reviewer_fields": [
+    "reviewer_id",
+    "decision",
+    "reviewer_note"
+  ],
+  "draft_review_form": {
+    "reviewer_id": "omar_demo_human",
+    "decision": "approve",
+    "reviewer_note": "Deterministic review passed. Human reviewer approves the content as currently written.",
+    "requested_edits": [],
+    "linked_rule_ids": [
+      "law_fincpa_main_2026-01-02:제17조:①:ob01:rule01",
+      "law_fincpa_main_2026-01-02:제17조:⑤:ob01:rule01",
+      "law_fincpa_main_2026-01-02:제17조:⑤:ob02:rule01",
+      "law_fincpa_main_2026-01-02:제18조:①:ob02:rule01",
+      "law_fincpa_main_2026-01-02:제18조:②:ob01:rule01",
+      "law_fincpa_main_2026-01-02:제18조:②:ob02:rule01",
+      "law_fincpa_main_2026-01-02:제18조:④:ob01:rule01",
+      "law_fincpa_main_2026-01-02:제18조:④:ob02:rule01",
+      "law_fincpa_main_2026-01-02:제18조:⑤:ob01:rule01",
+      "law_fincpa_main_2026-01-02:제19조:①:ob02:rule01",
+      "law_fincpa_main_2026-01-02:제19조:①:ob05:rule01",
+      "law_fincpa_main_2026-01-02:제19조:①:ob06:rule01",
+      "law_fincpa_main_2026-01-02:제19조:②:ob01:rule01",
+      "law_fincpa_main_2026-01-02:제19조:②:ob02:rule01",
+      "law_fincpa_main_2026-01-02:제19조:③:ob01:rule01",
+      "law_fincpa_main_2026-01-02:제23조:①:ob01:rule01",
+      "law_fincpa_main_2026-01-02:제23조:②:ob01:rule01"
+    ]
+  },
+  "evidence_summary": {
+    "triggered_rule_count": 0,
+    "citation_count": 0,
+    "citations": [],
+    "delegated_detail_item_count": 0,
+    "vector_index_available": true,
+    "retrieved_support_item_count": 0
+  },
+  "triggered_citations": [],
+  "completed_review": {
+    "reviewer_id": "omar_demo_human",
+    "decision": "approve",
+    "reviewer_note": "Deterministic review passed. Human reviewer approves the content as currently written.",
+    "llm_model": "gemini-2.5-flash",
+    "llm_reviewer_summary": "The content is compliant. It appropriately discloses the possibility of principal loss and advises checking the product description and terms and conditions for investment products.",
+    "llm_recommended_rewrite": "미래에셋증권 투자상품 안내입니다. 투자에는 원금 손실 가능성이 있으며, 상품설명서와 약관을 확인해 주시기 바랍니다."
+  }
+}

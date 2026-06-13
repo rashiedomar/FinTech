@@ -1,0 +1,62 @@
+{
+  "artifact_type": "ch4_human_review_packet",
+  "version": "0.1.0",
+  "review_status": "pending_human_review",
+  "input_id": "solicitation_improper_claim_violation",
+  "case_summary": {
+    "title": "투자상품 권유 스크립트",
+    "content_text": "이 상품은 무조건 안전하고 다른 상품보다 훨씬 유리합니다. 지금 바로 가입하세요.",
+    "final_decision_from_engine": "non_compliant",
+    "should_escalate": true,
+    "failed_rule_count": 1,
+    "uncertain_rule_count": 0,
+    "missing_sir_fields": []
+  },
+  "reviewer_actions": [
+    "approve",
+    "approve_with_edits",
+    "reject",
+    "escalate"
+  ],
+  "required_reviewer_fields": [
+    "reviewer_id",
+    "decision",
+    "reviewer_note"
+  ],
+  "draft_review_form": {
+    "reviewer_id": "",
+    "decision": "",
+    "reviewer_note": "",
+    "requested_edits": [],
+    "linked_rule_ids": [
+      "law_fincpa_main_2026-01-02:제16조의2:③:ob02:rule01",
+      "law_fincpa_main_2026-01-02:제21조:ob01:rule01",
+      "law_fincpa_main_2026-01-02:제21조의2:①:ob01:rule01",
+      "law_fincpa_main_2026-01-02:제21조의2:①:ob02:rule01"
+    ]
+  },
+  "evidence_summary": {
+    "triggered_rule_count": 1,
+    "citation_count": 1,
+    "citations": [
+      "금융소비자 보호에 관한 법률 제21조"
+    ],
+    "delegated_detail_item_count": 0,
+    "vector_index_available": true,
+    "retrieved_support_item_count": 5
+  },
+  "triggered_citations": [
+    {
+      "source_title": "금융소비자 보호에 관한 법률",
+      "article_id": "제21조",
+      "paragraph_id": "",
+      "article_title": "부당권유행위 금지",
+      "citation_label": "금융소비자 보호에 관한 법률 제21조",
+      "section_id": "제2절",
+      "section_title": "금융상품 유형별 영업행위 준수사항",
+      "source_obligation_id": "law_fincpa_main_2026-01-02:제21조:ob01",
+      "source_span_text": "1. 불확실한 사항에 대하여 단정적 판단을 제공하거나 확실하다고 오인하게 할 소지가 있는 내용을 알리는 행위 2. 금융상품의 내용을 사실과 다르게 알리는 행위 3. 금융상품의 가치에 중대한 영향을 미치는 사항을 미리 알고 있으면서 금융소비자에게 알리지 아니하는 행위 4. 금융상품 내용의 일부에 대하여 비교대상 및 기준을 밝히지 아니하거나 객관적인 근거 없이 다른 금융상품과 비교하여 해당 금융상품이 우수하거나 유리하다고 알리는 행위",
+      "summary": "금융상품 계약 체결 권유 시 단정적 판단 제공, 허위 사실 고지, 중요 사항 묵비, 객관적 근거 없는 비교 행위를 금지한다."
+    }
+  ]
+}

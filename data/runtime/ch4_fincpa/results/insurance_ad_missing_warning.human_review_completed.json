@@ -1,0 +1,88 @@
+{
+  "artifact_type": "ch4_human_review_packet",
+  "version": "0.1.0",
+  "review_status": "completed",
+  "input_id": "insurance_ad_missing_warning",
+  "case_summary": {
+    "title": "ABC보험 보장성 상품 안내",
+    "content_text": "ABC보험, 든든한 보장, 지금 바로 가입하세요.",
+    "final_decision_from_engine": "non_compliant",
+    "should_escalate": true,
+    "failed_rule_count": 2,
+    "uncertain_rule_count": 0,
+    "missing_sir_fields": [
+      "insurance_warning"
+    ]
+  },
+  "reviewer_actions": [
+    "approve",
+    "approve_with_edits",
+    "reject",
+    "escalate"
+  ],
+  "required_reviewer_fields": [
+    "reviewer_id",
+    "decision",
+    "reviewer_note"
+  ],
+  "draft_review_form": {
+    "reviewer_id": "omar_demo_human",
+    "decision": "escalate",
+    "reviewer_note": "Deterministic review found high-severity compliance issues. Escalating for compliance review and revision.",
+    "requested_edits": [
+      "Add a clear and prominent warning about the potential disadvantages of switching from an existing insurance contract.",
+      "Ensure that the advertisement does not imply unrestricted coverage without explicitly stating all limitations, conditions, and exclusions.",
+      "Review all insurance product advertisements to ensure compliance with mandatory disclosure requirements under the Financial Consumer Protection Act."
+    ],
+    "linked_rule_ids": [
+      "law_fincpa_main_2026-01-02:제22조:③:ob01:rule01",
+      "law_fincpa_main_2026-01-02:제22조:③:ob02:rule01",
+      "law_fincpa_main_2026-01-02:제22조:④:ob01:rule01"
+    ]
+  },
+  "evidence_summary": {
+    "triggered_rule_count": 2,
+    "citation_count": 2,
+    "citations": [
+      "금융소비자 보호에 관한 법률 제22조③",
+      "금융소비자 보호에 관한 법률 제22조④"
+    ],
+    "delegated_detail_item_count": 1,
+    "vector_index_available": true,
+    "retrieved_support_item_count": 10
+  },
+  "triggered_citations": [
+    {
+      "source_title": "금융소비자 보호에 관한 법률",
+      "article_id": "제22조",
+      "paragraph_id": "③",
+      "article_title": "금융상품등에 관한 광고 관련 준수사항",
+      "citation_label": "금융소비자 보호에 관한 법률 제22조③",
+      "section_id": "제2절",
+      "section_title": "금융상품 유형별 영업행위 준수사항",
+      "source_obligation_id": "law_fincpa_main_2026-01-02:제22조:③:ob02",
+      "source_span_text": "가. 보장성 상품의 경우: 기존에 체결했던 계약을 해지하고 다른 계약을 체결하는 경우에는 계약체결의 거부 또는 보험료 등 금융소비자의 지급비용(이하 이 조에서 “보험료등”이라 한다)이 인상되거나 보장내용이 변경될 수 있다는 사항",
+      "summary": "보장성 상품 광고 시 기존 계약 해지 후 신규 계약 체결에 따른 불이익(거부, 보험료 인상, 보장내용 변경 등) 가능성을 포함해야 함"
+    },
+    {
+      "source_title": "금융소비자 보호에 관한 법률",
+      "article_id": "제22조",
+      "paragraph_id": "④",
+      "article_title": "금융상품등에 관한 광고 관련 준수사항",
+      "citation_label": "금융소비자 보호에 관한 법률 제22조④",
+      "section_id": "제2절",
+      "section_title": "금융상품 유형별 영업행위 준수사항",
+      "source_obligation_id": "law_fincpa_main_2026-01-02:제22조:④:ob01",
+      "source_span_text": "1. 보장성 상품 가. 보장한도, 보장 제한 조건, 면책사항 또는 감액지급 사항 등을 빠뜨리거나 충분히 고지하지 아니하여 제한 없이 보장을 받을 수 있는 것으로 오인하게 하는 행위 나. 보험금이 큰 특정 내용만을 강조하거나 고액 보장 사례 등을 소개하여 보장내용이 큰 것으로 오인하게 하는 행위 다. 보험료를 일(日) 단위로 표시하거나 보험료의 산출기준을 불충분하게 설명하는 등 보험료등이 저렴한 것으로 오인하게 하는 행위 라. 만기 시 자동갱신되는 보장성 상품의 경우 갱신 시 보험료등이 인상될 수 있음을 금융소비자가 인지할 수 있도록 충분히 고지하지 아니하는 행위 마. 금리 및 투자실적에 따라 만기환급금이 변동될 수 있는 보장성 상품의 경우 만기환급금이 보장성 상품의 만기일에 확정적으로 지급되는 것으로 오인하게 하는 행위 등 금융소비자 보호를 위하여 대통령령으로 정하는 행위",
+      "summary": "보장성 상품 광고 시 보장 제한, 고액 보장 강조, 보험료 오인 유도, 자동갱신 인상 미고지 등 소비자가 오인할 수 있는 행위를 금지한다."
+    }
+  ],
+  "completed_review": {
+    "reviewer_id": "omar_demo_human",
+    "decision": "escalate",
+    "reviewer_note": "Deterministic review found high-severity compliance issues. Escalating for compliance review and revision.",
+    "llm_model": "gemini-2.5-flash",
+    "llm_reviewer_summary": "The advertisement for 'ABC보험' is non-compliant because it fails to include mandatory warnings for insurance products, specifically regarding potential disadvantages when switching from an existing contract. Additionally, the ad's phrasing '든든한 보장' could be misleading by implying unrestricted coverage without necessary disclosures.",
+    "llm_recommended_rewrite": "ABC보험, 든든한 보장. (광고) 이 보험은 예금자보호법에 따라 예금보험공사가 보호하지 않습니다. 기존 보험계약을 해지하고 다른 보험계약을 체결하는 경우 보험인수가 거절되거나 보험료가 인상되거나 보장내용이 달라질 수 있습니다. 계약 체결 전 상품설명서 및 약관을 읽어보시기 바랍니다."
+  }
+}

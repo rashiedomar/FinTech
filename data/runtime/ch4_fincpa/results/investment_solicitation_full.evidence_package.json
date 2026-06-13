@@ -1,0 +1,16 @@
+{
+  "artifact_type": "ch4_evidence_package",
+  "version": "0.1.0",
+  "input_id": "investment_solicitation_full",
+  "final_decision": "compliant",
+  "should_escalate": false,
+  "coverage_summary": {
+    "triggered_rule_count": 0,
+    "citation_count": 0,
+    "citations": [],
+    "delegated_detail_item_count": 0,
+    "vector_index_available": true,
+    "retrieved_support_item_count": 0
+  },
+  "evidence_items": []
+}

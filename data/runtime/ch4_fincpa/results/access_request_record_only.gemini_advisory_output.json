@@ -1,0 +1,7 @@
+{
+  "reviewer_summary": "The content is compliant as it is an internal record of an access request and does not contain any customer-facing claims or disclosures that would trigger compliance rules.",
+  "plain_language_rationale": "The deterministic engine determined that the content, identified as an internal record for an access request, is compliant. This is because the content is not customer-facing and therefore does not contain any statements, claims, or disclosures that would be subject to financial advertising or disclosure regulations. No specific rules were triggered as applicable to this type of internal record.",
+  "remediation_actions": [],
+  "conservative_rewrite_suggestion": "열람 요청 처리",
+  "citation_list": []
+}

@@ -1,0 +1,82 @@
+{
+  "artifact_type": "ch4_llm_advisory_input",
+  "version": "0.1.0",
+  "tasking": {
+    "objective": "Explain the deterministic compliance result in plain language and provide conservative advisory support without changing the legal decision.",
+    "llm_role": "explanation_and_advisory_only",
+    "must_not_do": [
+      "Do not override the deterministic final decision.",
+      "Do not invent new legal citations beyond the supplied evidence package.",
+      "Do not claim certainty when the deterministic engine returned uncertainty."
+    ],
+    "expected_outputs": [
+      "reviewer_summary",
+      "plain_language_rationale",
+      "remediation_actions",
+      "conservative_rewrite_suggestion",
+      "citation_list"
+    ]
+  },
+  "case_context": {
+    "input_id": "investment_solicitation_full",
+    "title": "투자상품 계약 안내",
+    "content_text": "미래에셋증권 투자상품 안내입니다. 투자에는 원금 손실 가능성이 있으며 상품설명서와 약관을 확인해 주세요.",
+    "review_scope": "full",
+    "product_scope_hint": [
+      "investment"
+    ],
+    "channel_scope_hint": [
+      "contracting"
+    ],
+    "business_role_hint": "direct_seller"
+  },
+  "deterministic_core": {
+    "final_decision": "compliant",
+    "should_escalate": false,
+    "summary": {
+      "total_rules_in_pack": 76,
+      "applicable_rule_count": 17,
+      "passed_rule_count": 17,
+      "failed_rule_count": 0,
+      "uncertain_rule_count": 0,
+      "status_counts": {
+        "not_applicable": 59,
+        "passed": 17
+      },
+      "failed_logic_type_counts": {},
+      "active_sir_field_count": 13,
+      "missing_sir_field_count": 0
+    },
+    "missing_sir_fields": [],
+    "failed_rules": [],
+    "uncertain_rules": []
+  },
+  "sir_focus_fields": {},
+  "evidence_package": {
+    "artifact_type": "ch4_evidence_package",
+    "version": "0.1.0",
+    "input_id": "investment_solicitation_full",
+    "final_decision": "compliant",
+    "should_escalate": false,
+    "coverage_summary": {
+      "triggered_rule_count": 0,
+      "citation_count": 0,
+      "citations": [],
+      "delegated_detail_item_count": 0,
+      "vector_index_available": true,
+      "retrieved_support_item_count": 0
+    },
+    "evidence_items": []
+  },
+  "suggested_output_schema": {
+    "reviewer_summary": "string",
+    "plain_language_rationale": "string",
+    "remediation_actions": [
+      "string"
+    ],
+    "conservative_rewrite_suggestion": "string",
+    "citation_list": [
+      "string"
+    ]
+  }
+}

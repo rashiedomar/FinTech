@@ -1,0 +1,13 @@
+{
+  "reviewer_summary": "The advertisement for '토스뱅크 대출' is non-compliant because it fails to clearly state the loan interest rate range, calculation method, and interest payment/imposition timing, which is a violation of the Financial Consumer Protection Act. The current content only mentions '중도상환수수료 없이' without providing the required interest rate details.",
+  "plain_language_rationale": "금융소비자 보호에 관한 법률 제22조제4항에 따르면 대출성 상품 광고 시 대출이자율의 범위, 산정방법, 이자 지급/부과 시기 등을 명확히 표시해야 합니다. 현재 광고 문구에는 이러한 필수 정보가 누락되어 있어 소비자가 대출 조건을 오인할 수 있습니다. '중도상환수수료 없이'라는 문구는 대출의 한 가지 조건을 언급하고 있으나, 이자율 관련 핵심 정보가 없어 법규를 준수하지 못했습니다.",
+  "remediation_actions": [
+    "Add the loan interest rate range and its calculation method to the advertisement.",
+    "Include information about when the loan interest is paid or imposed.",
+    "Ensure all required loan conditions are clearly stated in the advertisement."
+  ],
+  "conservative_rewrite_suggestion": "토스뱅크 대출: 중도상환수수료 없이 간편하게 빌려요. 대출이자율은 연 0.0% ~ 0.0%이며, 산정방법은 [산정방법]에 따릅니다. 이자는 매월 [지급/부과 시기]에 부과됩니다. 자세한 대출조건은 상품설명서를 참조하세요.",
+  "citation_list": [
+    "금융소비자 보호에 관한 법률 제22조④"
+  ]
+}

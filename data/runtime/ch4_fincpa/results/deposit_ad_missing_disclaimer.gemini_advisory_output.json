@@ -1,0 +1,13 @@
+{
+  "reviewer_summary": "The advertisement is non-compliant due to the use of a prohibited '확정 수익' claim and the omission of a required deposit disclaimer. Both issues must be addressed.",
+  "plain_language_rationale": "The advertisement for 'ABC은행 정기예금' uses the phrase '확정 수익 5%', which is considered a prohibited claim for deposit products as it can mislead consumers into believing future returns are guaranteed. Additionally, the advertisement fails to include the mandatory disclosure that any illustrated payouts for deposit products do not guarantee future returns, especially for variable-rate products. This omission violates the Financial Consumer Protection Act, which requires clear and fair communication in financial product advertisements.",
+  "remediation_actions": [
+    "Remove the prohibited claim '확정 수익'.",
+    "Add the required deposit disclaimer stating that illustrated payouts do not guarantee future returns and that this product is protected by the Depositor Protection Act up to 50 million won per person, including principal and interest."
+  ],
+  "conservative_rewrite_suggestion": "ABC은행 정기예금, 최고 연 5% 금리. 지금 가입하세요. 이 예금은 예금자보호법에 따라 예금보험공사가 보호하되, 보호 한도는 본 은행에 있는 귀하의 모든 예금보호 대상 금융상품의 원금과 소정의 이자를 합하여 1인당 '최고 5천만원'이며, 5천만원을 초과하는 나머지 금액은 보호하지 않습니다. 예시된 지급금은 미래의 수익을 보장하지 않습니다.",
+  "citation_list": [
+    "금융소비자 보호에 관한 법률 제22조③",
+    "금융소비자 보호에 관한 법률 제22조④"
+  ]
+}
