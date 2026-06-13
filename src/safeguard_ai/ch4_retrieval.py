@@ -8,7 +8,7 @@ from typing import Any
 from functools import lru_cache
 
 
-DEFAULT_EMBEDDING_MODEL_ID = "intfloat/multilingual-e5-small"
+DEFAULT_EMBEDDING_MODEL_ID = "nlpai-lab/KURE-v1"
 DEFAULT_TOP_K = 5
 
 
@@ -291,7 +291,7 @@ def build_embedding_index(
         model_id=model_id,
         batch_size=batch_size,
         max_length=max_length,
-        prefix="passage: ",
+        prefix=_embedding_text_prefix(model_id, text_role="passage"),
         device=device,
     )
 
@@ -305,11 +305,13 @@ def build_embedding_index(
         "version": "0.1.0",
         "index_status": "ready",
         "model_id": model_id,
+        "encoder_backend": "sentence_transformers",
         "device_used": resolved_device,
         "batch_size": batch_size,
         "max_length": max_length,
         "chunk_count": len(rows),
         "embedding_dimension": int(embedding_rows.shape[1]) if len(rows) else 0,
+        "text_prefix_policy": _embedding_prefix_policy_label(model_id),
         "output_paths": {
             "index_rows_jsonl": str(paths.index_rows_path.relative_to(repo_root)),
             "embeddings_npy": str(paths.embeddings_path.relative_to(repo_root)),
@@ -317,7 +319,7 @@ def build_embedding_index(
         },
         "notes": [
             "Embeddings are L2-normalized sentence vectors.",
-            "Queries should be encoded with the E5 query prefix.",
+            _embedding_prefix_note(model_id),
             "Retrieval uses cosine similarity plus metadata-aware reranking.",
         ],
     }
@@ -346,7 +348,7 @@ def retrieve_support_for_query(
         model_id=manifest["model_id"],
         batch_size=1,
         max_length=manifest.get("max_length", 512),
-        prefix="query: ",
+        prefix=_embedding_text_prefix(manifest["model_id"], text_role="query"),
         device=manifest.get("device_used"),
     )
     query_vector = query_embedding[0]
@@ -400,8 +402,9 @@ def retrieve_support_for_query(
         "query_id": query_row["query_id"],
         "rule_id": query_row["rule_id"],
         "backend": {
-            "type": "local_transformers_cosine_search",
+            "type": "local_sentence_transformers_cosine_search",
             "model_id": manifest["model_id"],
+            "encoder_backend": manifest.get("encoder_backend", "sentence_transformers"),
             "device_used": resolved_device,
             "candidate_stage": candidate_stage,
             "top_k": top_k,
@@ -511,17 +514,16 @@ def _score_bonus(row: dict[str, Any], query_row: dict[str, Any]) -> float:
 
 
 @lru_cache(maxsize=4)
-def _load_embedding_model(model_id: str, resolved_device: str) -> tuple[Any, Any]:
-    import torch
-    from transformers import AutoModel, AutoTokenizer
+def _load_embedding_model(model_id: str, resolved_device: str) -> Any:
+    try:
+        from sentence_transformers import SentenceTransformer
+    except ImportError as exc:
+        raise ImportError(
+            "sentence-transformers is required for Chapter 4 retrieval. "
+            "Install it with: pip install sentence-transformers"
+        ) from exc
 
-    tokenizer = AutoTokenizer.from_pretrained(model_id)
-    model = AutoModel.from_pretrained(model_id)
-    model.to(resolved_device)
-    model.eval()
-    if resolved_device == "cuda":
-        torch.set_grad_enabled(False)
-    return tokenizer, model
+    return SentenceTransformer(model_id, device=resolved_device)
 
 
 def _resolve_device(device: str | None) -> str:
@@ -544,35 +546,38 @@ def _encode_texts(
     device: str | None,
 ) -> tuple[Any, str]:
     import numpy as np
-    import torch
 
     resolved_device = _resolve_device(device)
-    tokenizer, model = _load_embedding_model(model_id, resolved_device)
+    model = _load_embedding_model(model_id, resolved_device)
+    if hasattr(model, "max_seq_length"):
+        model.max_seq_length = max_length
 
-    vectors: list[np.ndarray] = []
-    with torch.no_grad():
-        for start in range(0, len(texts), batch_size):
-            batch = [prefix + text for text in texts[start : start + batch_size]]
-            encoded = tokenizer(
-                batch,
-                padding=True,
-                truncation=True,
-                max_length=max_length,
-                return_tensors="pt",
-            )
-            encoded = {key: value.to(resolved_device) for key, value in encoded.items()}
-            outputs = model(**encoded)
-            pooled = _mean_pool(outputs.last_hidden_state, encoded["attention_mask"])
-            pooled = torch.nn.functional.normalize(pooled, p=2, dim=1)
-            vectors.append(pooled.cpu().numpy().astype("float32"))
-    return np.vstack(vectors), resolved_device
+    prefixed_texts = [prefix + text for text in texts]
+    embeddings = model.encode(
+        prefixed_texts,
+        batch_size=batch_size,
+        show_progress_bar=False,
+        normalize_embeddings=True,
+        convert_to_numpy=True,
+    )
+    return np.asarray(embeddings, dtype="float32"), resolved_device
 
 
-def _mean_pool(last_hidden_state: Any, attention_mask: Any) -> Any:
-    import torch
+def _embedding_text_prefix(model_id: str, *, text_role: str) -> str:
+    normalized_model_id = model_id.lower()
+    if "e5" in normalized_model_id:
+        if text_role == "query":
+            return "query: "
+        if text_role == "passage":
+            return "passage: "
+    return ""
 
-    mask = attention_mask.unsqueeze(-1).expand(last_hidden_state.size()).float()
-    masked_embeddings = last_hidden_state * mask
-    summed = torch.sum(masked_embeddings, dim=1)
-    counts = torch.clamp(mask.sum(dim=1), min=1e-9)
-    return summed / counts
+
+def _embedding_prefix_policy_label(model_id: str) -> str:
+    return "e5_query_passage_prefix" if "e5" in model_id.lower() else "no_prefix"
+
+
+def _embedding_prefix_note(model_id: str) -> str:
+    if "e5" in model_id.lower():
+        return "Queries and passages are encoded with E5-style text prefixes."
+    return "Queries and passages are encoded without additional text prefixes."

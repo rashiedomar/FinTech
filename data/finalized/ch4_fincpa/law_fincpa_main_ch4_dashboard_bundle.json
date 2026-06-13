@@ -58,7 +58,7 @@
     "retrieval_chunk_count": 154,
     "retrieval_query_count": 8,
     "retrieval_index_status": "ready",
-    "retrieval_model_id": "intfloat/multilingual-e5-small",
+    "retrieval_model_id": "nlpai-lab/KURE-v1",
     "retrieval_chunk_type_counts": {
       "article_rollup": 18,
       "parsed_clause": 60,
@@ -161,12 +161,14 @@
       "artifact_type": "ch4_embedding_index_manifest",
       "version": "0.1.0",
       "index_status": "ready",
-      "model_id": "intfloat/multilingual-e5-small",
+      "model_id": "nlpai-lab/KURE-v1",
+      "encoder_backend": "sentence_transformers",
       "device_used": "cuda",
-      "batch_size": 16,
-      "max_length": 512,
+      "batch_size": 4,
+      "max_length": 1024,
       "chunk_count": 154,
-      "embedding_dimension": 384,
+      "embedding_dimension": 1024,
+      "text_prefix_policy": "no_prefix",
       "output_paths": {
         "index_rows_jsonl": "data/retrieval/ch4_fincpa/ch4_embedding_index_rows.jsonl",
         "embeddings_npy": "data/retrieval/ch4_fincpa/ch4_embedding_index_embeddings.npy",
@@ -174,7 +176,7 @@
       },
       "notes": [
         "Embeddings are L2-normalized sentence vectors.",
-        "Queries should be encoded with the E5 query prefix.",
+        "Queries and passages are encoded without additional text prefixes.",
         "Retrieval uses cosine similarity plus metadata-aware reranking."
       ]
     }

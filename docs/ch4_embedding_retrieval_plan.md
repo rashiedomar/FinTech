@@ -28,7 +28,7 @@ What exists now:
   - parsed parent clause
   - same-article context
 - embedding-ready legal corpus
-- local embedding index built with `intfloat/multilingual-e5-small`
+- local embedding index built with `nlpai-lab/KURE-v1`
 - metadata-aware cosine retrieval over legal chunks
 - vector support attached to evidence packages when the local index exists
 
@@ -43,6 +43,12 @@ So the retrieval layer is:
 - query-ready
 - vectorized for the current Chapter 4 corpus
 - still limited to the current official-law scope
+
+Current model note:
+- `nlpai-lab/KURE-v1` is now the default retrieval encoder
+- rationale: Korean-first legal text retrieval is the current priority
+- implementation path: `sentence-transformers`, not raw mean pooling
+- prefix policy: no added `query:` / `passage:` prefixes for KURE
 
 
 What Problem Embeddings Solve Here

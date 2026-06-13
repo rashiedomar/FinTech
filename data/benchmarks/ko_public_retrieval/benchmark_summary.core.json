@@ -1,0 +1,268 @@
+{
+  "artifact_type": "ko_public_retrieval_benchmark_summary",
+  "version": "0.1.0",
+  "profile": "core",
+  "tasks": [
+    "Ko-StrategyQA",
+    "AutoRAGRetrieval",
+    "PublicHealthQA"
+  ],
+  "task_count": 3,
+  "models": [
+    {
+      "alias": "kure_v1",
+      "model_name": "nlpai-lab/KURE-v1",
+      "batch_size": 64,
+      "prefix_policy": "no_prefix",
+      "task_results": [
+        {
+          "task_name": "Ko-StrategyQA",
+          "score_split": "dev",
+          "main_score": 0.7999,
+          "ndcg_at_10": 0.7999,
+          "recall_at_10": 0.85963,
+          "precision_at_10": 0.15912,
+          "mrr_at_10": 0.815498,
+          "evaluation_time_seconds": 92.68733477592468,
+          "dataset_revision": "d243889a3eb6654029dbd7e7f9319ae31d58f97c",
+          "result_path": "data/benchmarks/ko_public_retrieval/kure_v1/nlpai-lab__KURE-v1/d14c8a9423946e268a0c9952fecf3a7aabd73bd9/Ko-StrategyQA.json"
+        },
+        {
+          "task_name": "AutoRAGRetrieval",
+          "score_split": "test",
+          "main_score": 0.87076,
+          "ndcg_at_10": 0.87076,
+          "recall_at_10": 0.98246,
+          "precision_at_10": 0.09825,
+          "mrr_at_10": 0.83388,
+          "evaluation_time_seconds": 18.903458833694458,
+          "dataset_revision": "fd7df84ac089bbec763b1c6bb1b56e985df5cc5c",
+          "result_path": "data/benchmarks/ko_public_retrieval/kure_v1/nlpai-lab__KURE-v1/d14c8a9423946e268a0c9952fecf3a7aabd73bd9/AutoRAGRetrieval.json"
+        },
+        {
+          "task_name": "PublicHealthQA",
+          "score_split": "test",
+          "main_score": 0.81925,
+          "ndcg_at_10": 0.81925,
+          "recall_at_10": 0.94805,
+          "precision_at_10": 0.09481,
+          "mrr_at_10": 0.778025,
+          "evaluation_time_seconds": 2.2291574478149414,
+          "dataset_revision": "main",
+          "result_path": "data/benchmarks/ko_public_retrieval/kure_v1/nlpai-lab__KURE-v1/d14c8a9423946e268a0c9952fecf3a7aabd73bd9/PublicHealthQA.json"
+        }
+      ],
+      "average_main_score": 0.82997,
+      "average_ndcg_at_10": 0.82997,
+      "average_recall_at_10": 0.9300466666666667,
+      "average_precision_at_10": 0.11739333333333335,
+      "average_mrr_at_10": 0.8091343333333333
+    },
+    {
+      "alias": "multilingual_e5_small",
+      "model_name": "intfloat/multilingual-e5-small",
+      "batch_size": 256,
+      "prefix_policy": "e5_query_document_prefix",
+      "task_results": [
+        {
+          "task_name": "Ko-StrategyQA",
+          "score_split": "dev",
+          "main_score": 0.75157,
+          "ndcg_at_10": 0.75157,
+          "recall_at_10": 0.82169,
+          "precision_at_10": 0.15084,
+          "mrr_at_10": 0.775534,
+          "evaluation_time_seconds": 11.98998475074768,
+          "dataset_revision": "d243889a3eb6654029dbd7e7f9319ae31d58f97c",
+          "result_path": "data/benchmarks/ko_public_retrieval/multilingual_e5_small/intfloat__multilingual-e5-small/no_revision_available/Ko-StrategyQA.json"
+        },
+        {
+          "task_name": "AutoRAGRetrieval",
+          "score_split": "test",
+          "main_score": 0.80068,
+          "ndcg_at_10": 0.80068,
+          "recall_at_10": 0.94737,
+          "precision_at_10": 0.09474,
+          "mrr_at_10": 0.75416,
+          "evaluation_time_seconds": 2.339489698410034,
+          "dataset_revision": "fd7df84ac089bbec763b1c6bb1b56e985df5cc5c",
+          "result_path": "data/benchmarks/ko_public_retrieval/multilingual_e5_small/intfloat__multilingual-e5-small/no_revision_available/AutoRAGRetrieval.json"
+        },
+        {
+          "task_name": "PublicHealthQA",
+          "score_split": "test",
+          "main_score": 0.73668,
+          "ndcg_at_10": 0.73668,
+          "recall_at_10": 0.90909,
+          "precision_at_10": 0.09091,
+          "mrr_at_10": 0.681128,
+          "evaluation_time_seconds": 0.3631000518798828,
+          "dataset_revision": "main",
+          "result_path": "data/benchmarks/ko_public_retrieval/multilingual_e5_small/intfloat__multilingual-e5-small/no_revision_available/PublicHealthQA.json"
+        }
+      ],
+      "average_main_score": 0.7629766666666665,
+      "average_ndcg_at_10": 0.7629766666666665,
+      "average_recall_at_10": 0.8927166666666667,
+      "average_precision_at_10": 0.11216333333333334,
+      "average_mrr_at_10": 0.7369406666666666
+    }
+  ],
+  "task_comparison": [
+    {
+      "task_name": "Ko-StrategyQA",
+      "models": {
+        "kure_v1": {
+          "task_name": "Ko-StrategyQA",
+          "score_split": "dev",
+          "main_score": 0.7999,
+          "ndcg_at_10": 0.7999,
+          "recall_at_10": 0.85963,
+          "precision_at_10": 0.15912,
+          "mrr_at_10": 0.815498,
+          "evaluation_time_seconds": 92.68733477592468,
+          "dataset_revision": "d243889a3eb6654029dbd7e7f9319ae31d58f97c",
+          "result_path": "data/benchmarks/ko_public_retrieval/kure_v1/nlpai-lab__KURE-v1/d14c8a9423946e268a0c9952fecf3a7aabd73bd9/Ko-StrategyQA.json"
+        },
+        "multilingual_e5_small": {
+          "task_name": "Ko-StrategyQA",
+          "score_split": "dev",
+          "main_score": 0.75157,
+          "ndcg_at_10": 0.75157,
+          "recall_at_10": 0.82169,
+          "precision_at_10": 0.15084,
+          "mrr_at_10": 0.775534,
+          "evaluation_time_seconds": 11.98998475074768,
+          "dataset_revision": "d243889a3eb6654029dbd7e7f9319ae31d58f97c",
+          "result_path": "data/benchmarks/ko_public_retrieval/multilingual_e5_small/intfloat__multilingual-e5-small/no_revision_available/Ko-StrategyQA.json"
+        }
+      }
+    },
+    {
+      "task_name": "AutoRAGRetrieval",
+      "models": {
+        "kure_v1": {
+          "task_name": "AutoRAGRetrieval",
+          "score_split": "test",
+          "main_score": 0.87076,
+          "ndcg_at_10": 0.87076,
+          "recall_at_10": 0.98246,
+          "precision_at_10": 0.09825,
+          "mrr_at_10": 0.83388,
+          "evaluation_time_seconds": 18.903458833694458,
+          "dataset_revision": "fd7df84ac089bbec763b1c6bb1b56e985df5cc5c",
+          "result_path": "data/benchmarks/ko_public_retrieval/kure_v1/nlpai-lab__KURE-v1/d14c8a9423946e268a0c9952fecf3a7aabd73bd9/AutoRAGRetrieval.json"
+        },
+        "multilingual_e5_small": {
+          "task_name": "AutoRAGRetrieval",
+          "score_split": "test",
+          "main_score": 0.80068,
+          "ndcg_at_10": 0.80068,
+          "recall_at_10": 0.94737,
+          "precision_at_10": 0.09474,
+          "mrr_at_10": 0.75416,
+          "evaluation_time_seconds": 2.339489698410034,
+          "dataset_revision": "fd7df84ac089bbec763b1c6bb1b56e985df5cc5c",
+          "result_path": "data/benchmarks/ko_public_retrieval/multilingual_e5_small/intfloat__multilingual-e5-small/no_revision_available/AutoRAGRetrieval.json"
+        }
+      }
+    },
+    {
+      "task_name": "PublicHealthQA",
+      "models": {
+        "kure_v1": {
+          "task_name": "PublicHealthQA",
+          "score_split": "test",
+          "main_score": 0.81925,
+          "ndcg_at_10": 0.81925,
+          "recall_at_10": 0.94805,
+          "precision_at_10": 0.09481,
+          "mrr_at_10": 0.778025,
+          "evaluation_time_seconds": 2.2291574478149414,
+          "dataset_revision": "main",
+          "result_path": "data/benchmarks/ko_public_retrieval/kure_v1/nlpai-lab__KURE-v1/d14c8a9423946e268a0c9952fecf3a7aabd73bd9/PublicHealthQA.json"
+        },
+        "multilingual_e5_small": {
+          "task_name": "PublicHealthQA",
+          "score_split": "test",
+          "main_score": 0.73668,
+          "ndcg_at_10": 0.73668,
+          "recall_at_10": 0.90909,
+          "precision_at_10": 0.09091,
+          "mrr_at_10": 0.681128,
+          "evaluation_time_seconds": 0.3631000518798828,
+          "dataset_revision": "main",
+          "result_path": "data/benchmarks/ko_public_retrieval/multilingual_e5_small/intfloat__multilingual-e5-small/no_revision_available/PublicHealthQA.json"
+        }
+      }
+    }
+  ],
+  "internal_ch4_retrieval_check": {
+    "query_count": 8,
+    "top1_exact_rule_hits": 8,
+    "top1_exact_rule_hit_rate": 1.0,
+    "details": [
+      {
+        "input_id": "deposit_ad_missing_disclaimer",
+        "expected_rule_id": "law_fincpa_main_2026-01-02:제22조:③:ob04:rule01",
+        "top1_rule_id": "law_fincpa_main_2026-01-02:제22조:③:ob04:rule01",
+        "top1_exact_hit": true
+      },
+      {
+        "input_id": "deposit_ad_missing_disclaimer",
+        "expected_rule_id": "law_fincpa_main_2026-01-02:제22조:④:ob03:rule01",
+        "top1_rule_id": "law_fincpa_main_2026-01-02:제22조:④:ob03:rule01",
+        "top1_exact_hit": true
+      },
+      {
+        "input_id": "insurance_ad_missing_warning",
+        "expected_rule_id": "law_fincpa_main_2026-01-02:제22조:③:ob02:rule01",
+        "top1_rule_id": "law_fincpa_main_2026-01-02:제22조:③:ob02:rule01",
+        "top1_exact_hit": true
+      },
+      {
+        "input_id": "insurance_ad_missing_warning",
+        "expected_rule_id": "law_fincpa_main_2026-01-02:제22조:④:ob01:rule01",
+        "top1_rule_id": "law_fincpa_main_2026-01-02:제22조:④:ob01:rule01",
+        "top1_exact_hit": true
+      },
+      {
+        "input_id": "investment_ad_guaranteed_return_violation",
+        "expected_rule_id": "law_fincpa_main_2026-01-02:제22조:③:ob03:rule01",
+        "top1_rule_id": "law_fincpa_main_2026-01-02:제22조:③:ob03:rule01",
+        "top1_exact_hit": true
+      },
+      {
+        "input_id": "investment_ad_guaranteed_return_violation",
+        "expected_rule_id": "law_fincpa_main_2026-01-02:제22조:④:ob02:rule01",
+        "top1_rule_id": "law_fincpa_main_2026-01-02:제22조:④:ob02:rule01",
+        "top1_exact_hit": true
+      },
+      {
+        "input_id": "loan_ad_content_only",
+        "expected_rule_id": "law_fincpa_main_2026-01-02:제22조:④:ob04:rule01",
+        "top1_rule_id": "law_fincpa_main_2026-01-02:제22조:④:ob04:rule01",
+        "top1_exact_hit": true
+      },
+      {
+        "input_id": "solicitation_improper_claim_violation",
+        "expected_rule_id": "law_fincpa_main_2026-01-02:제21조:ob01:rule01",
+        "top1_rule_id": "law_fincpa_main_2026-01-02:제21조:ob01:rule01",
+        "top1_exact_hit": true
+      }
+    ]
+  },
+  "skipped_public_tasks": {
+    "MultiLongDocRetrieval": "Excluded from the core profile because it is substantially slower than the short public tasks and was not completed within the current run window.",
+    "XPQARetrieval": "Excluded from the core profile because it evaluates multiple Korean-involved retrieval directions and takes materially longer than the short public tasks.",
+    "BelebeleRetrieval": "Skipped from the runnable fast profile because MTEB 2.15.4 fails to auto-select the Korean HF dataset config for this task.",
+    "MIRACLRetrieval": "Excluded from the fast profile because it is a known long-running leaderboard task with a very large corpus.",
+    "MrTidyRetrieval": "Excluded from the fast profile because it is a known long-running leaderboard task."
+  },
+  "notes": [
+    "Public benchmark tasks are taken from the Korean retrieval benchmark list used by the KURE project, excluding the two longest tasks in the fast profile.",
+    "All public tasks are filtered to the Korean subset using the MTEB language selector `kor-Hang`.",
+    "KURE-v1 is evaluated without added text prefixes; multilingual-e5-small uses query/document prefixes as recommended by the E5 family.",
+    "The internal Chapter 4 retrieval check validates exact top-1 rule recovery on the current repo's saved failed-rule queries."
+  ]
+}
